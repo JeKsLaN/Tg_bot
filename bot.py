@@ -9,7 +9,6 @@ import urllib.parse
 import urllib.request
 import urllib.error
 import xml.etree.ElementTree as ET
-
 from io import BytesIO
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
@@ -19,57 +18,23 @@ try:
 except ImportError:
     Image = None
 
-
-# =========================
-# НАСТРОЙКИ
-# =========================
-
+# -------------------------
+# Configuration
+# -------------------------
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHANNEL = os.environ["CHANNEL"]
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+OWNER_CHAT_ID = os.getenv("OWNER_CHAT_ID", "").strip()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 PUBLISH = os.getenv("PUBLISH", "false").lower() == "true"
-
 STATE_FILE = "bot_state.json"
 LOCAL_TZ = timezone(timedelta(hours=7))
-
-KUPINO_LAT = 54.366
-KUPINO_LON = 77.298
-
+KUPINO_LAT, KUPINO_LON = 54.366, 77.298
 USER_AGENT = (
-    "Mozilla/5.0 (X11; Linux x86_64) "
-    "AppleWebKit/537.36 Chrome/125.0 Safari/537.36"
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+    "Chrome/130.0 Safari/537.36"
 )
-
-GOOGLE_HOSTS = (
-    "news.google.com",
-    "google.com",
-    "www.google.com",
-    "gstatic.com",
-    "googleusercontent.com",
-)
-
-INCIDENT_WORDS = (
-    "взрыв", "взорвал", "пожар", "горит", "загорел",
-    "дтп", "авари", "происшеств", "погиб", "пострадал",
-    "ранен", "обруш", "эвакуац", "пропал", "розыск",
-    "перекрыли", "отключение", "коммунальная авария",
-    "массовое отравление", "нападение", "стрельба",
-    "сход вагонов", "разлив", "утечка газа",
-)
-
-RETRACTION_WORDS = (
-    "информация не подтвердилась",
-    "сообщение не подтвердилось",
-    "новость опровергли",
-    "опровергли информацию",
-    "официально опровергли",
-    "оказалось фейком",
-)
-
-BAD_REGIONS = (
-    "кемеров", "кузбасс", "красноярск", "иркутск",
-    "омск", "барнаул", "томск", "алтайский край",
-)
+GOOGLE_HOSTS = ("news.google.com", "google.com", "gstatic.com", "googleusercontent.com")
 
 FEEDS = [
     ("kupino", '"Купино" новости when:3d'),
@@ -77,52 +42,63 @@ FEEDS = [
     ("novosibirsk", '"Новосибирск" новости when:2d'),
     ("novosibirsk", '"Новосибирск" происшествия when:2d'),
 ]
+INCIDENT_WORDS = (
+    "взрыв", "взорвал", "пожар", "горит", "загорел", "дтп", "авари",
+    "происшеств", "погиб", "пострадал", "ранен", "обруш", "эвакуац",
+    "пропал", "розыск", "перекрыли", "отключение", "отравлен",
+    "нападение", "стрельба", "разлив", "утечка газа", "без вести",
+)
+RETRACTION_WORDS = (
+    "информация не подтвердилась", "сообщение не подтвердилось",
+    "новость опровергли", "опровергли информацию", "официально опровергли",
+    "оказалось фейком", "не соответствует действительности",
+)
+STOP_WORDS = set("""
+и в во на по к ко от до за из у о об обо с со для при про под над без не ни что как это этот эта эти тот та те там здесь уже еще или а но да же ли бы был была были быть будет будут стало стали есть где когда который которая которые кто его ее их им ему она они он мы вы я все весь всего также после перед между через около более менее такой такая такие могут может планирует планируют собирается собираются сообщили сообщил сообщает рассказали рассказал заявили заявил рассказала согласно из-за из-под года год лет рублей рубля рублей городе города области район района купино купинский новосибирск новосибирской области сегодня вчера завтра сейчас местный местные местных сообщили что со слов сообщает пресс-служба пресс-службы источник главная новости редакция комментарии контакты телефон почта реклама вакансии сотрудничество
+""".split())
 
-
-# =========================
-# СЕТЬ И СОСТОЯНИЕ
-# =========================
 
 def now_local():
     return datetime.now(LOCAL_TZ)
 
 
 def request(url, timeout=20, headers=None, max_bytes=8_000_000):
-    request_headers = {
-        "User-Agent": USER_AGENT,
-        "Accept-Language": "ru-RU,ru;q=0.9,en;q=0.7",
-    }
-
+    h = {"User-Agent": USER_AGENT, "Accept-Language": "ru-RU,ru;q=0.9,en;q=0.7"}
     if headers:
-        request_headers.update(headers)
-
-    req = urllib.request.Request(url, headers=request_headers)
-
+        h.update(headers)
+    req = urllib.request.Request(url, headers=h)
     with urllib.request.urlopen(req, timeout=timeout) as response:
         data = response.read(max_bytes + 1)
-
         if len(data) > max_bytes:
             raise ValueError("Ответ слишком большой")
+        return data, response.geturl(), response.headers.get("Content-Type", "")
 
-        return (
-            data,
-            response.geturl(),
-            response.headers.get("Content-Type", ""),
-        )
+
+def notify_owner(message):
+    """Send a private alert without hiding the original error if Telegram is unavailable."""
+    if not OWNER_CHAT_ID:
+        print("OWNER_CHAT_ID is not configured; alert: " + message[:500])
+        return
+    try:
+        telegram_api("sendMessage", {
+            "chat_id": OWNER_CHAT_ID,
+            "text": "⚠️ Блог|Жеки — уведомление\n\n" + message[:3500],
+            "disable_web_page_preview": "true",
+        })
+    except Exception as exc:
+        print(f"Could not notify owner: {exc}; original alert: {message[:300]}")
 
 
 def load_state():
     try:
-        with open(STATE_FILE, "r", encoding="utf-8") as file:
-            state = json.load(file)
+        with open(STATE_FILE, "r", encoding="utf-8") as f:
+            state = json.load(f)
     except (OSError, json.JSONDecodeError):
         state = {}
-
     state.setdefault("daily_date", "")
     state.setdefault("posted", [])
     state.setdefault("posted_titles", [])
     state.setdefault("pending", [])
-
     return state
 
 
@@ -130,53 +106,67 @@ def save_state(state):
     state["posted"] = state.get("posted", [])[-1500:]
     state["posted_titles"] = state.get("posted_titles", [])[-1000:]
     state["pending"] = state.get("pending", [])[-200:]
-
-    with open(STATE_FILE, "w", encoding="utf-8") as file:
-        json.dump(state, file, ensure_ascii=False, indent=2)
+    with open(STATE_FILE, "w", encoding="utf-8") as f:
+        json.dump(state, f, ensure_ascii=False, indent=2)
 
 
 def clean_text(value):
-    value = re.sub(r"<[^>]+>", " ", value or "")
-    value = html.unescape(value)
+    value = html.unescape(value or "")
+    value = re.sub(r"<[^>]+>", " ", value)
     return re.sub(r"\s+", " ", value).strip()
 
 
 def normalize_title(value):
     value = html.unescape(value or "").lower().replace("ё", "е")
-    value = re.sub(r"\s+[—–-]\s+[^—–-]{2,60}$", "", value)
+    value = re.sub(r"\s*[|—–-]\s*[^|—–-]{2,70}$", "", value)
     value = re.sub(r"https?://\S+", " ", value)
     value = re.sub(r"[^a-zа-я0-9 ]", " ", value)
     return re.sub(r"\s+", " ", value).strip()
 
 
+def tokens(value):
+    return {w for w in normalize_title(value).split() if len(w) >= 4 and w not in STOP_WORDS}
+
+
+def relevance_score(title, text):
+    """Deterministic topic overlap. Used to reject unrelated article text."""
+    title_tokens = tokens(title)
+    text_tokens = tokens(text)
+    if not title_tokens or not text_tokens:
+        return 0.0
+    matched = 0
+    for word in title_tokens:
+        if any(t == word or t.startswith(word[:5]) or word.startswith(t[:5]) for t in text_tokens):
+            matched += 1
+    return matched / max(len(title_tokens), 1)
+
+
+def titles_match(expected, actual):
+    a, b = normalize_title(expected), normalize_title(actual)
+    if not a or not b:
+        return False
+    seq = difflib.SequenceMatcher(None, a, b).ratio()
+    ta, tb = tokens(a), tokens(b)
+    overlap = len(ta & tb) / max(len(ta), 1) if ta else 0
+    return seq >= 0.42 or overlap >= 0.45
+
+
 def story_id(link, title):
-    key = (link or "") + "|" + normalize_title(title)
-    return hashlib.sha256(key.encode("utf-8")).hexdigest()[:24]
+    return hashlib.sha256(((link or "") + "|" + normalize_title(title)).encode()).hexdigest()[:24]
 
 
 def same_story(title, previous_titles):
-    normalized = normalize_title(title)
-
-    if not normalized:
+    current = normalize_title(title)
+    if not current:
         return False
-
     for old in previous_titles:
-        old_title = normalize_title(old)
-
-        if not old_title:
+        old = normalize_title(old)
+        if not old:
             continue
-
-        if normalized == old_title:
+        if current == old:
             return True
-
-        if min(len(normalized), len(old_title)) >= 22:
-            similarity = difflib.SequenceMatcher(
-                None, normalized, old_title
-            ).ratio()
-
-            if similarity >= 0.86:
-                return True
-
+        if min(len(current), len(old)) >= 22 and difflib.SequenceMatcher(None, current, old).ratio() >= 0.86:
+            return True
     return False
 
 
@@ -189,336 +179,201 @@ def host_of(url):
 
 def is_google_host(url):
     host = host_of(url)
+    return any(host == domain or host.endswith("." + domain) for domain in GOOGLE_HOSTS)
 
-    return any(
-        host == domain or host.endswith("." + domain)
-        for domain in GOOGLE_HOSTS
-    )
-
-
-# =========================
-# ПОЛУЧЕНИЕ НОВОСТЕЙ
-# =========================
 
 class ArticleParser(HTMLParser):
+    """Extract metadata, article/main paragraphs and images; ignore page chrome."""
     def __init__(self):
         super().__init__(convert_charrefs=True)
-
-        self.image_urls = []
-        self.canonical = None
-        self.title = None
+        self.meta_title = None
         self.description = None
+        self.canonical = None
+        self.image_urls = []
         self.anchors = []
-        self.paragraphs = []
-
-        self.anchor_href = None
-        self.anchor_text = []
-
-        self.in_paragraph = False
-        self.paragraph_text = []
-
-        self.in_title = False
-        self.title_text = []
-
+        self.article_paragraphs = []
+        self.article_depth = 0
+        self.main_depth = 0
         self.skip_depth = 0
+        self.in_paragraph = False
+        self.paragraph_parts = []
+        self.in_title = False
+        self.title_parts = []
+        self.anchor_href = None
+        self.anchor_parts = []
 
     def handle_starttag(self, tag, attrs):
         tag = tag.lower()
-        attrs = {key.lower(): value for key, value in attrs if key}
-
-        if tag in ("script", "style", "noscript", "svg"):
+        attrs = {k.lower(): v for k, v in attrs if k}
+        if tag in ("script", "style", "noscript", "svg", "nav", "footer", "header", "aside", "form"):
             self.skip_depth += 1
             return
-
         if self.skip_depth:
             return
-
+        if tag == "article":
+            self.article_depth += 1
+        elif tag == "main":
+            self.main_depth += 1
         if tag == "meta":
-            key = (
-                attrs.get("property")
-                or attrs.get("name")
-                or ""
-            ).lower()
-
-            content = html.unescape(
-                (attrs.get("content") or "").strip()
-            )
-
-            if key in (
-                "og:image",
-                "og:image:secure_url",
-                "twitter:image",
-                "twitter:image:src",
-            ):
-                if content:
-                    self.image_urls.append(content)
-
-            elif key in ("og:title", "twitter:title"):
-                if content and not self.title:
-                    self.title = content
-
-            elif key in (
-                "og:description",
-                "description",
-                "twitter:description",
-            ):
-                if content and not self.description:
-                    self.description = content
-
+            key = (attrs.get("property") or attrs.get("name") or "").lower()
+            content = (attrs.get("content") or "").strip()
+            if key in ("og:title", "twitter:title") and content and not self.meta_title:
+                self.meta_title = html.unescape(content)
+            elif key in ("og:description", "description", "twitter:description") and content and not self.description:
+                self.description = html.unescape(content)
+            elif key in ("og:image", "og:image:secure_url", "twitter:image", "twitter:image:src") and content:
+                self.image_urls.append(content)
         elif tag == "link":
-            rel = (attrs.get("rel") or "").lower().split()
-
-            if (
-                "canonical" in rel
-                and attrs.get("href")
-                and not self.canonical
-            ):
+            if "canonical" in (attrs.get("rel") or "").lower().split() and attrs.get("href") and not self.canonical:
                 self.canonical = attrs["href"]
-
         elif tag == "img":
-            for key in (
-                "src",
-                "data-src",
-                "data-original",
-                "data-lazy-src",
-                "data-lazy",
-            ):
+            for key in ("src", "data-src", "data-original", "data-lazy-src", "data-lazy"):
                 if attrs.get(key):
                     self.image_urls.append(attrs[key])
-
-            srcset = attrs.get("srcset")
-
-            if srcset:
-                candidate = srcset.split(",")[-1].strip().split(" ")[0]
-
-                if candidate:
-                    self.image_urls.append(candidate)
-
-        elif tag == "a":
-            self.anchor_href = attrs.get("href")
-            self.anchor_text = []
-
-        elif tag == "p":
+            if attrs.get("srcset"):
+                self.image_urls.append(attrs["srcset"].split(",")[-1].strip().split()[0])
+        elif tag == "p" and (self.article_depth or self.main_depth):
             self.in_paragraph = True
-            self.paragraph_text = []
-
+            self.paragraph_parts = []
         elif tag == "title":
             self.in_title = True
-            self.title_text = []
+            self.title_parts = []
+        elif tag == "a":
+            self.anchor_href = attrs.get("href")
+            self.anchor_parts = []
 
     def handle_endtag(self, tag):
         tag = tag.lower()
-
-        if tag in ("script", "style", "noscript", "svg"):
+        if tag in ("script", "style", "noscript", "svg", "nav", "footer", "header", "aside", "form"):
             if self.skip_depth:
                 self.skip_depth -= 1
             return
-
         if self.skip_depth:
             return
-
-        if tag == "a" and self.anchor_href:
-            self.anchors.append((
-                self.anchor_href,
-                clean_text(" ".join(self.anchor_text)),
-            ))
-
-            self.anchor_href = None
-            self.anchor_text = []
-
+        if tag == "article" and self.article_depth:
+            self.article_depth -= 1
+        elif tag == "main" and self.main_depth:
+            self.main_depth -= 1
         elif tag == "p" and self.in_paragraph:
-            paragraph = clean_text(" ".join(self.paragraph_text))
-
-            if len(paragraph) > 35:
-                self.paragraphs.append(paragraph)
-
+            p = clean_text(" ".join(self.paragraph_parts))
+            if len(p) >= 35 and not looks_like_boilerplate(p):
+                self.article_paragraphs.append(p)
             self.in_paragraph = False
-            self.paragraph_text = []
-
+            self.paragraph_parts = []
         elif tag == "title":
-            title = clean_text(" ".join(self.title_text))
-
-            if title and not self.title:
-                self.title = title
-
+            if not self.meta_title:
+                self.meta_title = clean_text(" ".join(self.title_parts))
             self.in_title = False
-            self.title_text = []
+        elif tag == "a" and self.anchor_href:
+            self.anchors.append((self.anchor_href, clean_text(" ".join(self.anchor_parts))))
+            self.anchor_href = None
+            self.anchor_parts = []
 
     def handle_data(self, data):
         if self.skip_depth:
             return
-
-        if self.anchor_href is not None:
-            self.anchor_text.append(data)
-
         if self.in_paragraph:
-            self.paragraph_text.append(data)
-
+            self.paragraph_parts.append(data)
         if self.in_title:
-            self.title_text.append(data)
+            self.title_parts.append(data)
+        if self.anchor_href is not None:
+            self.anchor_parts.append(data)
+
+
+def looks_like_boilerplate(text):
+    low = text.lower()
+    signals = (
+        "главный редактор", "шеф-редактор", "телефон редакции", "электронная почта",
+        "вакансии", "реклама", "сотрудничество", "политика конфиденциальности",
+        "пользовательское соглашение", "все права защищены", "подписывайтесь на нас",
+    )
+    return any(s in low for s in signals)
 
 
 def fetch_feed(location, query):
     url = "https://news.google.com/rss/search?" + urllib.parse.urlencode({
-        "q": query,
-        "hl": "ru",
-        "gl": "RU",
-        "ceid": "RU:ru",
+        "q": query, "hl": "ru", "gl": "RU", "ceid": "RU:ru"
     })
-
     try:
         raw, _, _ = request(url)
         root = ET.fromstring(raw)
     except Exception as exc:
         print(f"RSS error ({location}): {exc}")
         return []
-
-    results = []
-
+    result = []
     for node in root.findall(".//item"):
         title = clean_text(node.findtext("title", ""))
-        link = node.findtext("link", "").strip()
-        description_html = node.findtext("description", "")
-        description = clean_text(description_html)
-        pub_date = node.findtext("pubDate", "")
-
-        source_el = node.find("source")
-
-        source_name = (
-            clean_text(source_el.text or "")
-            if source_el is not None
-            else ""
-        )
-
-        source_url = (
-            source_el.attrib.get("url", "").strip()
-            if source_el is not None
-            else ""
-        )
-
+        link = (node.findtext("link", "") or "").strip()
+        rss_description_html = node.findtext("description", "") or ""
+        description = clean_text(rss_description_html)
+        pub_date = node.findtext("pubDate", "") or ""
+        source = node.find("source")
+        source_name = clean_text(source.text or "") if source is not None else ""
+        source_url = source.attrib.get("url", "").strip() if source is not None else ""
         if not title or not link:
             continue
-
-        rss_parser = ArticleParser()
-
+        parser = ArticleParser()
         try:
-            rss_parser.feed(description_html)
+            parser.feed(rss_description_html)
         except Exception:
             pass
-
-        results.append({
-            "id": story_id(link, title),
-            "location": location,
-            "title": title,
-            "description": description[:1600],
-            "link": link,
-            "pub_date": pub_date,
-            "source_name": source_name,
-            "source_url": source_url,
-            "rss_images": rss_parser.image_urls,
+        result.append({
+            "id": story_id(link, title), "location": location, "title": title,
+            "description": description[:1800], "link": link, "pub_date": pub_date,
+            "source_name": source_name, "source_url": source_url,
+            "rss_images": parser.image_urls,
         })
-
-    return results
+    return result
 
 
 def get_all_news():
     found = []
-
     for location, query in FEEDS:
         found.extend(fetch_feed(location, query))
-
     unique = []
-
     for item in found:
-        duplicate = any(
-            item["location"] == old["location"]
-            and same_story(item["title"], [old["title"]])
-            for old in unique
-        )
-
-        if not duplicate:
+        if not any(item["location"] == old["location"] and same_story(item["title"], [old["title"]]) for old in unique):
             unique.append(item)
-
     def date_key(item):
         try:
-            return datetime.strptime(
-                item["pub_date"],
-                "%a, %d %b %Y %H:%M:%S %Z",
-            ).timestamp()
+            from email.utils import parsedate_to_datetime
+            dt = parsedate_to_datetime(item["pub_date"])
+            return dt.timestamp()
         except Exception:
             return 0
-
-    unique.sort(key=date_key, reverse=True)
-
-    return unique
+    return sorted(unique, key=date_key, reverse=True)
 
 
 def is_local_story(item, location):
-    text = (
-        item["title"] + " " + item["description"]
-    ).lower()
-
+    text = (item["title"] + " " + item["description"]).lower().replace("ё", "е")
     if location == "kupino":
-        return (
-            "купино" in text
-            or "купинский район" in text
-        )
-
+        return "купино" in text or "купинский район" in text
     if location == "novosibirsk":
-        if (
-            "новосибирск" not in text
-            and "новосибирской области" not in text
-        ):
-            return False
-
-        title = item["title"].lower()
-
-        if any(region in title for region in BAD_REGIONS):
-            return False
-
-        return True
-
+        return "новосибирск" in text or "новосибирской области" in text
     return False
 
 
 def is_incident(item):
-    text = (
-        item["title"] + " " + item["description"]
-    ).lower()
-
+    text = (item["title"] + " " + item["description"]).lower()
     return any(word in text for word in INCIDENT_WORDS)
 
 
-# =========================
-# ПОГОДА
-# =========================
-
+# -------------------------
+# Weather
+# -------------------------
 def weather_name(code):
     code = int(code)
-
-    if code == 0:
-        return "ясно ☀️"
-    if code == 1:
-        return "преимущественно ясно 🌤"
-    if code == 2:
-        return "переменная облачность 🌤"
-    if code == 3:
-        return "облачно ☁️"
-    if code in (45, 48):
-        return "туман 🌫"
-    if code in (51, 53, 55, 56, 57):
-        return "морось 🌧"
-    if code in (61, 63, 65, 66, 67):
-        return "дождь 🌧"
-    if code in (71, 73, 75, 77):
-        return "снег ❄️"
-    if code in (80, 81, 82):
-        return "ливень 🌧"
-    if code in (85, 86):
-        return "снегопад ❄️"
-    if code in (95, 96, 99):
-        return "гроза ⛈"
-
+    if code == 0: return "ясно ☀️"
+    if code == 1: return "преимущественно ясно 🌤"
+    if code == 2: return "переменная облачность 🌤"
+    if code == 3: return "облачно ☁️"
+    if code in (45, 48): return "туман 🌫"
+    if code in (51, 53, 55, 56, 57): return "морось 🌧"
+    if code in (61, 63, 65, 66, 67): return "дождь 🌧"
+    if code in (71, 73, 75, 77): return "снег ❄️"
+    if code in (80, 81, 82): return "ливень 🌧"
+    if code in (85, 86): return "снегопад ❄️"
+    if code in (95, 96, 99): return "гроза ⛈"
     return "переменная погода"
 
 
@@ -531,690 +386,406 @@ def get_weather():
     url = (
         "https://api.open-meteo.com/v1/forecast?"
         f"latitude={KUPINO_LAT}&longitude={KUPINO_LON}"
-        "&current=temperature_2m,apparent_temperature,"
-        "wind_speed_10m,weather_code"
+        "&current=temperature_2m,apparent_temperature,wind_speed_10m,weather_code"
         "&daily=temperature_2m_max,temperature_2m_min,weather_code"
         "&timezone=Asia%2FNovosibirsk&forecast_days=2"
     )
-
     raw, _, _ = request(url)
     data = json.loads(raw.decode("utf-8"))
-
-    current = data["current"]
-    daily = data["daily"]
-
+    current, daily = data["current"], data["daily"]
     return (
         "☀️ Всем привет!\n\n"
-        f"🌡 Сейчас в Купино: "
-        f"{signed(current['temperature_2m'])}°C, "
+        f"🌡 Сейчас в Купино: {signed(current['temperature_2m'])}°C, "
         f"ощущается как {signed(current['apparent_temperature'])}°C. "
-        f"{weather_name(current['weather_code'])}, "
-        f"ветер {round(current['wind_speed_10m'])} м/с.\n\n"
+        f"{weather_name(current['weather_code'])}, ветер {round(current['wind_speed_10m'])} м/с.\n\n"
         "📅 Прогноз погоды\n"
-        f"• Сегодня: от {signed(daily['temperature_2m_min'][0])} "
-        f"до {signed(daily['temperature_2m_max'][0])}°C, "
-        f"{weather_name(daily['weather_code'][0])}.\n"
-        f"• Завтра: от {signed(daily['temperature_2m_min'][1])} "
-        f"до {signed(daily['temperature_2m_max'][1])}°C, "
-        f"{weather_name(daily['weather_code'][1])}.\n\n"
+        f"• Сегодня: от {signed(daily['temperature_2m_min'][0])} до {signed(daily['temperature_2m_max'][0])}°C, {weather_name(daily['weather_code'][0])}.\n"
+        f"• Завтра: от {signed(daily['temperature_2m_min'][1])} до {signed(daily['temperature_2m_max'][1])}°C, {weather_name(daily['weather_code'][1])}.\n\n"
         "Всем хорошего дня и побольше позитива! 👋"
     )
 
 
-# =========================
-# ОРИГИНАЛЬНАЯ СТАТЬЯ
-# =========================
-
+# -------------------------
+# Resolve and validate article
+# -------------------------
 def resolve_article(item):
-    """
-    Пытается перейти с Google News на сайт издателя.
-    Если оригинальный адрес не удаётся подтвердить,
-    оставляет ссылку RSS, не выдавая её за адрес издателя.
-    """
+    """Resolve Google News redirect. Never substitute a publisher homepage for an article."""
     original = item["link"]
-
     try:
-        raw, final_url, content_type = request(
-            original,
-            timeout=20,
-        )
-
-        if (
-            final_url.startswith("https://")
-            and not is_google_host(final_url)
-        ):
+        _, final_url, content_type = request(original, timeout=20)
+        if final_url.startswith("https://") and not is_google_host(final_url):
             return final_url
-
-        parser = ArticleParser()
-        parser.feed(raw.decode("utf-8", errors="ignore"))
-
-        target_title = normalize_title(item["title"])
-        candidates = []
-
-        for href, anchor_text in parser.anchors:
-            absolute = urllib.parse.urljoin(
-                final_url,
-                html.unescape(href),
-            )
-
-            if (
-                not absolute.startswith("https://")
-                or is_google_host(absolute)
-            ):
-                continue
-
-            if any(part in absolute.lower() for part in (
-                "accounts.google",
-                "support.google",
-                "policies.google",
-                "consent.google",
-                "youtube.com",
-            )):
-                continue
-
-            normalized_anchor = normalize_title(anchor_text)
-
-            score = (
-                difflib.SequenceMatcher(
-                    None,
-                    target_title,
-                    normalized_anchor,
-                ).ratio()
-                if normalized_anchor
-                else 0
-            )
-
-            candidates.append((score, absolute))
-
-        if candidates:
-            candidates.sort(reverse=True)
-
-            if candidates[0][0] >= 0.45:
-                return candidates[0][1]
-
+        # Sometimes Google News serves a landing page with a direct title link.
+        if "html" in content_type.lower():
+            raw, _, _ = request(final_url, timeout=15)
+            parser = ArticleParser()
+            parser.feed(raw.decode("utf-8", errors="ignore"))
+            candidates = []
+            for href, anchor_text in parser.anchors:
+                absolute = urllib.parse.urljoin(final_url, html.unescape(href))
+                if absolute.startswith("https://") and not is_google_host(absolute):
+                    score = difflib.SequenceMatcher(None, normalize_title(item["title"]), normalize_title(anchor_text)).ratio()
+                    if score >= 0.60:
+                        candidates.append((score, absolute))
+            if candidates:
+                return sorted(candidates, reverse=True)[0][1]
     except Exception as exc:
         print(f"Article URL resolution failed: {exc}")
-
-    source_url = item.get("source_url", "")
-
-    if (
-        source_url.startswith("https://")
-        and not is_google_host(source_url)
-    ):
-        return source_url
-
+    # Keep the Google News item link rather than falsely linking the publisher's homepage.
     return original
 
 
-def fetch_article(article_url):
+def fetch_article(item, article_url):
+    if is_google_host(article_url):
+        return {"valid": False, "url": article_url, "text": "", "images": [], "reason": "Не удалось подтвердить прямую ссылку на статью"}
     try:
-        raw, final_url, content_type = request(
-            article_url,
-            timeout=20,
-        )
-
-        if (
-            is_google_host(final_url)
-            or "html" not in content_type.lower()
-        ):
-            return final_url, None, []
-
+        raw, final_url, content_type = request(article_url, timeout=20)
+        if is_google_host(final_url) or "html" not in content_type.lower():
+            return {"valid": False, "url": article_url, "text": "", "images": [], "reason": "Страница не является доступной статьёй"}
         parser = ArticleParser()
         parser.feed(raw.decode("utf-8", errors="ignore"))
-
-        canonical = urllib.parse.urljoin(
-            final_url,
-            parser.canonical or final_url,
-        )
-
-        if not is_google_host(canonical):
+        page_title = parser.meta_title or ""
+        if not titles_match(item["title"], page_title):
+            return {"valid": False, "url": final_url, "text": "", "images": [], "reason": f"Заголовок страницы не совпал с RSS: {page_title[:180]}"}
+        canonical = urllib.parse.urljoin(final_url, parser.canonical or final_url)
+        if canonical.startswith("https://") and not is_google_host(canonical):
             final_url = canonical
-
-        description = parser.description
-
-        if not description or len(description) < 80:
-            description = " ".join(parser.paragraphs[:8])
-
-        return final_url, description, parser.image_urls
-
+        paragraphs = parser.article_paragraphs
+        article_text = "\n".join(paragraphs)
+        # If there is no article/main content, only a relevant meta description is allowed.
+        if len(article_text) < 180 and parser.description and relevance_score(item["title"], parser.description) >= 0.25:
+            article_text = parser.description
+        if len(article_text) < 80 or relevance_score(item["title"], article_text) < 0.25:
+            return {"valid": False, "url": final_url, "text": "", "images": [], "reason": "Текст статьи не прошёл проверку соответствия заголовку"}
+        return {"valid": True, "url": final_url, "text": article_text[:12000], "images": parser.image_urls, "reason": ""}
     except Exception as exc:
-        print(f"Article fetch failed: {exc}")
-        return article_url, None, []
+        return {"valid": False, "url": article_url, "text": "", "images": [], "reason": f"Ошибка загрузки статьи: {exc}"}
 
 
-# =========================
-# ПЕРЕСКАЗ НОВОСТИ
-# =========================
-
-def openai_summary(title, rss_description, article_description):
-    source_text = clean_text(
-        article_description or rss_description
-    )
-
-    if not source_text:
-        return (
-            "Подробный текст статьи недоступен. "
-            "Проверьте информацию по ссылке на источник."
-        )
-
-    if not OPENAI_API_KEY:
-        return source_text[:700]
-
-    prompt = (
-        "Ты редактор новостного канала на русском языке. "
-        "Сделай содержательный пересказ в 3–5 предложениях. "
-        "Сохрани конкретные цифры, даты, периоды сравнения, "
-        "имена и причины, если они прямо указаны в исходном тексте. "
-        "Не выдумывай факты и не добавляй собственные оценки. "
-        "Не повторяй заголовок дословно. "
-        "Если данных мало, кратко сообщи только то, что известно. "
-        "Не пиши редакторские инструкции и фразы вроде "
-        "«в публикации нужно указать».\n\n"
-        f"Заголовок: {title}\n\n"
-        f"Текст источника: {source_text[:7000]}"
-    )
-
-    payload = json.dumps({
-        "model": "gpt-4.1-mini",
-        "input": prompt,
-        "max_output_tokens": 320,
-    }).encode("utf-8")
-
-    req = urllib.request.Request(
-        "https://api.openai.com/v1/responses",
-        data=payload,
-        headers={
-            "Authorization": f"Bearer {OPENAI_API_KEY}",
-            "Content-Type": "application/json",
-        },
-        method="POST",
-    )
-
+# -------------------------
+# AI summary: OpenAI first, Gemini fallback
+# -------------------------
+def parse_ai_json(text):
+    text = (text or "").strip()
+    text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text, flags=re.I)
     try:
-        with urllib.request.urlopen(req, timeout=35) as response:
-            data = json.loads(
-                response.read().decode("utf-8")
-            )
-
-        texts = []
-
-        for output in data.get("output", []):
-            if output.get("type") != "message":
-                continue
-
-            for part in output.get("content", []):
-                if (
-                    part.get("type") == "output_text"
-                    and part.get("text")
-                ):
-                    texts.append(part["text"])
-
-        summary = clean_text(" ".join(texts))
-
-        if summary:
-            return summary[:1200]
-
-    except urllib.error.HTTPError as exc:
-        print(
-            f"OpenAI API error {exc.code}: "
-            f"{exc.read().decode('utf-8', errors='ignore')[:400]}"
-        )
-    except Exception as exc:
-        print(f"OpenAI summary error: {exc}")
-
-    return source_text[:700]
-
-
-# =========================
-# ФОТОГРАФИИ
-# =========================
-
-def get_real_photo(article_url, image_urls, rss_images=None):
-    if Image is None:
-        print("Pillow unavailable; photo sending disabled.")
-        return None
-
-    if is_google_host(article_url):
-        print("Original article URL unavailable; no Google image will be used.")
-        return None
-
-    candidates = list(rss_images or []) + list(image_urls or [])
-    seen = set()
-
-    for candidate in candidates[:24]:
-        image_url = urllib.parse.urljoin(
-            article_url,
-            html.unescape(candidate),
-        )
-
-        if image_url in seen:
-            continue
-
-        seen.add(image_url)
-
-        if (
-            not image_url.startswith("https://")
-            or is_google_host(image_url)
-        ):
-            continue
-
-        if any(word in image_url.lower() for word in (
-            "favicon", "logo", "avatar", "icon",
-            "sprite", "placeholder", "default-image",
-        )):
-            continue
-
-        try:
-            raw, final_url, content_type = request(
-                image_url,
-                timeout=20,
-                headers={"Referer": article_url},
-                max_bytes=12_000_000,
-            )
-
-            if (
-                is_google_host(final_url)
-                or not content_type.lower().startswith("image/")
-            ):
-                continue
-
-            with Image.open(BytesIO(raw)) as image:
-                image.verify()
-
-            with Image.open(BytesIO(raw)) as image:
-                width, height = image.size
-
-                if width < 400 or height < 250:
-                    continue
-
-                if width / max(height, 1) > 3.5:
-                    continue
-
-                image = image.convert("RGB")
-                image.thumbnail((1600, 1600))
-
-                output = BytesIO()
-                image.save(
-                    output,
-                    format="JPEG",
-                    quality=88,
-                    optimize=True,
-                )
-
-                photo = output.getvalue()
-
-                if len(photo) >= 10_000:
-                    return photo
-
-        except Exception as exc:
-            print(f"Rejected image {image_url[:120]}: {exc}")
-
+        data = json.loads(text)
+        if isinstance(data, dict):
+            return data
+    except Exception:
+        pass
     return None
 
 
-# =========================
-# TELEGRAM
-# =========================
+def summary_prompt(title, source_text):
+    return (
+        "Ты редактор регионального новостного Telegram-канала. Пиши естественно, по-человечески и ясно. "
+        "Работай ТОЛЬКО с приведённым текстом. Не добавляй внешние знания, догадки, причины, числа, имена или обстоятельства. "
+        "Сначала оцени, относится ли текст к заголовку. Если нет — relevant=false и summary пустая строка. "
+        "Если относится — сделай пересказ в 2–5 предложениях без повторения заголовка. "
+        "Сохраняй точное время/дату события, число погибших и пострадавших, место, последствия и статус информации только если они прямо указаны. "
+        "Не путай время публикации со временем события. Не включай меню сайта, контакты, рекламу и подписи редакции. "
+        "Верни ТОЛЬКО JSON вида {\"relevant\": true, \"summary\": \"...\"}.\n\n"
+        f"Заголовок RSS: {title}\n\nТекст проверенной статьи:\n{source_text[:9000]}"
+    )
 
-def telegram_api(method, fields=None, photo=None):
-    if not PUBLISH:
-        print(f"[TEST MODE] Telegram {method}: {fields}")
-        return {"ok": True, "result": {}}
 
-    url = f"https://api.telegram.org/bot{TOKEN}/{method}"
-
-    if photo is None:
-        body = urllib.parse.urlencode(fields or {}).encode("utf-8")
-
-        req = urllib.request.Request(
-            url,
-            data=body,
-            headers={
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-        )
-
-    else:
-        boundary = "----LocalNewsBotBoundary7MA4YWxkTrZu0gW"
-        chunks = []
-
-        for key, value in (fields or {}).items():
-            chunks.extend([
-                f"--{boundary}\r\n".encode(),
-                (
-                    f'Content-Disposition: form-data; name="{key}"\r\n\r\n'
-                ).encode(),
-                str(value).encode("utf-8"),
-                b"\r\n",
-            ])
-
-        chunks.extend([
-            f"--{boundary}\r\n".encode(),
-            (
-                'Content-Disposition: form-data; name="photo"; '
-                'filename="news.jpg"\r\n'
-            ).encode(),
-            b"Content-Type: image/jpeg\r\n\r\n",
-            photo,
-            b"\r\n",
-            f"--{boundary}--\r\n".encode(),
-        ])
-
-        req = urllib.request.Request(
-            url,
-            data=b"".join(chunks),
-            headers={
-                "Content-Type": f"multipart/form-data; boundary={boundary}",
-            },
-        )
-
-    with urllib.request.urlopen(req, timeout=40) as response:
-        result = json.loads(
-            response.read().decode("utf-8")
-        )
-
-    if not result.get("ok"):
-        raise RuntimeError(f"Telegram API error: {result}")
-
+def call_openai(prompt):
+    if not OPENAI_API_KEY:
+        raise RuntimeError("OPENAI_API_KEY не задан")
+    payload = json.dumps({"model": "gpt-4.1-mini", "input": prompt, "max_output_tokens": 500}).encode()
+    req = urllib.request.Request(
+        "https://api.openai.com/v1/responses", data=payload,
+        headers={"Authorization": f"Bearer {OPENAI_API_KEY}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=35) as response:
+        data = json.loads(response.read().decode("utf-8"))
+    texts = []
+    for output in data.get("output", []):
+        if output.get("type") == "message":
+            for part in output.get("content", []):
+                if part.get("type") == "output_text" and part.get("text"):
+                    texts.append(part["text"])
+    result = parse_ai_json("\n".join(texts))
+    if not result:
+        raise RuntimeError("OpenAI вернул ответ не в JSON")
     return result
 
 
-def send_text(text):
-    return telegram_api("sendMessage", {
-        "chat_id": CHANNEL,
-        "text": text,
-        "parse_mode": "HTML",
-        "disable_web_page_preview": "true",
-    })
+def call_gemini(prompt):
+    if not GEMINI_API_KEY:
+        raise RuntimeError("GEMINI_API_KEY не задан")
+    # Current official Gemini Interactions REST API; stateless request.
+    payload = json.dumps({"model": "gemini-3.8-flash", "input": prompt, "store": False}).encode()
+    req = urllib.request.Request(
+        "https://generativelanguage.googleapis.com/v1beta/interactions",
+        data=payload,
+        headers={"x-goog-api-key": GEMINI_API_KEY, "Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(req, timeout=35) as response:
+        data = json.loads(response.read().decode("utf-8"))
+    texts = []
+    for step in data.get("steps", []):
+        if step.get("type") == "model_output":
+            for part in step.get("content", []):
+                if part.get("type") == "text" and part.get("text"):
+                    texts.append(part["text"])
+    result = parse_ai_json("\n".join(texts))
+    if not result:
+        raise RuntimeError("Gemini вернул ответ не в JSON")
+    return result
 
 
-def escape_html(value):
-    return html.escape(str(value or ""), quote=True)
+def make_summary(item, article):
+    source_text = article.get("text", "")
+    if not article.get("valid") or not source_text:
+        return "", False
+    prompt = summary_prompt(item["title"], source_text)
+    errors = []
+    for provider, func in (("OpenAI", call_openai), ("Gemini", call_gemini)):
+        try:
+            result = func(prompt)
+            if result.get("relevant") is not True:
+                raise RuntimeError("ИИ определил, что текст не соответствует заголовку")
+            summary = clean_text(result.get("summary", ""))
+            if len(summary) < 35:
+                raise RuntimeError("Слишком короткий пересказ")
+            # Reject obvious boilerplate or a summary that drifts from the article topic.
+            if looks_like_boilerplate(summary) or relevance_score(item["title"], source_text) < 0.25:
+                raise RuntimeError("Пересказ не прошёл проверку")
+            print(f"Summary provider: {provider}")
+            return summary[:1200], True
+        except Exception as exc:
+            errors.append(f"{provider}: {exc}")
+            print(errors[-1])
+    # Both models are down: use only the already-validated source text, not a fabricated summary.
+    notify_owner("OpenAI и Gemini не смогли сделать пересказ для новости:\n" + item["title"] + "\n" + "\n".join(errors))
+    # If both AI providers are unavailable, do not dump raw page text into the channel.
+    # The verified headline and source link can still be published without a summary.
+    return "", True
 
 
-def build_story_caption(item, label, summary, article_url):
-    title = escape_html(item["title"])
-    safe_url = escape_html(article_url)
+# -------------------------
+# Photo and Telegram
+# -------------------------
+def get_real_photo(article_url, image_urls):
+    if Image is None or is_google_host(article_url):
+        return None
+    seen = set()
+    for candidate in image_urls[:20]:
+        url = urllib.parse.urljoin(article_url, html.unescape(candidate))
+        if url in seen:
+            continue
+        seen.add(url)
+        if not url.startswith("https://") or is_google_host(url):
+            continue
+        if any(word in url.lower() for word in ("favicon", "logo", "avatar", "icon", "sprite", "placeholder", "default-image")):
+            continue
+        try:
+            raw, final_url, content_type = request(url, timeout=20, headers={"Referer": article_url}, max_bytes=12_000_000)
+            if is_google_host(final_url) or not content_type.lower().startswith("image/"):
+                continue
+            with Image.open(BytesIO(raw)) as im:
+                im.verify()
+            with Image.open(BytesIO(raw)) as im:
+                if im.width < 400 or im.height < 250 or im.width / max(im.height, 1) > 3.5:
+                    continue
+                im = im.convert("RGB")
+                im.thumbnail((1600, 1600))
+                out = BytesIO()
+                im.save(out, format="JPEG", quality=88, optimize=True)
+                if len(out.getvalue()) >= 10_000:
+                    return out.getvalue()
+        except Exception as exc:
+            print(f"Image rejected: {exc}")
+    return None
 
+
+def telegram_api(method, fields=None, photo=None):
+    if not PUBLISH:
+        print(f"[TEST MODE] {method}: {fields}")
+        return {"ok": True, "result": {}}
+    url = f"https://api.telegram.org/bot{TOKEN}/{method}"
+    if photo is None:
+        req = urllib.request.Request(url, data=urllib.parse.urlencode(fields or {}).encode(), headers={"Content-Type": "application/x-www-form-urlencoded"})
+    else:
+        boundary = "----BlogZhekiBoundary7MA4YWxkTrZu0gW"
+        chunks = []
+        for key, value in (fields or {}).items():
+            chunks.extend([f"--{boundary}\r\n".encode(), f'Content-Disposition: form-data; name="{key}"\r\n\r\n'.encode(), str(value).encode(), b"\r\n"])
+        chunks.extend([f"--{boundary}\r\n".encode(), b'Content-Disposition: form-data; name="photo"; filename="news.jpg"\r\n', b"Content-Type: image/jpeg\r\n\r\n", photo, b"\r\n", f"--{boundary}--\r\n".encode()])
+        req = urllib.request.Request(url, data=b"".join(chunks), headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
+    with urllib.request.urlopen(req, timeout=40) as response:
+        result = json.loads(response.read().decode("utf-8"))
+    if not result.get("ok"):
+        raise RuntimeError(f"Telegram API error: {result}")
+    return result
+
+
+def send_text(text, chat_id=None):
+    fields = {"chat_id": chat_id or CHANNEL, "text": text, "parse_mode": "HTML", "disable_web_page_preview": "true"}
+    return telegram_api("sendMessage", fields)
+
+
+def esc(text):
+    return html.escape(str(text or ""), quote=True)
+
+
+def build_caption(item, label, summary, url):
+    # Only use a URL that is the actual article or the Google News item; never a publisher homepage fallback.
+    title = esc(item["title"])
+    link = esc(url)
     prefix = f"{label}\n\n📰 <b>{title}</b>"
-    source_link = f'\n\n<a href="{safe_url}">Источник</a>'
-    summary_html = "\n\n" + escape_html(summary) if summary else ""
-
-    caption = prefix + summary_html + source_link
-
-    # Telegram allows up to 1024 characters in a photo caption.
+    summary_part = "\n\n" + esc(summary) if summary else ""
+    source = f'\n\n<a href="{link}">Источник</a>'
+    caption = prefix + summary_part + source
     if len(caption) > 1000:
-        available = 1000 - len(prefix) - len(source_link) - 4
-
-        if available > 40 and summary:
-            shortened = summary[:available].rsplit(" ", 1)[0]
-            caption = (
-                prefix
-                + "\n\n"
-                + escape_html(shortened.rstrip(" .,!?:;"))
-                + source_link
-            )
-        else:
-            caption = prefix[:900] + source_link
-
+        room = max(0, 1000 - len(prefix) - len(source) - 6)
+        shortened = summary[:room].rsplit(" ", 1)[0] if room > 40 else ""
+        caption = prefix + (("\n\n" + esc(shortened)) if shortened else "") + source
     return caption
 
 
-def publish_story(item, label="📰 Новости"):
-    article_url = resolve_article(item)
-
-    article_url, article_description, image_urls = fetch_article(
-        article_url
-    )
-
-    summary = openai_summary(
-        item["title"],
-        item.get("description", ""),
-        article_description or "",
-    )
-
-    caption = build_story_caption(
-        item,
-        label,
-        summary,
-        article_url,
-    )
-
-    photo = get_real_photo(
-        article_url,
-        image_urls,
-        item.get("rss_images", []),
-    )
-
+def publish_story(item, label="📍 Новости"):
+    url = resolve_article(item)
+    article = fetch_article(item, url)
+    if article.get("valid"):
+        url = article["url"]
+        summary, _ = make_summary(item, article)
+        images = article.get("images", []) + item.get("rss_images", [])
+        photo = get_real_photo(url, images)
+    else:
+        # No article text is used if the page cannot be verified. Keep the title and link only.
+        summary = ""
+        photo = None
+        # Never link to a page that failed the title/content check.
+        # The original Google News item remains a safe click-through fallback.
+        url = item.get("link") or url
+        notify_owner(
+            "Новость опубликована без пересказа: текст статьи не прошёл проверку.\n"
+            f"Заголовок: {item['title']}\nПричина: {article.get('reason', 'неизвестно')}\nСсылка: {url}"
+        )
+    caption = build_caption(item, label, summary, url)
     if photo:
         try:
-            telegram_api(
-                "sendPhoto",
-                {
-                    "chat_id": CHANNEL,
-                    "caption": caption,
-                    "parse_mode": "HTML",
-                },
-                photo=photo,
-            )
-
-            print(f"Published with article photo: {item['title']}")
+            telegram_api("sendPhoto", {"chat_id": CHANNEL, "caption": caption, "parse_mode": "HTML"}, photo=photo)
+            print("Published with verified article image:", item["title"])
             return
-
         except Exception as exc:
-            print(f"Photo send failed; trying text-only: {exc}")
-
-    # HTML mode makes only the word "Источник" clickable.
+            print(f"Photo send failed, text fallback: {exc}")
+            notify_owner(f"Не удалось отправить фото для новости: {item['title']}\nОшибка: {exc}")
     send_text(caption)
+    print("Published text-only:", item["title"])
 
-    print(f"Published text-only: {item['title']}")
 
-
-# =========================
-# ЗАЩИТА ОТ ДУБЛЕЙ
-# =========================
-
+# -------------------------
+# Deduplication and schedule
+# -------------------------
 def was_posted(item, state):
-    if item["id"] in set(state.get("posted", [])):
-        return True
-
-    return same_story(
-        item["title"],
-        state.get("posted_titles", []),
-    )
+    return item["id"] in set(state.get("posted", [])) or same_story(item["title"], state.get("posted_titles", []))
 
 
 def mark_posted(item, state):
-    posted = state.setdefault("posted", [])
-
-    if item["id"] not in posted:
-        posted.append(item["id"])
-
-    titles = state.setdefault("posted_titles", [])
-
-    if not same_story(item["title"], titles):
-        titles.append(item["title"])
+    state.setdefault("posted", []).append(item["id"])
+    state.setdefault("posted_titles", []).append(item["title"])
 
 
 def choose_story(news, location, state):
     for item in news:
-        if item["location"] != location:
-            continue
-
-        if not is_local_story(item, location):
-            continue
-
-        if was_posted(item, state):
-            continue
-
-        return item
-
+        if item["location"] == location and is_local_story(item, location) and not was_posted(item, state):
+            return item
     return None
 
 
-# =========================
-# ЕЖЕДНЕВНАЯ ПУБЛИКАЦИЯ
-# =========================
-
 def daily_post(state, news):
     today = now_local().date().isoformat()
-
     if state.get("daily_date") == today:
-        print("Daily post already sent today.")
         return
-
-    print("Publishing daily weather and local news.")
-
     try:
         send_text(get_weather())
     except Exception as exc:
         print(f"Weather error: {exc}")
-
-        send_text(
-            "☀️ Всем привет!\n\n"
-            "Не удалось загрузить погоду. Попробуем обновить её позже."
-        )
-
-    kupino_story = choose_story(news, "kupino", state)
-
-    if kupino_story:
-        try:
-            publish_story(
-                kupino_story,
-                "📍 Купино и Купинский район",
-            )
-            mark_posted(kupino_story, state)
-        except Exception as exc:
-            print(f"Kupino news error: {exc}")
-
-    novosibirsk_story = choose_story(news, "novosibirsk", state)
-
-    if novosibirsk_story:
-        try:
-            publish_story(
-                novosibirsk_story,
-                "📍 Новосибирск",
-            )
-            mark_posted(novosibirsk_story, state)
-        except Exception as exc:
-            print(f"Novosibirsk news error: {exc}")
-
-    state["daily_date"] = today
+        notify_owner(f"Не удалось получить погоду в Купино: {exc}")
+    for location, label in (("kupino", "📍 Купино и Купинский район"), ("novosibirsk", "📍 Новосибирск")):
+        item = choose_story(news, location, state)
+        if item:
+            try:
+                publish_story(item, label)
+                if PUBLISH:
+                    mark_posted(item, state)
+            except Exception as exc:
+                print(f"Daily news error: {exc}")
+                notify_owner(f"Ошибка публикации новости:\n{item['title']}\n{exc}")
+    if PUBLISH:
+        state["daily_date"] = today
     save_state(state)
 
 
-# =========================
-# ПРОИСШЕСТВИЯ С ЗАДЕРЖКОЙ
-# =========================
-
 def retraction_confirmed(item):
+    url = resolve_article(item)
+    if is_google_host(url):
+        return False
     try:
-        article_url = resolve_article(item)
-
-        if is_google_host(article_url):
+        raw, final_url, content_type = request(url, timeout=15)
+        if is_google_host(final_url) or "html" not in content_type.lower():
             return False
-
-        raw, final_url, content_type = request(
-            article_url,
-            timeout=15,
-        )
-
-        if (
-            is_google_host(final_url)
-            or "html" not in content_type.lower()
-        ):
-            return False
-
-        page = clean_text(
-            raw.decode("utf-8", errors="ignore")
-        ).lower()[:12000]
-
-        return any(word in page for word in RETRACTION_WORDS)
-
+        parser = ArticleParser()
+        parser.feed(raw.decode("utf-8", errors="ignore"))
+        text = " ".join(parser.article_paragraphs).lower()
+        return any(term in text for term in RETRACTION_WORDS)
     except Exception as exc:
-        print(f"Could not recheck source: {exc}")
+        print(f"Retraction check failed: {exc}")
         return False
 
 
 def process_incidents(state, news):
     pending = state.get("pending", [])
-    pending_ids = {item["id"] for item in pending}
-    current_time = time.time()
-
+    pending_ids = {x["id"] for x in pending}
+    now = time.time()
     for item in news:
-        if was_posted(item, state):
+        if was_posted(item, state) or item["id"] in pending_ids:
             continue
-
-        if item["id"] in pending_ids:
-            continue
-
-        if not is_local_story(item, item["location"]):
-            continue
-
-        if not is_incident(item):
-            continue
-
-        item["detected_at"] = current_time
-
-        delay = 900 + (int(item["id"][:4], 16) % 301)
-        item["publish_after"] = current_time + delay
-
-        pending.append(item)
-        pending_ids.add(item["id"])
-
-        print(f"Queued incident: {item['title']}")
-
+        if is_local_story(item, item["location"]) and is_incident(item):
+            item["detected_at"] = now
+            item["publish_after"] = now + 900 + (int(item["id"][:4], 16) % 301)
+            pending.append(item)
+            pending_ids.add(item["id"])
     remaining = []
-
     for item in pending:
         if was_posted(item, state):
             continue
-
-        if current_time < float(
-            item.get("publish_after", current_time + 900)
-        ):
+        if now < float(item.get("publish_after", now + 900)):
             remaining.append(item)
             continue
-
         try:
             if retraction_confirmed(item):
-                print(f"Skipped retracted item: {item['title']}")
                 mark_posted(item, state)
+                notify_owner("Происшествие не опубликовано: источник содержит опровержение.\n" + item["title"])
                 continue
-
-            publish_story(item, "🚨 Новое происшествие")
-            mark_posted(item, state)
-
-            print(f"Published incident: {item['title']}")
-
+            publish_story(item, "🚨 Происшествие")
+            if PUBLISH:
+                mark_posted(item, state)
         except Exception as exc:
             print(f"Incident publication failed: {exc}")
+            notify_owner(f"Не удалось опубликовать происшествие:\n{item['title']}\n{exc}")
             remaining.append(item)
-
     state["pending"] = remaining
     save_state(state)
 
 
-# =========================
-# ЗАПУСК
-# =========================
-
 def main():
     state = load_state()
-
     try:
         news = get_all_news()
     except Exception as exc:
-        print(f"Could not fetch news: {exc}")
         news = []
-
-    is_manual = (
-        os.getenv("GITHUB_EVENT_NAME") == "workflow_dispatch"
-    )
-
-    if now_local().hour >= 9 or is_manual:
+        print(f"Could not fetch news: {exc}")
+        notify_owner(f"Не удалось загрузить новостные ленты: {exc}")
+    manual = os.getenv("GITHUB_EVENT_NAME") == "workflow_dispatch"
+    if now_local().hour >= 9 or manual:
         daily_post(state, news)
-
     process_incidents(state, news)
     save_state(state)
 
