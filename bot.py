@@ -11,7 +11,7 @@ GEMINI_KEY = os.environ["GEMINI_API_KEY"]
 CHANNEL = os.environ["CHANNEL"]
 OWNER = os.environ["OWNER_CHAT_ID"]
 PUBLISH = os.environ.get("PUBLISH", "") == "true"
-MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.0-flash")
+MODEL = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 
 CODES = {
     0: "ясно", 1: "в основном ясно", 2: "переменная облачность", 3: "пасмурно",
