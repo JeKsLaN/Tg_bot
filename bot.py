@@ -11,7 +11,7 @@ GEMINI_KEY = os.environ["GEMINI_API_KEY"]
 CHANNEL = os.environ["CHANNEL"]
 OWNER = os.environ["OWNER_CHAT_ID"]
 PUBLISH = os.environ.get("PUBLISH", "") == "true"
-MODEL = os.environ.get("GEMINI_MODEL", "gemini-flash-latest)
+MODEL = "gemini-2.5-flash"
 
 CODES = {
     0: "ясно", 1: "в основном ясно", 2: "переменная облачность", 3: "пасмурно",
@@ -66,7 +66,10 @@ def gemini(prompt, search):
     body = {"contents": [{"parts": [{"text": prompt}]}]}
     if search:
         body["tools"] = [{"google_search": {}}]
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
+    
+    # Здесь мы используем v1 API, который работает с твоим ключом AQ.
+    url = f"https://generativelanguage.googleapis.com/v1/models/{MODEL}:generateContent"
+    
     r = http_json(url, body, {"x-goog-api-key": GEMINI_KEY})
     parts = r["candidates"][0]["content"]["parts"]
     return "".join(p.get("text", "") for p in parts).strip()
