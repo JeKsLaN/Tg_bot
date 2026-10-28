@@ -14,7 +14,7 @@ CHANNEL = os.environ["CHANNEL"]
 OWNER = os.environ["OWNER_CHAT_ID"]
 PUBLISH = os.environ.get("PUBLISH", "") == "true"
 
-# Модель (используем актуальную, которая точно работает с новыми ключами)
+# Используем актуальную модель
 MODEL = "gemini-3.8-flash"
 
 CODES = {
@@ -30,7 +30,6 @@ STYLE = (
     "Пример стиля: «Всем привет. В Купино сегодня +4 градуса, из новостей я тут узнал что ...»"
 )
 
-
 def http_json(url, data=None, headers=None):
     body = json.dumps(data).encode() if data is not None else None
     h = {"Content-Type": "application/json"}
@@ -38,7 +37,6 @@ def http_json(url, data=None, headers=None):
     req = urllib.request.Request(url, data=body, headers=h)
     with urllib.request.urlopen(req, timeout=60) as r:
         return json.load(r)
-
 
 def weather():
     url = (
@@ -65,16 +63,13 @@ def weather():
         f"Сегодня {day(0)}. Завтра {day(1)}."
     )
 
-
 def send(chat, text):
     http_json(f"https://api.telegram.org/bot{TOKEN}/sendMessage", {"chat_id": chat, "text": text})
 
-
 def main():
-    # Инициализируем официальный клиент Google
     client = genai.Client(api_key=GEMINI_KEY)
-
     today = datetime.now(timezone(timedelta(hours=7))).strftime("%d.%m.%Y")
+    
     prompt = (
         "Напиши короткий пост для Telegram-канала про город Купино "
         "(Купинский район, Новосибирская область, Россия). "
@@ -84,13 +79,13 @@ def main():
         "Структура: «Всем привет.» + одно-два предложения про погоду + если найдёшь настоящую "
         "свежую новость (не старше 3 дней) именно про Купино или Купинский район "
         "Новосибирской области (НЕ про Купино в Харьковской области) — одно предложение "
-        "«Из новостей я тут узнал, что ...». Если надёжной свежей новости нет — не упоминай "
-        "новости вообще. Ничего не выдумывай. Ответь только текстом поста, без пояснений, "
-        "ссылок и кавычек. Не больше 400 символов."
+        "«Из новостей я тут узнал, что ...». Если надёжной свежей новости нет — напиши ровно такую фразу: "
+        "«Новостей за последние дни не нашлось. Всем хорошего дня!» и больше ничего не добавляй. "
+        "Ничего не выдумывай. Ответь только текстом поста, без пояснений, ссылок и кавычек. Не больше 400 символов."
     )
 
-    # Пробуем с поиском, если не выйдет — без него
     try:
+        # Пытаемся сгенерировать с новостями
         response = client.models.generate_content(
             model=MODEL,
             contents=prompt,
@@ -99,8 +94,8 @@ def main():
         text = response.text
     except Exception as e:
         print("С поиском не вышло:", type(e).__name__)
-        response = client.models.generate_content(model=MODEL, contents=prompt)
-        text = response.text
+        # Если не получилось с новостями, пишем только погоду
+        text = f"Всем привет. {weather()} Новостей за последние дни не нашлось. Всем хорошего дня!"
 
     if not text:
         sys.exit("Пустой ответ от Gemini")
@@ -109,7 +104,6 @@ def main():
         send(CHANNEL, text)
     else:
         send(OWNER, "Черновик (в канал не ушёл):\n\n" + text)
-
 
 if __name__ == "__main__":
     try:
