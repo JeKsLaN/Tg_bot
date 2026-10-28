@@ -1,3 +1,4 @@
+
 name: Local News Bot
 
 on:
@@ -28,12 +29,13 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
+          cache-dependency-path: requirements.txt
 
       - name: Install dependencies
         run: |
           set -e
           python -m pip install --upgrade pip
-          python -m pip install "Pillow>=10" requests feedparser openai google-genai
+          python -m pip install -r requirements.txt
 
       - name: Run bot
         env:
@@ -53,6 +55,7 @@ jobs:
           BRANCH_NAME: ${{ github.ref_name }}
         run: |
           set -e
+
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
@@ -64,8 +67,8 @@ jobs:
               git pull --rebase --autostash origin "$BRANCH_NAME"
               git push origin "HEAD:${BRANCH_NAME}"
             else
-              echo "No state changes."
+              echo "News history has no changes."
             fi
           else
-            echo "bot_state.json does not exist; skipping."
+            echo "bot_state.json does not exist; skipping state commit."
           fi
