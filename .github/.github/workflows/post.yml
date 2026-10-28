@@ -2,18 +2,38 @@ name: daily-post
 
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: local-news-bot
+  cancel-in-progress: false
 
 jobs:
   post:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: python3 bot.py
+      - name: Download repository
+        uses: actions/checkout@v4
+
+      - name: Run bot
+        run: python3 bot.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           CHANNEL: ${{ secrets.CHANNEL }}
-          OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
           PUBLISH: ${{ vars.PUBLISH }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+
+      - name: Save publication history
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bot_state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update news bot history"
+            git push origin "$GITHUB_REF_NAME"
+          fi
