@@ -5,12 +5,16 @@ import os
 import sys
 import urllib.request
 from datetime import datetime, timedelta, timezone
+from google import genai
 
+# Настройки из GitHub Secrets
 TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 GEMINI_KEY = os.environ["GEMINI_API_KEY"]
 CHANNEL = os.environ["CHANNEL"]
 OWNER = os.environ["OWNER_CHAT_ID"]
 PUBLISH = os.environ.get("PUBLISH", "") == "true"
+
+# Модель (используем актуальную, которая точно работает с новыми ключами)
 MODEL = "gemini-2.5-flash"
 
 CODES = {
@@ -62,24 +66,14 @@ def weather():
     )
 
 
-def gemini(prompt, search):
-    body = {"contents": [{"parts": [{"text": prompt}]}]}
-    if search:
-        body["tools"] = [{"google_search": {}}]
-    
-    # Здесь мы используем v1 API, который работает с твоим ключом AQ.
-    url = f"https://generativelanguage.googleapis.com/v1/models/{MODEL}:generateContent"
-    
-    r = http_json(url, body, {"x-goog-api-key": GEMINI_KEY})
-    parts = r["candidates"][0]["content"]["parts"]
-    return "".join(p.get("text", "") for p in parts).strip()
-
-
 def send(chat, text):
     http_json(f"https://api.telegram.org/bot{TOKEN}/sendMessage", {"chat_id": chat, "text": text})
 
 
 def main():
+    # Инициализируем официальный клиент Google
+    client = genai.Client(api_key=GEMINI_KEY)
+
     today = datetime.now(timezone(timedelta(hours=7))).strftime("%d.%m.%Y")
     prompt = (
         "Напиши короткий пост для Telegram-канала про город Купино "
@@ -94,13 +88,23 @@ def main():
         "новости вообще. Ничего не выдумывай. Ответь только текстом поста, без пояснений, "
         "ссылок и кавычек. Не больше 400 символов."
     )
+
+    # Пробуем с поиском, если не выйдет — без него
     try:
-        text = gemini(prompt, True)
+        response = client.models.generate_content(
+            model=MODEL,
+            contents=prompt,
+            config={'tools': [{'google_search': {}}]}
+        )
+        text = response.text
     except Exception as e:
         print("С поиском не вышло:", type(e).__name__)
-        text = gemini(prompt + "\nНовости не используй, только погода.", False)
+        response = client.models.generate_content(model=MODEL, contents=prompt)
+        text = response.text
+
     if not text:
         sys.exit("Пустой ответ от Gemini")
+
     if PUBLISH:
         send(CHANNEL, text)
     else:
