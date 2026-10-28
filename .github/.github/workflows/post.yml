@@ -1,0 +1,19 @@
+name: daily-post
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 bot.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          CHANNEL: ${{ secrets.CHANNEL }}
+          OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+          PUBLISH: ${{ vars.PUBLISH }}
