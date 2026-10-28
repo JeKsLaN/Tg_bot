@@ -36,11 +36,37 @@ USER_AGENT = (
 )
 GOOGLE_HOSTS = ("news.google.com", "google.com", "gstatic.com", "googleusercontent.com")
 
-FEEDS = [
-    ("kupino", '"Купино" новости when:3d'),
-    ("kupino", '"Купинский район" новости when:3d'),
-    ("novosibirsk", '"Новосибирск" новости when:2d'),
-    ("novosibirsk", '"Новосибирск" происшествия when:2d'),
+# Only direct local/official publishers. RSS is tried first; if unavailable,
+# the bot reads article links from the publisher's own news page.
+SOURCES = [
+    {
+        "location": "kupino",
+        "name": "Городская газета Купино",
+        "page": "https://kupino-gazeta.ru/",
+        "feeds": ["https://kupino-gazeta.ru/feed/"],
+        "domains": ["kupino-gazeta.ru"],
+    },
+    {
+        "location": "kupino",
+        "name": "Маяк Кулунды",
+        "page": "https://mkkupino.ru/",
+        "feeds": ["https://mkkupino.ru/feed/"],
+        "domains": ["mkkupino.ru"],
+    },
+    {
+        "location": "novosibirsk",
+        "name": "Новосибирские новости",
+        "page": "https://nsknews.info/",
+        "feeds": ["https://nsknews.info/rss/", "https://nsknews.info/feed/"],
+        "domains": ["nsknews.info"],
+    },
+    {
+        "location": "novosibirsk",
+        "name": "Официальный сайт Новосибирска",
+        "page": "https://www.novo-sibirsk.ru/news/",
+        "feeds": [],
+        "domains": ["novo-sibirsk.ru"],
+    },
 ]
 INCIDENT_WORDS = (
     "взрыв", "взорвал", "пожар", "горит", "загорел", "дтп", "авари",
@@ -99,6 +125,9 @@ def load_state():
     state.setdefault("posted", [])
     state.setdefault("posted_titles", [])
     state.setdefault("pending", [])
+    state.setdefault("seen", [])
+    state.setdefault("seen_titles", [])
+    state.setdefault("source_baseline_done", False)
     return state
 
 
@@ -106,6 +135,8 @@ def save_state(state):
     state["posted"] = state.get("posted", [])[-1500:]
     state["posted_titles"] = state.get("posted_titles", [])[-1000:]
     state["pending"] = state.get("pending", [])[-200:]
+    state["seen"] = state.get("seen", [])[-2500:]
+    state["seen_titles"] = state.get("seen_titles", [])[-1800:]
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
@@ -307,46 +338,108 @@ def looks_like_boilerplate(text):
     return any(s in low for s in signals)
 
 
-def fetch_feed(location, query):
-    url = "https://news.google.com/rss/search?" + urllib.parse.urlencode({
-        "q": query, "hl": "ru", "gl": "RU", "ceid": "RU:ru"
-    })
+def allowed_source_url(url, domains):
+    host = host_of(url)
+    return bool(host) and any(host == domain or host.endswith("." + domain) for domain in domains)
+
+
+def make_news_item(source, title, link, description="", pub_date="", image_urls=None):
+    title = clean_text(title)
+    link = urllib.parse.urljoin(source["page"], html.unescape((link or "").strip()))
+    if not title or len(title) < 18 or not link.startswith("https://"):
+        return None
+    if not allowed_source_url(link, source["domains"]):
+        return None
+    path = urllib.parse.urlparse(link).path.rstrip("/")
+    page_path = urllib.parse.urlparse(source["page"]).path.rstrip("/")
+    if path == page_path or path in ("", "/"):
+        return None
+    blocked = ("/category/", "/tag/", "/author/", "/page/", "/wp-content/", "/wp-json/", "/search/", "/feed/")
+    if any(part in path.lower() for part in blocked):
+        return None
+    low_title = title.lower()
+    if low_title in {"новости", "все новости", "читать далее", "подробнее", "далее", "главная"}:
+        return None
+    return {
+        "id": story_id(link, title),
+        "location": source["location"],
+        "title": title,
+        "description": clean_text(description)[:1800],
+        "link": link,
+        "pub_date": pub_date or "",
+        "source_name": source["name"],
+        "source_url": source["page"],
+        "allowed_domains": source["domains"],
+        "rss_images": image_urls or [],
+    }
+
+
+def parse_feed_items(raw, source):
     try:
-        raw, _, _ = request(url)
         root = ET.fromstring(raw)
-    except Exception as exc:
-        print(f"RSS error ({location}): {exc}")
+    except Exception:
         return []
-    result = []
-    for node in root.findall(".//item"):
-        title = clean_text(node.findtext("title", ""))
-        link = (node.findtext("link", "") or "").strip()
-        rss_description_html = node.findtext("description", "") or ""
-        description = clean_text(rss_description_html)
-        pub_date = node.findtext("pubDate", "") or ""
-        source = node.find("source")
-        source_name = clean_text(source.text or "") if source is not None else ""
-        source_url = source.attrib.get("url", "").strip() if source is not None else ""
-        if not title or not link:
-            continue
-        parser = ArticleParser()
+    nodes = root.findall(".//item")
+    # Atom feed support
+    if not nodes:
+        nodes = root.findall(".//{*}entry")
+    results = []
+    for node in nodes[:12]:
+        title = node.findtext("title", default="") or node.findtext("{*}title", default="")
+        link = node.findtext("link", default="") or node.findtext("{*}link", default="")
+        if not link:
+            link_node = node.find("link") or node.find("{*}link")
+            if link_node is not None:
+                link = link_node.attrib.get("href", "")
+        description = (node.findtext("description", default="") or node.findtext("{*}summary", default="") or node.findtext("{*}content", default=""))
+        pub_date = (node.findtext("pubDate", default="") or node.findtext("{*}published", default="") or node.findtext("{*}updated", default=""))
+        item = make_news_item(source, title, link, description, pub_date)
+        if item:
+            results.append(item)
+    return results
+
+
+def fetch_source(source):
+    # Try the publisher's own RSS/Atom endpoints, never an aggregator.
+    for feed_url in source["feeds"]:
         try:
-            parser.feed(rss_description_html)
-        except Exception:
-            pass
-        result.append({
-            "id": story_id(link, title), "location": location, "title": title,
-            "description": description[:1800], "link": link, "pub_date": pub_date,
-            "source_name": source_name, "source_url": source_url,
-            "rss_images": parser.image_urls,
-        })
-    return result
+            raw, final_url, content_type = request(feed_url, timeout=15)
+            items = parse_feed_items(raw, source)
+            if items:
+                print(f"Loaded {len(items)} items from {feed_url}")
+                return items
+            print(f"No usable RSS items at {feed_url} ({content_type})")
+        except Exception as exc:
+            print(f"Feed unavailable {feed_url}: {exc}")
+
+    # Fallback: read links directly from the publisher's own news page.
+    try:
+        raw, final_url, content_type = request(source["page"], timeout=20)
+        if not allowed_source_url(final_url, source["domains"]) or "html" not in content_type.lower():
+            raise RuntimeError("source page did not return HTML from the expected publisher")
+        parser = ArticleParser()
+        parser.feed(raw.decode("utf-8", errors="ignore"))
+        items = []
+        seen_links = set()
+        for href, anchor_text in parser.anchors:
+            item = make_news_item(source, anchor_text, urllib.parse.urljoin(final_url, html.unescape(href)))
+            if not item or item["link"] in seen_links:
+                continue
+            seen_links.add(item["link"])
+            items.append(item)
+            if len(items) >= 12:
+                break
+        print(f"Loaded {len(items)} direct page links from {source['page']}")
+        return items
+    except Exception as exc:
+        print(f"Publisher page unavailable {source['page']}: {exc}")
+        return []
 
 
 def get_all_news():
     found = []
-    for location, query in FEEDS:
-        found.extend(fetch_feed(location, query))
+    for source in SOURCES:
+        found.extend(fetch_source(source))
     unique = []
     for item in found:
         if not any(item["location"] == old["location"] and same_story(item["title"], [old["title"]]) for old in unique):
@@ -354,21 +447,21 @@ def get_all_news():
     def date_key(item):
         try:
             from email.utils import parsedate_to_datetime
-            dt = parsedate_to_datetime(item["pub_date"])
-            return dt.timestamp()
+            return parsedate_to_datetime(item["pub_date"]).timestamp()
         except Exception:
-            return 0
+            try:
+                return datetime.fromisoformat(item["pub_date"].replace("Z", "+00:00")).timestamp()
+            except Exception:
+                return 0
     return sorted(unique, key=date_key, reverse=True)
 
-
 def is_local_story(item, location):
-    text = (item["title"] + " " + item["description"]).lower().replace("ё", "е")
-    if location == "kupino":
-        return "купино" in text or "купинский район" in text
-    if location == "novosibirsk":
-        return "новосибирск" in text or "новосибирской области" in text
-    return False
-
+    # The publisher domain is the locality/official-source signal; don't reject
+    # legitimate local articles merely because their headline omits the city name.
+    if item.get("location") != location:
+        return False
+    domains = item.get("allowed_domains", [])
+    return bool(domains) and allowed_source_url(item.get("link", ""), domains)
 
 def is_incident(item):
     text = (item["title"] + " " + item["description"]).lower()
@@ -493,46 +586,35 @@ def get_weather():
 # Resolve and validate article
 # -------------------------
 def resolve_article(item):
-    """Resolve Google News redirect. Never substitute a publisher homepage for an article."""
-    original = item["link"]
+    """Accept only the original article on the configured publisher domain."""
+    original = item.get("link", "").strip()
+    domains = item.get("allowed_domains", [])
+    if not original.startswith("https://") or not allowed_source_url(original, domains):
+        return ""
     try:
         _, final_url, content_type = request(original, timeout=20)
-        if final_url.startswith("https://") and not is_google_host(final_url):
-            return final_url
-        # Sometimes Google News serves a landing page with a direct title link.
-        if "html" in content_type.lower():
-            raw, _, _ = request(final_url, timeout=15)
-            parser = ArticleParser()
-            parser.feed(raw.decode("utf-8", errors="ignore"))
-            candidates = []
-            for href, anchor_text in parser.anchors:
-                absolute = urllib.parse.urljoin(final_url, html.unescape(href))
-                if absolute.startswith("https://") and not is_google_host(absolute):
-                    score = difflib.SequenceMatcher(None, normalize_title(item["title"]), normalize_title(anchor_text)).ratio()
-                    if score >= 0.60:
-                        candidates.append((score, absolute))
-            if candidates:
-                return sorted(candidates, reverse=True)[0][1]
+        if not allowed_source_url(final_url, domains) or "html" not in content_type.lower():
+            return ""
+        return final_url
     except Exception as exc:
-        print(f"Article URL resolution failed: {exc}")
-    # Keep the Google News item link rather than falsely linking the publisher's homepage.
-    return original
-
+        print(f"Article URL check failed: {exc}")
+        return ""
 
 def fetch_article(item, article_url):
-    if is_google_host(article_url):
-        return {"valid": False, "url": article_url, "text": "", "images": [], "reason": "Не удалось подтвердить прямую ссылку на статью"}
+    domains = item.get("allowed_domains", [])
+    if not article_url or not allowed_source_url(article_url, domains):
+        return {"valid": False, "url": article_url, "text": "", "images": [], "reason": "Не удалось подтвердить прямую ссылку на статью из разрешённого источника"}
     try:
         raw, final_url, content_type = request(article_url, timeout=20)
-        if is_google_host(final_url) or "html" not in content_type.lower():
-            return {"valid": False, "url": article_url, "text": "", "images": [], "reason": "Страница не является доступной статьёй"}
+        if not allowed_source_url(final_url, domains) or "html" not in content_type.lower():
+            return {"valid": False, "url": article_url, "text": "", "images": [], "reason": "Страница не является статьёй на исходном сайте"}
         parser = ArticleParser()
         parser.feed(raw.decode("utf-8", errors="ignore"))
         page_title = parser.meta_title or ""
         if not titles_match(item["title"], page_title):
             return {"valid": False, "url": final_url, "text": "", "images": [], "reason": f"Заголовок страницы не совпал с RSS: {page_title[:180]}"}
         canonical = urllib.parse.urljoin(final_url, parser.canonical or final_url)
-        if canonical.startswith("https://") and not is_google_host(canonical):
+        if canonical.startswith("https://") and allowed_source_url(canonical, domains):
             final_url = canonical
         paragraphs = parser.article_paragraphs
         article_text = "\n".join(paragraphs)
@@ -745,7 +827,10 @@ def publish_story(item, label="📍 Новости"):
         return False
 
     url = article["url"]
-    summary, _ = make_summary(item, article)
+    summary, summary_ok = make_summary(item, article)
+    if not summary_ok or len(clean_text(summary)) < 80:
+        notify_owner("Новость пропущена: не удалось подготовить проверенный подробный пересказ.\n" + display_title(item))
+        return False
     images = article.get("images", []) + item.get("rss_images", [])
     photo = get_real_photo(url, images)
     # Telegram photo captions are limited to 1024 characters; text messages allow up to 4096.
@@ -770,89 +855,97 @@ def was_posted(item, state):
     return item["id"] in set(state.get("posted", [])) or same_story(item["title"], state.get("posted_titles", []))
 
 
+def was_seen(item, state):
+    return item["id"] in set(state.get("seen", [])) or same_story(item["title"], state.get("seen_titles", []))
+
+
+def mark_seen(item, state):
+    state.setdefault("seen", []).append(item["id"])
+    state.setdefault("seen_titles", []).append(item["title"])
+
+
 def mark_posted(item, state):
     state.setdefault("posted", []).append(item["id"])
     state.setdefault("posted_titles", []).append(item["title"])
+    mark_seen(item, state)
 
 
-def choose_story(news, location, state):
-    for item in news:
-        if item["location"] == location and is_local_story(item, location) and not was_posted(item, state):
-            return item
-    return None
-
-
-def daily_post(state, news):
+def daily_weather(state):
     today = now_local().date().isoformat()
     if state.get("daily_date") == today:
         return
     try:
         send_text(get_weather())
+        if PUBLISH:
+            state["daily_date"] = today
+        save_state(state)
     except Exception as exc:
         print(f"Weather error: {exc}")
         notify_owner(f"Не удалось получить погоду в Купино: {exc}")
-    for location, label in (("kupino", "📍 Купино и Купинский район"), ("novosibirsk", "📍 Новосибирск")):
-        item = choose_story(news, location, state)
-        if item:
-            try:
-                published = publish_story(item, label)
-                if PUBLISH and published:
-                    mark_posted(item, state)
-            except Exception as exc:
-                print(f"Daily news error: {exc}")
-                notify_owner(f"Ошибка публикации новости:\n{item['title']}\n{exc}")
-    if PUBLISH:
-        state["daily_date"] = today
-    save_state(state)
 
 
-def retraction_confirmed(item):
-    url = resolve_article(item)
-    if is_google_host(url):
-        return False
-    try:
-        raw, final_url, content_type = request(url, timeout=15)
-        if is_google_host(final_url) or "html" not in content_type.lower():
-            return False
-        parser = ArticleParser()
-        parser.feed(raw.decode("utf-8", errors="ignore"))
-        text = " ".join(parser.article_paragraphs).lower()
-        return any(term in text for term in RETRACTION_WORDS)
-    except Exception as exc:
-        print(f"Retraction check failed: {exc}")
-        return False
+def news_label(item):
+    location = item.get("location")
+    if is_incident(item):
+        return "🚨 Происшествие · Купино" if location == "kupino" else "🚨 Происшествие · Новосибирск"
+    return "📍 Купино и Купинский район" if location == "kupino" else "📍 Новосибирск"
 
 
-def process_incidents(state, news):
-    pending = state.get("pending", [])
-    pending_ids = {x["id"] for x in pending}
+def process_news_queue(state, news):
     now = time.time()
+    pending = state.get("pending", [])
+    pending_ids = {item.get("id") for item in pending}
+
+    # On the first successful scan, establish a baseline instead of publishing
+    # every old item already visible on the sites at setup time.
+    if not state.get("source_baseline_done"):
+        if news:
+            for item in news:
+                mark_seen(item, state)
+            state["source_baseline_done"] = True
+            notify_owner("Источники новостей проверены. Запомнил текущие публикации; новые новости будут попадать в очередь и выходить после 15 минут проверки.")
+        state["pending"] = pending
+        save_state(state)
+        return
+
     for item in news:
-        if was_posted(item, state) or item["id"] in pending_ids:
+        if was_seen(item, state) or was_posted(item, state) or item.get("id") in pending_ids:
             continue
-        if is_local_story(item, item["location"]) and is_incident(item):
-            item["detected_at"] = now
-            item["publish_after"] = now + 900 + (int(item["id"][:4], 16) % 301)
-            pending.append(item)
-            pending_ids.add(item["id"])
+        if not is_local_story(item, item.get("location")):
+            continue
+        item["detected_at"] = now
+        item["publish_after"] = now + 900  # exactly 15 minutes from detection
+        pending.append(item)
+        pending_ids.add(item["id"])
+        mark_seen(item, state)
+        print(f"Queued for 15-minute review: {item['title']}")
+
     remaining = []
     for item in pending:
         if was_posted(item, state):
             continue
-        if now < float(item.get("publish_after", now + 900)):
+        publish_after = float(item.get("publish_after", now + 900))
+        if now < publish_after:
             remaining.append(item)
             continue
         try:
-            if retraction_confirmed(item):
-                mark_posted(item, state)
-                notify_owner("Происшествие не опубликовано: источник содержит опровержение.\n" + item["title"])
+            # Resolve and validate the same publisher article again after waiting.
+            article_url = resolve_article(item)
+            if not article_url:
+                notify_owner("Новость пропущена: не удалось подтвердить прямую ссылку на исходную статью.\n" + display_title(item) + "\n" + item.get("link", ""))
                 continue
-            published = publish_story(item, "🚨 Происшествие")
-            if PUBLISH and published:
+            if retraction_confirmed(item):
+                notify_owner("Новость пропущена: в статье обнаружено опровержение.\n" + display_title(item))
+                continue
+            published = publish_story(item, news_label(item))
+            if published:
                 mark_posted(item, state)
+            # publish_story returns False for a failed verification; skip it rather
+            # than repeatedly trying to publish a bad or unrelated article.
         except Exception as exc:
-            print(f"Incident publication failed: {exc}")
-            notify_owner(f"Не удалось опубликовать происшествие:\n{item['title']}\n{exc}")
+            print(f"Queued news publication failed: {exc}")
+            notify_owner(f"Не удалось опубликовать новость; повторю проверку через 5 минут:\n{display_title(item)}\n{exc}")
+            item["publish_after"] = now + 300
             remaining.append(item)
     state["pending"] = remaining
     save_state(state)
@@ -864,12 +957,13 @@ def main():
         news = get_all_news()
     except Exception as exc:
         news = []
-        print(f"Could not fetch news: {exc}")
-        notify_owner(f"Не удалось загрузить новостные ленты: {exc}")
+        print(f"Could not fetch local news: {exc}")
+        notify_owner(f"Не удалось загрузить новости с местных сайтов: {exc}")
+
     manual = os.getenv("GITHUB_EVENT_NAME") == "workflow_dispatch"
     if now_local().hour >= 9 or manual:
-        daily_post(state, news)
-    process_incidents(state, news)
+        daily_weather(state)
+    process_news_queue(state, news)
     save_state(state)
 
 
