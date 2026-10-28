@@ -116,6 +116,23 @@ def clean_text(value):
     return re.sub(r"\s+", " ", value).strip()
 
 
+def clean_summary(value):
+    """Keep intentional paragraph breaks in AI summaries."""
+    value = html.unescape(str(value or ""))
+    value = re.sub(r"<[^>]+>", " ", value)
+    paragraphs = [re.sub(r"\s+", " ", part).strip() for part in re.split(r"\n\s*\n", value)]
+    return "\n\n".join(part for part in paragraphs if part)
+
+
+def display_title(item):
+    """Remove only a trailing publisher suffix, not meaningful headline text."""
+    title = clean_text(item.get("title", ""))
+    source = clean_text(item.get("source_name", ""))
+    if source:
+        title = re.sub(rf"\s+[—–-]\s*{re.escape(source)}\s*$", "", title, flags=re.I)
+    return title.strip(" —–-")
+
+
 def normalize_title(value):
     value = html.unescape(value or "").lower().replace("ё", "е")
     value = re.sub(r"\s*[|—–-]\s*[^|—–-]{2,70}$", "", value)
@@ -382,26 +399,93 @@ def signed(value):
     return f"+{value}" if value > 0 else str(value)
 
 
+RU_MONTHS = (
+    "января", "февраля", "марта", "апреля", "мая", "июня",
+    "июля", "августа", "сентября", "октября", "ноября", "декабря",
+)
+RU_WEEKDAYS = (
+    "понедельник", "вторник", "среда", "четверг", "пятница", "суббота", "воскресенье",
+)
+
+
+def format_local_date(value):
+    return f"{value.day} {RU_MONTHS[value.month - 1]}, {RU_WEEKDAYS[value.weekday()]}"
+
+
+def weather_plain_name(code):
+    """Short weather wording matching the channel's established weather post."""
+    code = int(code)
+    if code == 0: return "ясно"
+    if code == 1: return "преимущественно ясно"
+    if code == 2: return "переменная облачность"
+    if code == 3: return "пасмурно"
+    if code in (45, 48): return "туман"
+    if code in (51, 53, 55, 56, 57): return "морось 🌧"
+    if code in (61, 63, 65, 66, 67): return "дождь 🌧"
+    if code in (71, 73, 75, 77): return "снег ❄️"
+    if code in (80, 81, 82): return "ливень 🌧"
+    if code in (85, 86): return "снегопад ❄️"
+    if code in (95, 96, 99): return "гроза ⛈"
+    return "переменная погода"
+
+
+def find_hour_index(hourly_times, wanted_prefix):
+    for i, value in enumerate(hourly_times):
+        if value.startswith(wanted_prefix):
+            return i
+    return None
+
+
 def get_weather():
     url = (
         "https://api.open-meteo.com/v1/forecast?"
         f"latitude={KUPINO_LAT}&longitude={KUPINO_LON}"
-        "&current=temperature_2m,apparent_temperature,wind_speed_10m,weather_code"
-        "&daily=temperature_2m_max,temperature_2m_min,weather_code"
-        "&timezone=Asia%2FNovosibirsk&forecast_days=2"
+        "&current=temperature_2m,apparent_temperature,wind_speed_10m,weather_code,relative_humidity_2m,surface_pressure"
+        "&hourly=temperature_2m,weather_code,precipitation_probability"
+        "&daily=temperature_2m_max,temperature_2m_min,weather_code,precipitation_probability_max,sunrise,sunset"
+        "&timezone=Asia%2FNovosibirsk&forecast_days=3"
     )
     raw, _, _ = request(url)
     data = json.loads(raw.decode("utf-8"))
-    current, daily = data["current"], data["daily"]
+    current, daily, hourly = data["current"], data["daily"], data["hourly"]
+
+    today = now_local()
+    today_text = format_local_date(today)
+    today_iso = today.date().isoformat()
+    tomorrow_iso = (today.date() + timedelta(days=1)).isoformat()
+    night_index = find_hour_index(hourly.get("time", []), tomorrow_iso + "T03:00")
+    night_temp = daily["temperature_2m_min"][1]
+    night_code = daily["weather_code"][1]
+    if night_index is not None:
+        if night_index < len(hourly.get("temperature_2m", [])):
+            night_temp = hourly["temperature_2m"][night_index]
+        if night_index < len(hourly.get("weather_code", [])):
+            night_code = hourly["weather_code"][night_index]
+
+    pressure_mmhg = round(float(current["surface_pressure"]) * 0.750061683)
+    sunrise = str(daily["sunrise"][0]).split("T")[-1][:5]
+    sunset = str(daily["sunset"][0]).split("T")[-1][:5]
+    probability = daily.get("precipitation_probability_max", [None])[0]
+    probability_text = f"{int(probability)}%" if probability is not None else "нет данных"
+    humidity = current.get("relative_humidity_2m")
+    humidity_text = f"{round(float(humidity))}%" if humidity is not None else "нет данных"
+
+    current_condition = weather_plain_name(current["weather_code"])
+    current_condition = current_condition[:1].upper() + current_condition[1:]
+    day_condition = weather_plain_name(daily["weather_code"][0])
+    night_condition = weather_plain_name(night_code)
     return (
-        "☀️ Всем привет!\n\n"
-        f"🌡 Сейчас в Купино: {signed(current['temperature_2m'])}°C, "
-        f"ощущается как {signed(current['apparent_temperature'])}°C. "
-        f"{weather_name(current['weather_code'])}, ветер {round(current['wind_speed_10m'])} м/с.\n\n"
-        "📅 Прогноз погоды\n"
-        f"• Сегодня: от {signed(daily['temperature_2m_min'][0])} до {signed(daily['temperature_2m_max'][0])}°C, {weather_name(daily['weather_code'][0])}.\n"
-        f"• Завтра: от {signed(daily['temperature_2m_min'][1])} до {signed(daily['temperature_2m_max'][1])}°C, {weather_name(daily['weather_code'][1])}.\n\n"
-        "Всем хорошего дня и побольше позитива! 👋"
+        "Доброе утро, Купино!\n"
+        f"Сегодня, {today_text}\n\n"
+        "☀️ Погода сейчас\n"
+        f"Температура: {signed(current['temperature_2m'])}°C (ощущается как {signed(current['apparent_temperature'])}°C)\n"
+        f"{current_condition}, ветер {round(current['wind_speed_10m'])} м/с.\n\n"
+        "📊 Детали на день:\n"
+        f"• Днём: от {signed(daily['temperature_2m_min'][0])}°C до {signed(daily['temperature_2m_max'][0])}°C, {day_condition}\n"
+        f"• Ночью: до {signed(night_temp)}°C, {night_condition}\n"
+        f"• Вероятность осадков: {probability_text}\n"
+        f"• Влажность: {humidity_text} | Давление: {pressure_mmhg} мм рт. ст.\n"
+        f"• 🌅 Восход: {sunrise} | 🌇 Закат: {sunset}"
     )
 
 
@@ -482,11 +566,12 @@ def summary_prompt(title, source_text):
         "Ты редактор регионального новостного Telegram-канала. Пиши естественно, по-человечески и ясно. "
         "Работай ТОЛЬКО с приведённым текстом. Не добавляй внешние знания, догадки, причины, числа, имена или обстоятельства. "
         "Сначала оцени, относится ли текст к заголовку. Если нет — relevant=false и summary пустая строка. "
-        "Если относится — сделай пересказ в 2–5 предложениях без повторения заголовка. "
+        "Если относится — сделай подробный, но компактный пересказ в 3–5 содержательных предложениях без повторения заголовка. "
+        "Раздели текст на 2 абзаца пустой строкой, если в источнике хватает фактов. "
         "Сохраняй точное время/дату события, число погибших и пострадавших, место, последствия и статус информации только если они прямо указаны. "
         "Не путай время публикации со временем события. Не включай меню сайта, контакты, рекламу и подписи редакции. "
         "Верни ТОЛЬКО JSON вида {\"relevant\": true, \"summary\": \"...\"}.\n\n"
-        f"Заголовок RSS: {title}\n\nТекст проверенной статьи:\n{source_text[:9000]}"
+        f"Заголовок новости: {title}\n\nТекст проверенной статьи:\n{source_text[:9000]}"
     )
 
 
@@ -542,14 +627,14 @@ def make_summary(item, article):
     source_text = article.get("text", "")
     if not article.get("valid") or not source_text:
         return "", False
-    prompt = summary_prompt(item["title"], source_text)
+    prompt = summary_prompt(display_title(item), source_text)
     errors = []
     for provider, func in (("OpenAI", call_openai), ("Gemini", call_gemini)):
         try:
             result = func(prompt)
             if result.get("relevant") is not True:
                 raise RuntimeError("ИИ определил, что текст не соответствует заголовку")
-            summary = clean_text(result.get("summary", ""))
+            summary = clean_summary(result.get("summary", ""))
             if len(summary) < 35:
                 raise RuntimeError("Слишком короткий пересказ")
             # Reject obvious boilerplate or a summary that drifts from the article topic.
@@ -633,16 +718,15 @@ def esc(text):
     return html.escape(str(text or ""), quote=True)
 
 
-def build_caption(item, label, summary, url):
-    # Only use a URL that is the actual article or the Google News item; never a publisher homepage fallback.
-    title = esc(item["title"])
+def build_caption(item, label, summary, url, max_length=4096):
+    title = esc(display_title(item))
     link = esc(url)
     prefix = f"{label}\n\n📰 <b>{title}</b>"
     summary_part = "\n\n" + esc(summary) if summary else ""
-    source = f'\n\n<a href="{link}">Источник</a>'
+    source = f'\n\n🔗 Источник: <a href="{link}">оригинальная статья</a>'
     caption = prefix + summary_part + source
-    if len(caption) > 1000:
-        room = max(0, 1000 - len(prefix) - len(source) - 6)
+    if len(caption) > max_length:
+        room = max(0, max_length - len(prefix) - len(source) - 6)
         shortened = summary[:room].rsplit(" ", 1)[0] if room > 40 else ""
         caption = prefix + (("\n\n" + esc(shortened)) if shortened else "") + source
     return caption
@@ -651,33 +735,32 @@ def build_caption(item, label, summary, url):
 def publish_story(item, label="📍 Новости"):
     url = resolve_article(item)
     article = fetch_article(item, url)
-    if article.get("valid"):
-        url = article["url"]
-        summary, _ = make_summary(item, article)
-        images = article.get("images", []) + item.get("rss_images", [])
-        photo = get_real_photo(url, images)
-    else:
-        # No article text is used if the page cannot be verified. Keep the title and link only.
-        summary = ""
-        photo = None
-        # Never link to a page that failed the title/content check.
-        # The original Google News item remains a safe click-through fallback.
-        url = item.get("link") or url
+    if not article.get("valid"):
+        reason = article.get("reason", "неизвестно")
         notify_owner(
-            "Новость опубликована без пересказа: текст статьи не прошёл проверку.\n"
-            f"Заголовок: {item['title']}\nПричина: {article.get('reason', 'неизвестно')}\nСсылка: {url}"
+            "Новость пропущена: не удалось подтвердить соответствие заголовка и текста статьи.\n"
+            f"Заголовок: {display_title(item)}\nПричина: {reason}\nСсылка: {item.get('link', url)}"
         )
-    caption = build_caption(item, label, summary, url)
+        print(f"Skipped unverified article: {display_title(item)} — {reason}")
+        return False
+
+    url = article["url"]
+    summary, _ = make_summary(item, article)
+    images = article.get("images", []) + item.get("rss_images", [])
+    photo = get_real_photo(url, images)
+    # Telegram photo captions are limited to 1024 characters; text messages allow up to 4096.
+    caption = build_caption(item, label, summary, url, max_length=1000 if photo else 4000)
     if photo:
         try:
             telegram_api("sendPhoto", {"chat_id": CHANNEL, "caption": caption, "parse_mode": "HTML"}, photo=photo)
-            print("Published with verified article image:", item["title"])
-            return
+            print("Published with article image:", display_title(item))
+            return True
         except Exception as exc:
             print(f"Photo send failed, text fallback: {exc}")
-            notify_owner(f"Не удалось отправить фото для новости: {item['title']}\nОшибка: {exc}")
+            notify_owner(f"Не удалось отправить фото для новости: {display_title(item)}\nОшибка: {exc}")
     send_text(caption)
-    print("Published text-only:", item["title"])
+    print("Published text-only:", display_title(item))
+    return True
 
 
 # -------------------------
@@ -712,8 +795,8 @@ def daily_post(state, news):
         item = choose_story(news, location, state)
         if item:
             try:
-                publish_story(item, label)
-                if PUBLISH:
+                published = publish_story(item, label)
+                if PUBLISH and published:
                     mark_posted(item, state)
             except Exception as exc:
                 print(f"Daily news error: {exc}")
@@ -764,8 +847,8 @@ def process_incidents(state, news):
                 mark_posted(item, state)
                 notify_owner("Происшествие не опубликовано: источник содержит опровержение.\n" + item["title"])
                 continue
-            publish_story(item, "🚨 Происшествие")
-            if PUBLISH:
+            published = publish_story(item, "🚨 Происшествие")
+            if PUBLISH and published:
                 mark_posted(item, state)
         except Exception as exc:
             print(f"Incident publication failed: {exc}")
