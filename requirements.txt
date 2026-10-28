@@ -1,0 +1,5 @@
+Pillow>=10
+requests
+feedparser
+openai
+google-genai
