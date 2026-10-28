@@ -15,7 +15,7 @@ OWNER = os.environ["OWNER_CHAT_ID"]
 PUBLISH = os.environ.get("PUBLISH", "") == "true"
 
 # Модель (используем актуальную, которая точно работает с новыми ключами)
-MODEL = "gemini-2.5-flash"
+MODEL = "gemini-3.8-flash"
 
 CODES = {
     0: "ясно", 1: "в основном ясно", 2: "переменная облачность", 3: "пасмурно",
