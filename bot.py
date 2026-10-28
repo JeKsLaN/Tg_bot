@@ -27,6 +27,11 @@ OWNER_CHAT_ID = os.getenv("OWNER_CHAT_ID", "").strip()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "").strip()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 PUBLISH = os.getenv("PUBLISH", "false").lower() == "true"
+# Как часто писать «новых новостей нет» (в часах). 0 = не писать вообще.
+try:
+    NO_NEWS_NOTICE_HOURS = float(os.getenv("NO_NEWS_NOTICE_HOURS", "3") or 3)
+except ValueError:
+    NO_NEWS_NOTICE_HOURS = 3.0
 STATE_FILE = "bot_state.json"
 LOCAL_TZ = timezone(timedelta(hours=7))
 KUPINO_LAT, KUPINO_LON = 54.366, 77.298
@@ -88,6 +93,11 @@ def now_local():
     return datetime.now(LOCAL_TZ)
 
 
+def fmt_time(ts):
+    """Время по Купино в формате ЧЧ:ММ."""
+    return datetime.fromtimestamp(ts, LOCAL_TZ).strftime("%H:%M")
+
+
 def request(url, timeout=20, headers=None, max_bytes=8_000_000):
     h = {"User-Agent": USER_AGENT, "Accept-Language": "ru-RU,ru;q=0.9,en;q=0.7"}
     if headers:
@@ -100,17 +110,17 @@ def request(url, timeout=20, headers=None, max_bytes=8_000_000):
         return data, response.geturl(), response.headers.get("Content-Type", "")
 
 
-def notify_owner(message):
-    """Send a private alert without hiding the original error if Telegram is unavailable."""
+def notify_owner(message, icon="⚠️"):
+    """Личное уведомление владельцу. Работает и в тестовом режиме (force=True)."""
     if not OWNER_CHAT_ID:
         print("OWNER_CHAT_ID is not configured; alert: " + message[:500])
         return
     try:
         telegram_api("sendMessage", {
             "chat_id": OWNER_CHAT_ID,
-            "text": "⚠️ Блог|Жеки — уведомление\n\n" + message[:3500],
+            "text": f"{icon} Блог|Жеки — уведомление\n\n" + message[:3500],
             "disable_web_page_preview": "true",
-        })
+        }, force=True)
     except Exception as exc:
         print(f"Could not notify owner: {exc}; original alert: {message[:300]}")
 
@@ -128,6 +138,7 @@ def load_state():
     state.setdefault("seen", [])
     state.setdefault("seen_titles", [])
     state.setdefault("source_baseline_done", False)
+    state.setdefault("last_no_news_notice", 0)
     return state
 
 
@@ -468,6 +479,24 @@ def is_incident(item):
     return any(word in text for word in INCIDENT_WORDS)
 
 
+def retraction_confirmed(item):
+    """True, если в статье есть явное опровержение. При ошибке сети публикацию не блокирует."""
+    try:
+        raw, _, _ = request(item.get("link", ""), timeout=20)
+        parser = ArticleParser()
+        parser.feed(raw.decode("utf-8", errors="ignore"))
+        text = " ".join([
+            item.get("title", ""),
+            parser.meta_title or "",
+            parser.description or "",
+            " ".join(parser.article_paragraphs),
+        ]).lower().replace("ё", "е")
+        return any(word in text for word in RETRACTION_WORDS)
+    except Exception as exc:
+        print(f"Retraction check skipped: {exc}")
+        return False
+
+
 # -------------------------
 # Weather
 # -------------------------
@@ -660,7 +689,8 @@ def summary_prompt(title, source_text):
 def call_openai(prompt):
     if not OPENAI_API_KEY:
         raise RuntimeError("OPENAI_API_KEY не задан")
-    payload = json.dumps({"model": "gpt-4.1-mini", "input": prompt, "max_output_tokens": 500}).encode()
+    # 900 токенов: для русского текста 500 может обрезать JSON на середине.
+    payload = json.dumps({"model": "gpt-4.1-mini", "input": prompt, "max_output_tokens": 900}).encode()
     req = urllib.request.Request(
         "https://api.openai.com/v1/responses", data=payload,
         headers={"Authorization": f"Bearer {OPENAI_API_KEY}", "Content-Type": "application/json"},
@@ -770,8 +800,9 @@ def get_real_photo(article_url, image_urls):
     return None
 
 
-def telegram_api(method, fields=None, photo=None):
-    if not PUBLISH:
+def telegram_api(method, fields=None, photo=None, force=False):
+    # force=True отправляет сообщение даже в тестовом режиме (нужно для уведомлений владельцу).
+    if not PUBLISH and not force:
         print(f"[TEST MODE] {method}: {fields}")
         return {"ok": True, "result": {}}
     url = f"https://api.telegram.org/bot{TOKEN}/{method}"
@@ -891,6 +922,29 @@ def news_label(item):
     return "📍 Купино и Купинский район" if location == "kupino" else "📍 Новосибирск"
 
 
+def notify_found(items):
+    """Триггер «новость найдена, в обработке»: одно сообщение владельцу за запуск."""
+    publish_time = fmt_time(time.time() + 900)
+    lines = ["Новость найдена, в обработке."]
+    for item in items[:5]:
+        lines.append(f"\n• {display_title(item)}\n  {item.get('source_name', '')}\n  {item.get('link', '')}")
+    if len(items) > 5:
+        lines.append(f"\nИ ещё {len(items) - 5}.")
+    lines.append(f"\nПроверка и публикация примерно в {publish_time} (по Купино).")
+    notify_owner("\n".join(lines), icon="🔎")
+
+
+def maybe_notify_no_news(state):
+    """Триггер «новых новостей нет», не чаще, чем раз в NO_NEWS_NOTICE_HOURS часов."""
+    if NO_NEWS_NOTICE_HOURS <= 0:
+        return
+    now = time.time()
+    if now - float(state.get("last_no_news_notice", 0)) < NO_NEWS_NOTICE_HOURS * 3600:
+        return
+    state["last_no_news_notice"] = now
+    notify_owner("Новых новостей пока нет. Бот работает, источники проверяются.", icon="💤")
+
+
 def process_news_queue(state, news):
     now = time.time()
     pending = state.get("pending", [])
@@ -903,11 +957,12 @@ def process_news_queue(state, news):
             for item in news:
                 mark_seen(item, state)
             state["source_baseline_done"] = True
-            notify_owner("Источники новостей проверены. Запомнил текущие публикации; новые новости будут попадать в очередь и выходить после 15 минут проверки.")
+            notify_owner("Источники новостей проверены. Запомнил текущие публикации; новые новости будут попадать в очередь и выходить после 15 минут проверки.", icon="✅")
         state["pending"] = pending
         save_state(state)
         return
 
+    new_items = []
     for item in news:
         if was_seen(item, state) or was_posted(item, state) or item.get("id") in pending_ids:
             continue
@@ -918,9 +973,14 @@ def process_news_queue(state, news):
         pending.append(item)
         pending_ids.add(item["id"])
         mark_seen(item, state)
+        new_items.append(item)
         print(f"Queued for 15-minute review: {item['title']}")
 
+    if new_items:
+        notify_found(new_items)
+
     remaining = []
+    handled = 0
     for item in pending:
         if was_posted(item, state):
             continue
@@ -928,6 +988,7 @@ def process_news_queue(state, news):
         if now < publish_after:
             remaining.append(item)
             continue
+        handled += 1
         try:
             # Resolve and validate the same publisher article again after waiting.
             article_url = resolve_article(item)
@@ -940,6 +1001,8 @@ def process_news_queue(state, news):
             published = publish_story(item, news_label(item))
             if published:
                 mark_posted(item, state)
+                status = "Опубликовано в канале:" if PUBLISH else "Тестовый режим, в канал не отправлено:"
+                notify_owner(status + "\n" + display_title(item), icon="✅")
             # publish_story returns False for a failed verification; skip it rather
             # than repeatedly trying to publish a bad or unrelated article.
         except Exception as exc:
@@ -948,6 +1011,9 @@ def process_news_queue(state, news):
             item["publish_after"] = now + 300
             remaining.append(item)
     state["pending"] = remaining
+
+    if not new_items and not remaining and not handled:
+        maybe_notify_no_news(state)
     save_state(state)
 
 
