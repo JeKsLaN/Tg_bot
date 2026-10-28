@@ -139,6 +139,7 @@ def load_state():
     state.setdefault("seen_titles", [])
     state.setdefault("source_baseline_done", False)
     state.setdefault("last_no_news_notice", 0)
+    state.setdefault("last_empty_notice", 0)
     return state
 
 
@@ -767,8 +768,20 @@ def make_summary(item, article):
 # -------------------------
 # Photo and Telegram
 # -------------------------
-def get_real_photo(article_url, image_urls):
-    if Image is None or is_google_host(article_url):
+BAD_IMAGE_WORDS = ("favicon", "logo", "avatar", "icon", "sprite", "placeholder", "default-image")
+
+
+def get_real_photo(article_url, image_urls, reasons=None):
+    """Скачивает и проверяет картинку статьи. Причины отказа складывает в reasons."""
+    reasons = reasons if reasons is not None else []
+    if Image is None:
+        reasons.append("не установлена библиотека Pillow")
+        return None
+    if is_google_host(article_url):
+        reasons.append("ссылка статьи ведёт на Google")
+        return None
+    if not image_urls:
+        reasons.append("на странице не найдено картинок")
         return None
     seen = set()
     for candidate in image_urls[:20]:
@@ -777,17 +790,21 @@ def get_real_photo(article_url, image_urls):
             continue
         seen.add(url)
         if not url.startswith("https://") or is_google_host(url):
+            reasons.append("не https: " + url[:70])
             continue
-        if any(word in url.lower() for word in ("favicon", "logo", "avatar", "icon", "sprite", "placeholder", "default-image")):
+        if any(word in url.lower() for word in BAD_IMAGE_WORDS):
+            reasons.append("похоже на логотип/иконку: " + url[:70])
             continue
         try:
             raw, final_url, content_type = request(url, timeout=20, headers={"Referer": article_url}, max_bytes=12_000_000)
             if is_google_host(final_url) or not content_type.lower().startswith("image/"):
+                reasons.append(f"это не картинка ({content_type[:25]}): " + url[:60])
                 continue
             with Image.open(BytesIO(raw)) as im:
                 im.verify()
             with Image.open(BytesIO(raw)) as im:
                 if im.width < 400 or im.height < 250 or im.width / max(im.height, 1) > 3.5:
+                    reasons.append(f"неподходящий размер {im.width}x{im.height}: " + url[:50])
                     continue
                 im = im.convert("RGB")
                 im.thumbnail((1600, 1600))
@@ -795,8 +812,22 @@ def get_real_photo(article_url, image_urls):
                 im.save(out, format="JPEG", quality=88, optimize=True)
                 if len(out.getvalue()) >= 10_000:
                     return out.getvalue()
+                reasons.append("слишком лёгкая картинка: " + url[:60])
         except Exception as exc:
             print(f"Image rejected: {exc}")
+            reasons.append(f"ошибка {type(exc).__name__}: " + url[:60])
+    return None
+
+
+def get_photo_url(article_url, image_urls):
+    """Запасной вариант без Pillow: отдаём Telegram прямую ссылку, он скачает картинку сам."""
+    for candidate in image_urls[:20]:
+        url = urllib.parse.urljoin(article_url, html.unescape(candidate))
+        if not url.startswith("https://") or is_google_host(url):
+            continue
+        if any(word in url.lower() for word in BAD_IMAGE_WORDS):
+            continue
+        return url
     return None
 
 
@@ -863,19 +894,35 @@ def publish_story(item, label="📍 Новости"):
         notify_owner("Новость пропущена: не удалось подготовить проверенный подробный пересказ.\n" + display_title(item))
         return False
     images = article.get("images", []) + item.get("rss_images", [])
-    photo = get_real_photo(url, images)
+    reasons = []
+    photo = get_real_photo(url, images, reasons)
+    photo_url = get_photo_url(url, images)
     # Telegram photo captions are limited to 1024 characters; text messages allow up to 4096.
-    caption = build_caption(item, label, summary, url, max_length=1000 if photo else 4000)
+    caption = build_caption(item, label, summary, url, max_length=1000 if (photo or photo_url) else 4000)
     if photo:
         try:
             telegram_api("sendPhoto", {"chat_id": CHANNEL, "caption": caption, "parse_mode": "HTML"}, photo=photo)
             print("Published with article image:", display_title(item))
             return True
         except Exception as exc:
-            print(f"Photo send failed, text fallback: {exc}")
-            notify_owner(f"Не удалось отправить фото для новости: {display_title(item)}\nОшибка: {exc}")
+            print(f"Photo send failed: {exc}")
+            reasons.append(f"Telegram не принял файл: {exc}")
+    if photo_url:
+        try:
+            telegram_api("sendPhoto", {"chat_id": CHANNEL, "caption": caption, "parse_mode": "HTML", "photo": photo_url})
+            print("Published with image link:", display_title(item))
+            if reasons:
+                notify_owner("Фото прикрепил по прямой ссылке, своя проверка не прошла:\n" + "\n".join(reasons[:3]), icon="📷")
+            return True
+        except Exception as exc:
+            print(f"Photo by URL failed: {exc}")
+            reasons.append(f"Telegram не принял ссылку на фото: {exc}")
     send_text(caption)
     print("Published text-only:", display_title(item))
+    notify_owner(
+        "Новость вышла без фото: " + display_title(item) + "\nПричины:\n" + "\n".join(reasons[:5] or ["картинка на странице не найдена"]),
+        icon="📷",
+    )
     return True
 
 
@@ -943,6 +990,19 @@ def maybe_notify_no_news(state):
         return
     state["last_no_news_notice"] = now
     notify_owner("Новых новостей пока нет. Бот работает, источники проверяются.", icon="💤")
+
+
+def maybe_notify_empty_sources(state):
+    """Если ни один сайт не отдал новостей, говорим об этом (не чаще раза в 3 часа), а не молчим."""
+    now = time.time()
+    if now - float(state.get("last_empty_notice", 0)) < 3 * 3600:
+        return
+    state["last_empty_notice"] = now
+    notify_owner(
+        "Ни один источник не отдал новости. Возможно, адреса сайтов в SOURCES неверные "
+        "или сайты не открываются с серверов GitHub.",
+        icon="❗",
+    )
 
 
 def process_news_queue(state, news):
@@ -1025,6 +1085,9 @@ def main():
         news = []
         print(f"Could not fetch local news: {exc}")
         notify_owner(f"Не удалось загрузить новости с местных сайтов: {exc}")
+
+    if not news:
+        maybe_notify_empty_sources(state)
 
     manual = os.getenv("GITHUB_EVENT_NAME") == "workflow_dispatch"
     if now_local().hour >= 9 or manual:
