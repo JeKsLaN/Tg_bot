@@ -38,6 +38,10 @@ try:
     MAX_NATIONAL_PER_DAY = int(os.getenv("MAX_NATIONAL_PER_DAY", "3") or 3)
 except ValueError:
     MAX_NATIONAL_PER_DAY = 3
+try:
+    MAX_NOVOSIBIRSK_PER_DAY = int(os.getenv("MAX_NOVOSIBIRSK_PER_DAY", "5") or 5)
+except ValueError:
+    MAX_NOVOSIBIRSK_PER_DAY = 5
 STATE_FILE = "bot_state.json"
 SOURCE_STATS = {}  # сколько новостей отдал каждый источник в этом запуске
 LAST_RESOLVE_ERROR = ""  # почему не открылась последняя статья
@@ -53,25 +57,13 @@ GOOGLE_HOSTS = ("news.google.com", "google.com", "gstatic.com", "googleuserconte
 # the bot reads article links from the publisher's own news page.
 SOURCES = [
     {
-        "location": "kupino",
-        "name": "Городская газета Купино",
-        "page": "https://kupino-gazeta.ru/",
-        "feeds": ["https://kupino-gazeta.ru/feed/"],
-        "domains": ["kupino-gazeta.ru"],
-    },
-    {
-        "location": "kupino",
-        "name": "Маяк Кулунды",
-        "page": "https://mkkupino.ru/",
-        "feeds": ["https://mkkupino.ru/feed/"],
-        "domains": ["mkkupino.ru"],
-    },
-    {
+        # Лента АиФ-Новосибирск: проверено, отдаёт свежие новости с полным текстом.
+        # Купино и область попадают сюда через фильтр по ключевым словам.
         "location": "novosibirsk",
-        "name": "Новосибирские новости",
-        "page": "https://nsknews.info/",
-        "feeds": ["https://nsknews.info/rss/", "https://nsknews.info/feed/"],
-        "domains": ["nsknews.info"],
+        "name": "АиФ-Новосибирск",
+        "page": "https://nsk.aif.ru/news",
+        "feeds": ["https://nsk.aif.ru/rss/all.php"],
+        "domains": ["nsk.aif.ru"],
     },
     {
         "location": "russia",
@@ -82,6 +74,7 @@ SOURCES = [
     },
 ]
 # Источники, которые уже были в боте раньше: их текущие публикации считаются «уже виденными».
+DAILY_LIMITS = {"russia": MAX_NATIONAL_PER_DAY, "novosibirsk": MAX_NOVOSIBIRSK_PER_DAY}
 LEGACY_SOURCES = ["Городская газета Купино", "Маяк Кулунды", "Новосибирские новости", "Официальный сайт Новосибирска"]
 
 # Для новостей Новосибирска берём только происшествия и всё, что связано с Купино/областью.
@@ -383,12 +376,14 @@ def allowed_source_url(url, domains):
     return bool(host) and any(host == domain or host.endswith("." + domain) for domain in domains)
 
 
-def make_news_item(source, title, link, description="", pub_date="", image_urls=None):
+def make_news_item(source, title, link, description="", pub_date="", image_urls=None, full_text=""):
     title = clean_text(title)
     link = urllib.parse.urljoin(source["page"], html.unescape((link or "").strip()))
     if not title or len(title) < 18 or not link.startswith("https://"):
         return None
     if not allowed_source_url(link, source["domains"]):
+        return None
+    if "erid=" in link.lower():  # рекламные материалы (маркировка erid)
         return None
     path = urllib.parse.urlparse(link).path.rstrip("/")
     page_path = urllib.parse.urlparse(source["page"]).path.rstrip("/")
@@ -411,6 +406,7 @@ def make_news_item(source, title, link, description="", pub_date="", image_urls=
         "source_url": source["page"],
         "allowed_domains": source["domains"],
         "rss_images": image_urls or [],
+        "full_text": clean_text(full_text)[:6000],
     }
 
 
@@ -433,7 +429,12 @@ def parse_feed_items(raw, source):
                 link = link_node.attrib.get("href", "")
         description = (node.findtext("description", default="") or node.findtext("{*}summary", default="") or node.findtext("{*}content", default=""))
         pub_date = (node.findtext("pubDate", default="") or node.findtext("{*}published", default="") or node.findtext("{*}updated", default=""))
-        item = make_news_item(source, title, link, description, pub_date)
+        full_text = node.findtext("{http://news.yandex.ru}full-text", default="") or ""
+        images = []
+        enclosure = node.find("enclosure")
+        if enclosure is not None and enclosure.attrib.get("url"):
+            images.append(enclosure.attrib["url"])
+        item = make_news_item(source, title, link, description, pub_date, images, full_text)
         if item:
             results.append(item)
     return results
@@ -946,8 +947,12 @@ def publish_fallback(item, label, reason):
 
 
 def publish_story(item, label="📍 Новости"):
-    url = resolve_article(item)
-    article = fetch_article(item, url)
+    if len(item.get("full_text", "")) >= 150:
+        # Полный текст уже пришёл в ленте: страницу открывать не нужно (и блокировки не страшны).
+        article = {"valid": True, "url": item["link"], "text": item["full_text"], "images": item.get("rss_images", []), "reason": ""}
+    else:
+        url = resolve_article(item)
+        article = fetch_article(item, url)
     if not article.get("valid"):
         reason = article.get("reason", "неизвестно")
         print(f"Article not verified, publishing short version: {display_title(item)} — {reason}")
@@ -1030,6 +1035,8 @@ def news_label(item):
     location = item.get("location")
     if location == "russia":
         return "🗞 Главное по стране"
+    if "купин" in (item.get("title", "") + " " + item.get("description", "")).lower():
+        return "🚨 Происшествие · Купино" if is_incident(item) else "📍 Купино и Купинский район"
     if is_incident(item):
         return "🚨 Происшествие · Купино" if location == "kupino" else "🚨 Происшествие · Новосибирск"
     return "📍 Купино и Купинский район" if location == "kupino" else "📍 Новосибирск"
@@ -1125,15 +1132,18 @@ def process_news_queue(state, news):
             mark_seen(item, state)
             print(f"Filtered out (not on topic): {item['title']}")
             continue
-        if item.get("location") == "russia":
+        loc = item.get("location")
+        if loc in DAILY_LIMITS:
             today = now_local().date().isoformat()
-            if state.get("national_day") != today:
-                state["national_day"], state["national_count"] = today, 0
-            if state["national_count"] >= MAX_NATIONAL_PER_DAY:
+            counts = state.setdefault("daily_counts", {})
+            if counts.get("date") != today:
+                counts.clear()
+                counts["date"] = today
+            if counts.get(loc, 0) >= DAILY_LIMITS[loc]:
                 mark_seen(item, state)
-                print(f"National daily limit reached, skipped: {item['title']}")
+                print(f"Daily limit for {loc} reached, skipped: {item['title']}")
                 continue
-            state["national_count"] += 1
+            counts[loc] = counts.get(loc, 0) + 1
         item["detected_at"] = now
         item["publish_after"] = now + random.randint(300, 480)  # через 5–8 минут после находки
         pending.append(item)
