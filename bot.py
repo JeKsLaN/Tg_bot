@@ -4,6 +4,7 @@ import json
 import time
 import html
 import hashlib
+import random
 import difflib
 import urllib.parse
 import urllib.request
@@ -32,7 +33,14 @@ try:
     NO_NEWS_NOTICE_HOURS = float(os.getenv("NO_NEWS_NOTICE_HOURS", "3") or 3)
 except ValueError:
     NO_NEWS_NOTICE_HOURS = 3.0
+# Сколько новостей страны/мира публиковать в сутки (можно поменять переменной MAX_NATIONAL_PER_DAY).
+try:
+    MAX_NATIONAL_PER_DAY = int(os.getenv("MAX_NATIONAL_PER_DAY", "3") or 3)
+except ValueError:
+    MAX_NATIONAL_PER_DAY = 3
 STATE_FILE = "bot_state.json"
+SOURCE_STATS = {}  # сколько новостей отдал каждый источник в этом запуске
+LAST_RESOLVE_ERROR = ""  # почему не открылась последняя статья
 LOCAL_TZ = timezone(timedelta(hours=7))
 KUPINO_LAT, KUPINO_LON = 54.366, 77.298
 USER_AGENT = (
@@ -66,13 +74,27 @@ SOURCES = [
         "domains": ["nsknews.info"],
     },
     {
-        "location": "novosibirsk",
-        "name": "Официальный сайт Новосибирска",
-        "page": "https://www.novo-sibirsk.ru/news/",
-        "feeds": [],
-        "domains": ["novo-sibirsk.ru"],
+        "location": "russia",
+        "name": "Интерфакс",
+        "page": "https://www.interfax.ru/news/",
+        "feeds": ["https://www.interfax.ru/rss.asp"],
+        "domains": ["interfax.ru"],
     },
 ]
+# Источники, которые уже были в боте раньше: их текущие публикации считаются «уже виденными».
+LEGACY_SOURCES = ["Городская газета Купино", "Маяк Кулунды", "Новосибирские новости", "Официальный сайт Новосибирска"]
+
+# Для новостей Новосибирска берём только происшествия и всё, что связано с Купино/областью.
+LOCAL_KEYWORDS = ("купин", "новосибирской области", "новосибирская область")
+# Для новостей страны и мира берём только важные «институциональные» темы (законы, запреты, экономика, связь).
+NATIONAL_KEYWORDS = (
+    "госдум", "совет федерации", "правительств", "закон", "запрет", "запрещ", "ограничен",
+    "роскомнадзор", "блокиров", "мессенджер", "телеграм", "telegram", "whatsapp", "ватсап",
+    "интернет", "мобильн", "связь", "налог", "тариф", "пенси", "ключев", "инфляц",
+    "курс доллара", "курс евро", "бензин", "минфин", "центробанк", "банк россии",
+)
+# Заголовки с этими словами бот не публикует.
+BLOCKED_TITLE_WORDS = ("афиша",)
 INCIDENT_WORDS = (
     "взрыв", "взорвал", "пожар", "горит", "загорел", "дтп", "авари",
     "происшеств", "погиб", "пострадал", "ранен", "обруш", "эвакуац",
@@ -140,6 +162,12 @@ def load_state():
     state.setdefault("source_baseline_done", False)
     state.setdefault("last_no_news_notice", 0)
     state.setdefault("last_empty_notice", 0)
+    state.setdefault("last_dead_notice", 0)
+    state.setdefault("national_day", "")
+    state.setdefault("national_count", 0)
+    if "baselined_sources" not in state:
+        # старое состояние: считаем уже известные источники «прочитанными»
+        state["baselined_sources"] = list(LEGACY_SOURCES) if state.get("source_baseline_done") else []
     return state
 
 
@@ -451,7 +479,9 @@ def fetch_source(source):
 def get_all_news():
     found = []
     for source in SOURCES:
-        found.extend(fetch_source(source))
+        items = fetch_source(source)
+        SOURCE_STATS[source["name"]] = len(items)
+        found.extend(items)
     unique = []
     for item in found:
         if not any(item["location"] == old["location"] and same_story(item["title"], [old["title"]]) for old in unique):
@@ -474,6 +504,19 @@ def is_local_story(item, location):
         return False
     domains = item.get("allowed_domains", [])
     return bool(domains) and allowed_source_url(item.get("link", ""), domains)
+
+def passes_topic_filter(item):
+    """Что вообще годится для канала. Купино — всё; Новосибирск — происшествия и область; страна — важные темы."""
+    text = (item.get("title", "") + " " + item.get("description", "")).lower().replace("ё", "е")
+    location = item.get("location")
+    if location == "kupino":
+        return True
+    if location == "novosibirsk":
+        return is_incident(item) or any(k in text for k in LOCAL_KEYWORDS) or bool(re.search(r"\bнсо\b", text))
+    if location == "russia":
+        return any(k in text for k in NATIONAL_KEYWORDS)
+    return True
+
 
 def is_incident(item):
     text = (item["title"] + " " + item["description"]).lower()
@@ -617,17 +660,25 @@ def get_weather():
 # -------------------------
 def resolve_article(item):
     """Accept only the original article on the configured publisher domain."""
+    global LAST_RESOLVE_ERROR
+    LAST_RESOLVE_ERROR = ""
     original = item.get("link", "").strip()
     domains = item.get("allowed_domains", [])
     if not original.startswith("https://") or not allowed_source_url(original, domains):
+        LAST_RESOLVE_ERROR = "ссылка не https или ведёт не на сайт источника"
         return ""
     try:
         _, final_url, content_type = request(original, timeout=20)
-        if not allowed_source_url(final_url, domains) or "html" not in content_type.lower():
+        if not allowed_source_url(final_url, domains):
+            LAST_RESOLVE_ERROR = f"сайт перенаправил на другой адрес: {host_of(final_url)}"
+            return ""
+        if "html" not in content_type.lower():
+            LAST_RESOLVE_ERROR = f"сайт вернул не страницу статьи ({content_type[:30]})"
             return ""
         return final_url
     except Exception as exc:
-        print(f"Article URL check failed: {exc}")
+        LAST_RESOLVE_ERROR = f"{type(exc).__name__}: {exc}"[:160]
+        print(f"Article URL check failed: {LAST_RESOLVE_ERROR}")
         return ""
 
 def fetch_article(item, article_url):
@@ -681,7 +732,7 @@ def summary_prompt(title, source_text):
         "Если относится — сделай подробный, но компактный пересказ в 3–5 содержательных предложениях без повторения заголовка. "
         "Раздели текст на 2 абзаца пустой строкой, если в источнике хватает фактов. "
         "Сохраняй точное время/дату события, число погибших и пострадавших, место, последствия и статус информации только если они прямо указаны. "
-        "Не путай время публикации со временем события. Не включай меню сайта, контакты, рекламу и подписи редакции. "
+        "Пиши нейтрально: без оценок, эмоций и своих выводов, только факты из текста. Не путай время публикации со временем события. Не включай меню сайта, контакты, рекламу и подписи редакции. "
         "Верни ТОЛЬКО JSON вида {\"relevant\": true, \"summary\": \"...\"}.\n\n"
         f"Заголовок новости: {title}\n\nТекст проверенной статьи:\n{source_text[:9000]}"
     )
@@ -876,23 +927,36 @@ def build_caption(item, label, summary, url, max_length=4096):
     return caption
 
 
+def publish_fallback(item, label, reason):
+    """Статья не открылась: публикуем короткую версию (заголовок + описание из ленты + ссылка)."""
+    link = item.get("link", "")
+    if not link.startswith("https://") or not allowed_source_url(link, item.get("allowed_domains", [])):
+        notify_owner("Новость пропущена: ссылка не ведёт на сайт источника.\n" + display_title(item))
+        return False
+    description = clean_summary(item.get("description", ""))[:500]
+    if len(description) < 20:
+        description = ""
+    send_text(build_caption(item, label, description, link, max_length=4000))
+    print("Published short version:", display_title(item))
+    notify_owner(
+        f"Статья не открылась ({reason}), вышла короткая версия: заголовок и ссылка.\n{display_title(item)}",
+        icon="ℹ️",
+    )
+    return True
+
+
 def publish_story(item, label="📍 Новости"):
     url = resolve_article(item)
     article = fetch_article(item, url)
     if not article.get("valid"):
         reason = article.get("reason", "неизвестно")
-        notify_owner(
-            "Новость пропущена: не удалось подтвердить соответствие заголовка и текста статьи.\n"
-            f"Заголовок: {display_title(item)}\nПричина: {reason}\nСсылка: {item.get('link', url)}"
-        )
-        print(f"Skipped unverified article: {display_title(item)} — {reason}")
-        return False
+        print(f"Article not verified, publishing short version: {display_title(item)} — {reason}")
+        return publish_fallback(item, label, reason)
 
     url = article["url"]
     summary, summary_ok = make_summary(item, article)
     if not summary_ok or len(clean_text(summary)) < 80:
-        notify_owner("Новость пропущена: не удалось подготовить проверенный подробный пересказ.\n" + display_title(item))
-        return False
+        return publish_fallback(item, label, "не удалось сделать пересказ")
     images = article.get("images", []) + item.get("rss_images", [])
     reasons = []
     photo = get_real_photo(url, images, reasons)
@@ -964,6 +1028,8 @@ def daily_weather(state):
 
 def news_label(item):
     location = item.get("location")
+    if location == "russia":
+        return "🗞 Главное по стране"
     if is_incident(item):
         return "🚨 Происшествие · Купино" if location == "kupino" else "🚨 Происшествие · Новосибирск"
     return "📍 Купино и Купинский район" if location == "kupino" else "📍 Новосибирск"
@@ -971,25 +1037,33 @@ def news_label(item):
 
 def notify_found(items):
     """Триггер «новость найдена, в обработке»: одно сообщение владельцу за запуск."""
-    publish_time = fmt_time(time.time() + 900)
     lines = ["Новость найдена, в обработке."]
     for item in items[:5]:
-        lines.append(f"\n• {display_title(item)}\n  {item.get('source_name', '')}\n  {item.get('link', '')}")
+        when = fmt_time(item.get("publish_after", time.time() + 420))
+        lines.append(
+            f"\n• {display_title(item)}\n  {item.get('source_name', '')}\n  {item.get('link', '')}\n"
+            f"  Выйдет примерно в {when} (по Купино)."
+        )
     if len(items) > 5:
         lines.append(f"\nИ ещё {len(items) - 5}.")
-    lines.append(f"\nПроверка и публикация примерно в {publish_time} (по Купино).")
+    lines.append("\nGitHub может запустить бота с опозданием, тогда пост выйдет чуть позже.")
     notify_owner("\n".join(lines), icon="🔎")
 
 
-def maybe_notify_no_news(state):
-    """Триггер «новых новостей нет», не чаще, чем раз в NO_NEWS_NOTICE_HOURS часов."""
-    if NO_NEWS_NOTICE_HOURS <= 0:
+def maybe_notify_dead_sources(state):
+    """Говорит, какие именно сайты не отдают новости (не чаще раза в сутки)."""
+    dead = [name for name, count in SOURCE_STATS.items() if count == 0]
+    if not dead:
         return
     now = time.time()
-    if now - float(state.get("last_no_news_notice", 0)) < NO_NEWS_NOTICE_HOURS * 3600:
+    if now - float(state.get("last_dead_notice", 0)) < 24 * 3600:
         return
-    state["last_no_news_notice"] = now
-    notify_owner("Новых новостей пока нет. Бот работает, источники проверяются.", icon="💤")
+    state["last_dead_notice"] = now
+    notify_owner(
+        "Эти источники сейчас не отдали ни одной новости (сайт не открывается, закрыт для GitHub "
+        "или адрес неверный):\n• " + "\n• ".join(dead),
+        icon="❗",
+    )
 
 
 def maybe_notify_empty_sources(state):
@@ -1017,10 +1091,25 @@ def process_news_queue(state, news):
             for item in news:
                 mark_seen(item, state)
             state["source_baseline_done"] = True
-            notify_owner("Источники новостей проверены. Запомнил текущие публикации; новые новости будут попадать в очередь и выходить после 15 минут проверки.", icon="✅")
+            state["baselined_sources"] = sorted(n for n, c in SOURCE_STATS.items() if c > 0)
+            notify_owner("Источники новостей проверены. Запомнил текущие публикации; новые новости будут попадать в очередь и выходить через 5–8 минут.", icon="✅")
         state["pending"] = pending
         save_state(state)
         return
+
+    # Новый источник: тихо запоминаем его текущие публикации, чтобы не выложить весь архив сразу.
+    baselined = set(state.get("baselined_sources", []))
+    added_sources = []
+    for name, count in SOURCE_STATS.items():
+        if count > 0 and name not in baselined:
+            for it in news:
+                if it.get("source_name") == name:
+                    mark_seen(it, state)
+            baselined.add(name)
+            added_sources.append(name)
+    state["baselined_sources"] = sorted(baselined)
+    if added_sources:
+        notify_owner("Подключён новый источник: " + ", ".join(added_sources) + ". Запомнил его текущие публикации, выходить будут только новые.", icon="➕")
 
     new_items = []
     for item in news:
@@ -1028,13 +1117,30 @@ def process_news_queue(state, news):
             continue
         if not is_local_story(item, item.get("location")):
             continue
+        if any(w in item["title"].lower() for w in BLOCKED_TITLE_WORDS):
+            mark_seen(item, state)
+            print(f"Blocked by title filter: {item['title']}")
+            continue
+        if not passes_topic_filter(item):
+            mark_seen(item, state)
+            print(f"Filtered out (not on topic): {item['title']}")
+            continue
+        if item.get("location") == "russia":
+            today = now_local().date().isoformat()
+            if state.get("national_day") != today:
+                state["national_day"], state["national_count"] = today, 0
+            if state["national_count"] >= MAX_NATIONAL_PER_DAY:
+                mark_seen(item, state)
+                print(f"National daily limit reached, skipped: {item['title']}")
+                continue
+            state["national_count"] += 1
         item["detected_at"] = now
-        item["publish_after"] = now + 900  # exactly 15 minutes from detection
+        item["publish_after"] = now + random.randint(300, 480)  # через 5–8 минут после находки
         pending.append(item)
         pending_ids.add(item["id"])
         mark_seen(item, state)
         new_items.append(item)
-        print(f"Queued for 15-minute review: {item['title']}")
+        print(f"Queued for publication: {item['title']}")
 
     if new_items:
         notify_found(new_items)
@@ -1044,17 +1150,12 @@ def process_news_queue(state, news):
     for item in pending:
         if was_posted(item, state):
             continue
-        publish_after = float(item.get("publish_after", now + 900))
+        publish_after = float(item.get("publish_after", now + 300))
         if now < publish_after:
             remaining.append(item)
             continue
         handled += 1
         try:
-            # Resolve and validate the same publisher article again after waiting.
-            article_url = resolve_article(item)
-            if not article_url:
-                notify_owner("Новость пропущена: не удалось подтвердить прямую ссылку на исходную статью.\n" + display_title(item) + "\n" + item.get("link", ""))
-                continue
             if retraction_confirmed(item):
                 notify_owner("Новость пропущена: в статье обнаружено опровержение.\n" + display_title(item))
                 continue
@@ -1088,6 +1189,8 @@ def main():
 
     if not news:
         maybe_notify_empty_sources(state)
+    else:
+        maybe_notify_dead_sources(state)
 
     manual = os.getenv("GITHUB_EVENT_NAME") == "workflow_dispatch"
     if now_local().hour >= 9 or manual:
