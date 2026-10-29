@@ -1,22 +1,73 @@
-name: daily-post
+name: Local News Bot
 
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
+concurrency:
+  group: local-news-bot
+  cancel-in-progress: false
+
 jobs:
-  post:
+  publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
       - name: Install dependencies
-        run: pip install google-genai
+        run: |
+          set -e
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
       - name: Run bot
-        run: python3 bot.py
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           CHANNEL: ${{ secrets.CHANNEL }}
           OWNER_CHAT_ID: ${{ secrets.OWNER_CHAT_ID }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PUBLISH: ${{ vars.PUBLISH }}
+        run: |
+          set -e
+          python bot.py
+
+      - name: Save news history
+        if: always() && github.ref_type == 'branch'
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          set -e
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [ -f bot_state.json ]; then
+            git add -- bot_state.json
+
+            if ! git diff --cached --quiet; then
+              git commit -m "Update news bot state"
+              git pull --rebase --autostash origin "$BRANCH_NAME"
+              git push origin "HEAD:${BRANCH_NAME}"
+            else
+              echo "News history has no changes."
+            fi
+          else
+            echo "bot_state.json does not exist; skipping state commit."
+          fi
