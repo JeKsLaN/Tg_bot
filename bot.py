@@ -1057,6 +1057,17 @@ def notify_found(items):
     notify_owner("\n".join(lines), icon="🔎")
 
 
+def maybe_notify_no_news(state):
+    """Триггер «новых новостей нет», не чаще, чем раз в NO_NEWS_NOTICE_HOURS часов."""
+    if NO_NEWS_NOTICE_HOURS <= 0:
+        return
+    now = time.time()
+    if now - float(state.get("last_no_news_notice", 0)) < NO_NEWS_NOTICE_HOURS * 3600:
+        return
+    state["last_no_news_notice"] = now
+    notify_owner("Новых новостей пока нет. Бот работает, источники проверяются.", icon="💤")
+
+
 def maybe_notify_dead_sources(state):
     """Говорит, какие именно сайты не отдают новости (не чаще раза в сутки)."""
     dead = [name for name, count in SOURCE_STATS.items() if count == 0]
