@@ -57,6 +57,27 @@ GOOGLE_HOSTS = ("news.google.com", "google.com", "gstatic.com", "googleuserconte
 # the bot reads article links from the publisher's own news page.
 SOURCES = [
     {
+        # Горсайт (ОТС): страница «Новости Купино и Купинского района». Проверено: открывается, список новостей
+        # лежит в заголовках h5; боковые колонки отсекаются.
+        "location": "kupino",
+        "name": "Горсайт: Купино",
+        "page": "https://gorsite.ru/regions/kupino/",
+        "feeds": [],
+        "domains": ["gorsite.ru"],
+        "heading_tag": "h5",
+        "page_limit": 10,
+        "link_pattern": r"^/news/[a-z0-9_\-]+/[a-z0-9_\-]{12,}/?$",
+    },
+    {
+        # Районная газета «Маяк Кулунды». Сайт существует, но с серверов GitHub новостей не отдавал:
+        # если и дальше будет молчать, бот напишет об этом раз в сутки.
+        "location": "kupino",
+        "name": "Маяк Кулунды",
+        "page": "https://mkkupino.ru/",
+        "feeds": ["https://mkkupino.ru/feed/", "https://mkkupino.ru/category/inform/feed/"],
+        "domains": ["mkkupino.ru"],
+    },
+    {
         # Лента АиФ-Новосибирск: проверено, отдаёт свежие новости с полным текстом.
         # Купино и область попадают сюда через фильтр по ключевым словам.
         "location": "novosibirsk",
@@ -74,7 +95,17 @@ SOURCES = [
     },
 ]
 # Источники, которые уже были в боте раньше: их текущие публикации считаются «уже виденными».
-DAILY_LIMITS = {"russia": MAX_NATIONAL_PER_DAY, "novosibirsk": MAX_NOVOSIBIRSK_PER_DAY}
+DAILY_LIMITS = {"novosibirsk": MAX_NOVOSIBIRSK_PER_DAY}
+# Новости страны и мира выходят не чаще одной в «окно»: утреннее и вечернее (часы по Купино).
+NATIONAL_SLOTS = (9, 18)
+
+
+def current_national_slot():
+    slot = None
+    for h in NATIONAL_SLOTS:
+        if now_local().hour >= h:
+            slot = h
+    return slot
 LEGACY_SOURCES = ["Городская газета Купино", "Маяк Кулунды", "Новосибирские новости", "Официальный сайт Новосибирска"]
 
 # Для новостей Новосибирска берём только происшествия и всё, что связано с Купино/областью.
@@ -282,6 +313,9 @@ class ArticleParser(HTMLParser):
         self.title_parts = []
         self.anchor_href = None
         self.anchor_parts = []
+        self.heading_stack = []
+        self.anchor_heading = None
+        self.heading_anchors = []  # (тег заголовка, ссылка, текст)
 
     def handle_starttag(self, tag, attrs):
         tag = tag.lower()
@@ -291,6 +325,8 @@ class ArticleParser(HTMLParser):
             return
         if self.skip_depth:
             return
+        if tag in ("h1", "h2", "h3", "h4", "h5", "h6"):
+            self.heading_stack.append(tag)
         if tag == "article":
             self.article_depth += 1
         elif tag == "main":
@@ -322,6 +358,7 @@ class ArticleParser(HTMLParser):
         elif tag == "a":
             self.anchor_href = attrs.get("href")
             self.anchor_parts = []
+            self.anchor_heading = self.heading_stack[-1] if self.heading_stack else None
 
     def handle_endtag(self, tag):
         tag = tag.lower()
@@ -331,6 +368,8 @@ class ArticleParser(HTMLParser):
             return
         if self.skip_depth:
             return
+        if tag in ("h1", "h2", "h3", "h4", "h5", "h6") and self.heading_stack:
+            self.heading_stack.pop()
         if tag == "article" and self.article_depth:
             self.article_depth -= 1
         elif tag == "main" and self.main_depth:
@@ -346,9 +385,13 @@ class ArticleParser(HTMLParser):
                 self.meta_title = clean_text(" ".join(self.title_parts))
             self.in_title = False
         elif tag == "a" and self.anchor_href:
-            self.anchors.append((self.anchor_href, clean_text(" ".join(self.anchor_parts))))
+            text = clean_text(" ".join(self.anchor_parts))
+            self.anchors.append((self.anchor_href, text))
+            if self.anchor_heading:
+                self.heading_anchors.append((self.anchor_heading, self.anchor_href, text))
             self.anchor_href = None
             self.anchor_parts = []
+            self.anchor_heading = None
 
     def handle_data(self, data):
         if self.skip_depth:
@@ -391,6 +434,8 @@ def make_news_item(source, title, link, description="", pub_date="", image_urls=
         return None
     blocked = ("/category/", "/tag/", "/author/", "/page/", "/wp-content/", "/wp-json/", "/search/", "/feed/")
     if any(part in path.lower() for part in blocked):
+        return None
+    if source.get("link_pattern") and not re.search(source["link_pattern"], path):
         return None
     low_title = title.lower()
     if low_title in {"новости", "все новости", "читать далее", "подробнее", "далее", "главная"}:
@@ -462,13 +507,19 @@ def fetch_source(source):
         parser.feed(raw.decode("utf-8", errors="ignore"))
         items = []
         seen_links = set()
-        for href, anchor_text in parser.anchors:
+        if source.get("heading_tag"):
+            # Берём только ссылки из заголовков нужного уровня: так отсекаются боковые колонки и меню.
+            candidates = [(h, t) for tag, h, t in parser.heading_anchors if tag == source["heading_tag"]]
+        else:
+            candidates = parser.anchors
+        limit = int(source.get("page_limit", 12))
+        for href, anchor_text in candidates:
             item = make_news_item(source, anchor_text, urllib.parse.urljoin(final_url, html.unescape(href)))
             if not item or item["link"] in seen_links:
                 continue
             seen_links.add(item["link"])
             items.append(item)
-            if len(items) >= 12:
+            if len(items) >= limit:
                 break
         print(f"Loaded {len(items)} direct page links from {source['page']}")
         return items
@@ -1144,6 +1195,17 @@ def process_news_queue(state, news):
             print(f"Filtered out (not on topic): {item['title']}")
             continue
         loc = item.get("location")
+        if loc == "russia":
+            slot = current_national_slot()
+            today = now_local().date().isoformat()
+            counts = state.setdefault("daily_counts", {})
+            if counts.get("date") != today:
+                counts.clear()
+                counts["date"] = today
+            used = counts.setdefault("national_slots", [])
+            if slot is None or slot in used:
+                continue  # не помечаем как «виденную»: подберём свежую в следующем окне
+            used.append(slot)
         if loc in DAILY_LIMITS:
             today = now_local().date().isoformat()
             counts = state.setdefault("daily_counts", {})
