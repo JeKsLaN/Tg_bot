@@ -1679,6 +1679,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793475324.6847775
+    },
+    {
+      "id": "d5b4c1c7f6c24058d5deb614",
+      "location": "russia",
+      "title": "Пожар на площади свыше 2 тыс. кв. м тушат в торговом центре в Ленобласти",
+      "description": "Возгорание ликвидируют в торговом центре во Всеволожске Ленинградской области в субботу, сообщила пресс-служба регионального управления МЧС.",
+      "link": "https://www.interfax.ru/russia/1126343",
+      "pub_date": "Sat, 31 Oct 2026 22:44:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793477346.7658758
     }
   ]
 }
