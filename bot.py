@@ -33,11 +33,7 @@ try:
     NO_NEWS_NOTICE_HOURS = float(os.getenv("NO_NEWS_NOTICE_HOURS", "3") or 3)
 except ValueError:
     NO_NEWS_NOTICE_HOURS = 3.0
-# Сколько новостей страны/мира публиковать в сутки (можно поменять переменной MAX_NATIONAL_PER_DAY).
-try:
-    MAX_NATIONAL_PER_DAY = int(os.getenv("MAX_NATIONAL_PER_DAY", "3") or 3)
-except ValueError:
-    MAX_NATIONAL_PER_DAY = 3
+# Сколько происшествий по Новосибирску публиковать в сутки (можно поменять переменной MAX_NOVOSIBIRSK_PER_DAY).
 try:
     MAX_NOVOSIBIRSK_PER_DAY = int(os.getenv("MAX_NOVOSIBIRSK_PER_DAY", "5") or 5)
 except ValueError:
@@ -87,17 +83,20 @@ SOURCES = [
         "domains": ["nsk.aif.ru"],
     },
     {
+        # Главные новости страны и мира. Берём побольше записей из ленты (feed_limit),
+        # а самую масштабную за день выбирает pick_national_story().
         "location": "russia",
         "name": "Интерфакс",
         "page": "https://www.interfax.ru/news/",
         "feeds": ["https://www.interfax.ru/rss.asp"],
         "domains": ["interfax.ru"],
+        "feed_limit": 40,
     },
 ]
 # Источники, которые уже были в боте раньше: их текущие публикации считаются «уже виденными».
 DAILY_LIMITS = {"novosibirsk": MAX_NOVOSIBIRSK_PER_DAY}
-# Новости страны и мира выходят не чаще одной в «окно»: утреннее и вечернее (часы по Купино).
-NATIONAL_SLOTS = (9, 18)
+# Главная новость страны и мира выходит ОДИН раз в сутки: после этого часа по Купино.
+NATIONAL_SLOTS = (9,)
 
 
 def current_national_slot():
@@ -108,22 +107,21 @@ def current_national_slot():
     return slot
 LEGACY_SOURCES = ["Городская газета Купино", "Маяк Кулунды", "Новосибирские новости", "Официальный сайт Новосибирска"]
 
-# Для новостей Новосибирска берём только происшествия и всё, что связано с Купино/областью.
-LOCAL_KEYWORDS = ("купин", "новосибирской области", "новосибирская область")
-# Для новостей страны и мира берём только важные «институциональные» темы (законы, запреты, экономика, связь).
-NATIONAL_KEYWORDS = (
-    "госдум", "совет федерации", "правительств", "закон", "запрет", "запрещ", "ограничен",
-    "роскомнадзор", "блокиров", "мессенджер", "телеграм", "telegram", "whatsapp", "ватсап",
-    "интернет", "мобильн", "связь", "налог", "тариф", "пенси", "ключев", "инфляц",
-    "курс доллара", "курс евро", "бензин", "минфин", "центробанк", "банк россии",
-)
 # Заголовки с этими словами бот не публикует.
 BLOCKED_TITLE_WORDS = ("афиша",)
+# По Купино и Новосибирску публикуются ТОЛЬКО новости, где есть хотя бы одно из этих слов (ДТП, пожары и т. д.).
 INCIDENT_WORDS = (
-    "взрыв", "взорвал", "пожар", "горит", "загорел", "дтп", "авари",
-    "происшеств", "погиб", "пострадал", "ранен", "обруш", "эвакуац",
-    "пропал", "розыск", "перекрыли", "отключение", "отравлен",
-    "нападение", "стрельба", "разлив", "утечка газа", "без вести",
+    "взрыв", "взорвал", "пожар", "возгоран", "горит", "загорел", "дтп", "авари",
+    "столкнул", "сбил", "происшеств", "погиб", "пострадал", "ранен", "обруш",
+    "эвакуац", "пропал", "розыск", "утонул", "мчс", "спасател",
+    "отравлен", "нападение", "стрельба", "разлив", "утечка газа", "без вести",
+    "убит", "убийств", "ограблен", "задержан",
+)
+# Если в такой новости нет слов из INCIDENT_WORDS, запасной вариант выбора главной новости использует эти слова.
+WORLD_WORDS = (
+    "путин", "трамп", "зеленск", "сша", "китай", "войн", "переговор", "саммит", "удар",
+    "взрыв", "землетряс", "катастроф", "ядерн", "санкци", "президент", "нато", "оон",
+    "мобилизац", "наводнен", "теракт", "ракет", "пожар",
 )
 RETRACTION_WORDS = (
     "информация не подтвердилась", "сообщение не подтвердилось",
@@ -189,6 +187,7 @@ def load_state():
     state.setdefault("last_dead_notice", 0)
     state.setdefault("national_day", "")
     state.setdefault("national_count", 0)
+    state.setdefault("national_pool", [])
     if "baselined_sources" not in state:
         # старое состояние: считаем уже известные источники «прочитанными»
         state["baselined_sources"] = list(LEGACY_SOURCES) if state.get("source_baseline_done") else []
@@ -201,6 +200,7 @@ def save_state(state):
     state["pending"] = state.get("pending", [])[-200:]
     state["seen"] = state.get("seen", [])[-2500:]
     state["seen_titles"] = state.get("seen_titles", [])[-1800:]
+    state["national_pool"] = state.get("national_pool", [])[-150:]
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
@@ -465,7 +465,7 @@ def parse_feed_items(raw, source):
     if not nodes:
         nodes = root.findall(".//{*}entry")
     results = []
-    for node in nodes[:12]:
+    for node in nodes[:int(source.get("feed_limit", 12))]:
         title = node.findtext("title", default="") or node.findtext("{*}title", default="")
         link = node.findtext("link", default="") or node.findtext("{*}link", default="")
         if not link:
@@ -558,20 +558,17 @@ def is_local_story(item, location):
     return bool(domains) and allowed_source_url(item.get("link", ""), domains)
 
 def passes_topic_filter(item):
-    """Что вообще годится для канала. Купино — всё; Новосибирск — происшествия и область; страна — важные темы."""
-    text = (item.get("title", "") + " " + item.get("description", "")).lower().replace("ё", "е")
+    """Что годится для канала.
+    Купино и Новосибирск: ТОЛЬКО происшествия (ДТП, пожары и т. д.).
+    Страна и мир: одну главную новость в сутки выбирает pick_national_story(), поэтому здесь без ограничений."""
     location = item.get("location")
-    if location == "kupino":
-        return True
-    if location == "novosibirsk":
-        return is_incident(item) or any(k in text for k in LOCAL_KEYWORDS) or bool(re.search(r"\bнсо\b", text))
-    if location == "russia":
-        return any(k in text for k in NATIONAL_KEYWORDS)
+    if location in ("kupino", "novosibirsk"):
+        return is_incident(item)
     return True
 
 
 def is_incident(item):
-    text = (item["title"] + " " + item["description"]).lower()
+    text = (item["title"] + " " + item["description"]).lower().replace("ё", "е")
     return any(word in text for word in INCIDENT_WORDS)
 
 
@@ -869,6 +866,83 @@ def make_summary(item, article):
 
 
 # -------------------------
+# Главная новость дня (страна и мир): одна в сутки
+# -------------------------
+def national_slot_available(state):
+    """True, если главная новость сегодня ещё не выходила и пора её публиковать."""
+    slot = current_national_slot()
+    if slot is None:
+        return False
+    today = now_local().date().isoformat()
+    counts = state.setdefault("daily_counts", {})
+    if counts.get("date") != today:
+        counts.clear()
+        counts["date"] = today
+    return slot not in counts.setdefault("national_slots", [])
+
+
+def update_national_pool(state, news):
+    """Копим заголовки главных новостей в течение суток, чтобы выбрать самую масштабную."""
+    pool = state.setdefault("national_pool", [])
+    known = {p.get("id") for p in pool}
+    now = time.time()
+    for item in news:
+        if item.get("location") != "russia" or item["id"] in known:
+            continue
+        if was_seen(item, state) or was_posted(item, state):
+            continue
+        if any(w in item["title"].lower() for w in BLOCKED_TITLE_WORDS):
+            continue
+        entry = dict(item)
+        entry["pooled_at"] = now
+        pool.append(entry)
+        known.add(item["id"])
+    state["national_pool"] = [p for p in pool if now - p.get("pooled_at", now) < 36 * 3600][-150:]
+
+
+def pick_national_story(state, pending_ids):
+    """Один раз в сутки выбирает ОДНУ самую масштабную новость из накопленных."""
+    if not national_slot_available(state):
+        return None
+    all_pool = state.get("national_pool", [])
+    pool = [p for p in all_pool if p.get("id") not in pending_ids and not was_posted(p, state)][-100:]
+    if not pool:
+        return None
+    listing = "\n".join(f"{i}. {p['title']}" for i, p in enumerate(pool))
+    prompt = (
+        "Ты редактор новостного Telegram-канала. Из списка заголовков выбери ОДНУ самую масштабную, "
+        "значимую и обсуждаемую новость дня в мире или стране: крупные события, решения мировых лидеров, "
+        "войны и переговоры, катастрофы, события, затрагивающие миллионы людей. "
+        "Не выбирай мелкие, локальные, спортивные и шоу-бизнес новости, а также курсы валют и котировки. "
+        "Верни ТОЛЬКО JSON вида {\"index\": номер_заголовка}.\n\n" + listing
+    )
+    chosen = None
+    for provider, func in (("OpenAI", call_openai), ("Gemini", call_gemini)):
+        try:
+            result = func(prompt)
+            idx = int(result.get("index"))
+            if 0 <= idx < len(pool):
+                chosen = pool[idx]
+                print(f"Главная новость выбрана через {provider}: {chosen['title']}")
+                break
+        except Exception as exc:
+            print(f"Выбор главной новости, {provider}: {exc}")
+    if chosen is None:
+        # ИИ недоступен: берём заголовок с максимумом «масштабных» слов (при равенстве — самый свежий).
+        def score(i):
+            title = pool[i]["title"].lower().replace("ё", "е")
+            return (sum(w in title for w in WORLD_WORDS), i)
+        chosen = pool[max(range(len(pool)), key=score)]
+        print(f"Главная новость выбрана по ключевым словам: {chosen['title']}")
+    # Остальные кандидаты считаем просмотренными, чтобы завтра они не всплыли снова.
+    for p in all_pool:
+        if p.get("id") != chosen.get("id"):
+            mark_seen(p, state)
+    state["national_pool"] = []
+    return chosen
+
+
+# -------------------------
 # Photo and Telegram
 # -------------------------
 BAD_IMAGE_WORDS = ("favicon", "logo", "avatar", "icon", "sprite", "placeholder", "default-image")
@@ -1085,12 +1159,10 @@ def daily_weather(state):
 def news_label(item):
     location = item.get("location")
     if location == "russia":
-        return "🗞 Главное по стране"
+        return "🌍 Главная новость дня"
     if "купин" in (item.get("title", "") + " " + item.get("description", "")).lower():
-        return "🚨 Происшествие · Купино" if is_incident(item) else "📍 Купино и Купинский район"
-    if is_incident(item):
-        return "🚨 Происшествие · Купино" if location == "kupino" else "🚨 Происшествие · Новосибирск"
-    return "📍 Купино и Купинский район" if location == "kupino" else "📍 Новосибирск"
+        return "🚨 Происшествие · Купино"
+    return "🚨 Происшествие · Купино" if location == "kupino" else "🚨 Происшествие · Новосибирск"
 
 
 def notify_found(items):
@@ -1180,8 +1252,15 @@ def process_news_queue(state, news):
     if added_sources:
         notify_owner("Подключён новый источник: " + ", ".join(added_sources) + ". Запомнил его текущие публикации, выходить будут только новые.", icon="➕")
 
+    # Главная новость страны и мира: копим за день, раз в сутки выбираем ОДНУ.
+    update_national_pool(state, news)
+    national_pick = pick_national_story(state, pending_ids)
+    queue_news = [i for i in news if i.get("location") != "russia"]
+    if national_pick:
+        queue_news.append(national_pick)
+
     new_items = []
-    for item in news:
+    for item in queue_news:
         if was_seen(item, state) or was_posted(item, state) or item.get("id") in pending_ids:
             continue
         if not is_local_story(item, item.get("location")):
@@ -1192,7 +1271,7 @@ def process_news_queue(state, news):
             continue
         if not passes_topic_filter(item):
             mark_seen(item, state)
-            print(f"Filtered out (not on topic): {item['title']}")
+            print(f"Filtered out (not an incident): {item['title']}")
             continue
         loc = item.get("location")
         if loc == "russia":
@@ -1204,7 +1283,7 @@ def process_news_queue(state, news):
                 counts["date"] = today
             used = counts.setdefault("national_slots", [])
             if slot is None or slot in used:
-                continue  # не помечаем как «виденную»: подберём свежую в следующем окне
+                continue
             used.append(slot)
         if loc in DAILY_LIMITS:
             today = now_local().date().isoformat()
