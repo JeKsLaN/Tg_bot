@@ -2436,6 +2436,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793553007.9989548
+    },
+    {
+      "id": "6d17b8d00e66a7f526e0a919",
+      "location": "russia",
+      "title": "Что произошло за день: воскресенье, 1 ноября",
+      "description": "Ситуация с топливом в Нижегородской области после атаки БПЛА, задержание подростка, угрожавшего терактов в \"Царицыно\", рекомендация ЦОДД переходить на зимнюю резину",
+      "link": "https://www.interfax.ru/russia/1126416",
+      "pub_date": "Sun, 01 Nov 2026 20:30:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793554910.2853012
+    },
+    {
+      "id": "c23c5d286ce2631efd89c789",
+      "location": "russia",
+      "title": "В Уфе шесть человек пострадали в результате столкновения двух автобусов",
+      "description": "Прокуратура Башкирии начала проверку после ДТП в Уфе с участием пассажирского и служебного автобусов, в результате которого пострадали шесть человек, говорится в сообщении пресс-службы прокуратуры республики.",
+      "link": "https://www.interfax.ru/russia/1126415",
+      "pub_date": "Sun, 01 Nov 2026 20:08:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793554910.2853012
     }
   ]
 }
