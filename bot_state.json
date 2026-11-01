@@ -2372,6 +2372,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793546533.2160425
+    },
+    {
+      "id": "7b8263bf1d4bc0e470e55e6a",
+      "location": "russia",
+      "title": "ФСБ опубликовала видео задержания подростка, угрожавшего терактом в парке \"Царицыно\"",
+      "description": "ФСБ показала задержание несовершеннолетнего, угрожавшего терактом в столичном парке \"Царицыно\".",
+      "link": "https://www.interfax.ru/russia/1126412",
+      "pub_date": "Sun, 01 Nov 2026 19:03:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793550659.9909945
+    },
+    {
+      "id": "63af7eb66e254f6a80a52429",
+      "location": "russia",
+      "title": "Подозреваемого в похищении и убийстве семейной пары задержали в Ростове-на-Дону",
+      "description": "Уголовное дело по факту похищения и убийства двух человек возбудили в Ростове-на-Дону, сообщает пресс-служба СК РФ в воскресенье.\"Подозреваемый задержан.",
+      "link": "https://www.interfax.ru/russia/1126411",
+      "pub_date": "Sun, 01 Nov 2026 19:02:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793550659.9909945
     }
   ]
 }
