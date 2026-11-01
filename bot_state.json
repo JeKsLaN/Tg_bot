@@ -2580,6 +2580,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793564012.9001462
+    },
+    {
+      "id": "e6d6f145a203248ec81ba215",
+      "location": "russia",
+      "title": "Пять беспилотников уничтожены над Тульской областью",
+      "description": "Губернатор Тульской области Дмитрий Миляев сообщил в воскресенье о нейтрализации пяти БПЛА над регионом.",
+      "link": "https://www.interfax.ru/russia/1126426",
+      "pub_date": "Sun, 01 Nov 2026 23:26:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793566282.4285908
+    },
+    {
+      "id": "f843fc696550c9fb9324b2fc",
+      "location": "russia",
+      "title": "Почти 280 тыс. абонентов остаются без электроэнергии в Донецке",
+      "description": "Более четверти миллиона абонентов обесточены в Донецке, сообщил мэр города Алексей Кулемзин.\"Частично во всех районах Донецка обесточено 1890 трансформаторных подстанций\", - говорится в сообщении Кулемзина, распространенном в воскресенье его пресс-службой.",
+      "link": "https://www.interfax.ru/russia/1126425",
+      "pub_date": "Sun, 01 Nov 2026 23:19:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793566282.4285908
     }
   ]
 }
