@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 from io import BytesIO
 from datetime import datetime, timedelta, timezone
 from html.parser import HTMLParser
+from email.utils import parsedate_to_datetime
 
 try:
     from PIL import Image
@@ -38,6 +39,11 @@ try:
     MAX_NOVOSIBIRSK_PER_DAY = int(os.getenv("MAX_NOVOSIBIRSK_PER_DAY", "5") or 5)
 except ValueError:
     MAX_NOVOSIBIRSK_PER_DAY = 5
+# Новости старше этого возраста (в часах) бот не публикует, даже если раньше их не видел.
+try:
+    MAX_NEWS_AGE_HOURS = float(os.getenv("MAX_NEWS_AGE_HOURS", "24") or 24)
+except ValueError:
+    MAX_NEWS_AGE_HOURS = 24.0
 STATE_FILE = "bot_state.json"
 SOURCE_STATS = {}  # сколько новостей отдал каждый источник в этом запуске
 LAST_RESOLVE_ERROR = ""  # почему не открылась последняя статья
@@ -188,6 +194,7 @@ def load_state():
     state.setdefault("national_day", "")
     state.setdefault("national_count", 0)
     state.setdefault("national_pool", [])
+    state.setdefault("last_undated_notice", 0)
     if "baselined_sources" not in state:
         # старое состояние: считаем уже известные источники «прочитанными»
         state["baselined_sources"] = list(LEGACY_SOURCES) if state.get("source_baseline_done") else []
@@ -567,6 +574,75 @@ def passes_topic_filter(item):
     return True
 
 
+# -------------------------
+# Проверка свежести: старые публикации не выходят
+# -------------------------
+DATE_PATTERNS = (
+    r'property=["\'](?:article:published_time|og:article:published_time)["\'][^>]*content=["\']([^"\']+)',
+    r'content=["\']([^"\']+)["\'][^>]*property=["\'](?:article:published_time|og:article:published_time)["\']',
+    r'itemprop=["\']datePublished["\'][^>]*content=["\']([^"\']+)',
+    r'"datePublished"\s*:\s*"([^"]+)"',
+    r'<time[^>]*datetime=["\']([^"\']+)',
+)
+
+
+def parse_any_datetime(value):
+    """Дата из RSS (RFC 822) или ISO-формата -> unix-время. Если не получилось, None."""
+    value = (value or "").strip()
+    if not value:
+        return None
+    dt = None
+    try:
+        dt = parsedate_to_datetime(value)
+    except Exception:
+        dt = None
+    if dt is None:
+        try:
+            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        except Exception:
+            return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=LOCAL_TZ)
+    return dt.timestamp()
+
+
+def extract_published(raw_html):
+    """Ищет дату публикации в коде страницы статьи."""
+    for pattern in DATE_PATTERNS:
+        match = re.search(pattern, raw_html, re.I)
+        if match:
+            ts = parse_any_datetime(html.unescape(match.group(1)))
+            if ts:
+                return ts
+    return None
+
+
+def item_timestamp(item, fetch=True):
+    ts = parse_any_datetime(item.get("pub_date", ""))
+    if ts:
+        return ts
+    if not fetch:
+        return None
+    try:
+        raw, _, _ = request(item.get("link", ""), timeout=20)
+        ts = extract_published(raw.decode("utf-8", errors="ignore"))
+        if ts:
+            item["pub_date"] = datetime.fromtimestamp(ts, timezone.utc).isoformat()
+        return ts
+    except Exception as exc:
+        print(f"Date check failed for {item.get('link', '')}: {exc}")
+        return None
+
+
+def is_fresh(item, fetch=True):
+    """True: свежая. False: старая. None: дату определить не удалось (такую не публикуем)."""
+    ts = item_timestamp(item, fetch)
+    if ts is None:
+        return None
+    age = time.time() - ts
+    return -6 * 3600 <= age <= MAX_NEWS_AGE_HOURS * 3600
+
+
 def is_incident(item):
     text = (item["title"] + " " + item["description"]).lower().replace("ё", "е")
     return any(word in text for word in INCIDENT_WORDS)
@@ -893,6 +969,8 @@ def update_national_pool(state, news):
             continue
         if any(w in item["title"].lower() for w in BLOCKED_TITLE_WORDS):
             continue
+        if is_fresh(item, fetch=False) is not True:
+            continue
         entry = dict(item)
         entry["pooled_at"] = now
         pool.append(entry)
@@ -905,7 +983,10 @@ def pick_national_story(state, pending_ids):
     if not national_slot_available(state):
         return None
     all_pool = state.get("national_pool", [])
-    pool = [p for p in all_pool if p.get("id") not in pending_ids and not was_posted(p, state)][-100:]
+    pool = [
+        p for p in all_pool
+        if p.get("id") not in pending_ids and not was_posted(p, state) and is_fresh(p, fetch=False) is True
+    ][-100:]
     if not pool:
         return None
     listing = "\n".join(f"{i}. {p['title']}" for i, p in enumerate(pool))
@@ -1260,6 +1341,7 @@ def process_news_queue(state, news):
         queue_news.append(national_pick)
 
     new_items = []
+    undated = []
     for item in queue_news:
         if was_seen(item, state) or was_posted(item, state) or item.get("id") in pending_ids:
             continue
@@ -1273,6 +1355,14 @@ def process_news_queue(state, news):
             mark_seen(item, state)
             print(f"Filtered out (not an incident): {item['title']}")
             continue
+        if item.get("location") != "russia":
+            fresh = is_fresh(item)
+            if fresh is not True:
+                mark_seen(item, state)
+                if fresh is None:
+                    undated.append(item)
+                print(f"Skipped (old or undated): {item['title']}")
+                continue
         loc = item.get("location")
         if loc == "russia":
             slot = current_national_slot()
@@ -1303,6 +1393,14 @@ def process_news_queue(state, news):
         mark_seen(item, state)
         new_items.append(item)
         print(f"Queued for publication: {item['title']}")
+
+    if undated and now - float(state.get("last_undated_notice", 0)) > 24 * 3600:
+        state["last_undated_notice"] = now
+        notify_owner(
+            "Пропустил происшествия, у которых не удалось определить дату публикации "
+            "(чтобы не выложить старое):\n• " + "\n• ".join(f"{display_title(i)} ({i.get('source_name', '')})" for i in undated[:5]),
+            icon="🕓",
+        )
 
     if new_items:
         notify_found(new_items)
