@@ -2266,86 +2266,6 @@
   },
   "national_pool": [
     {
-      "id": "a211c6c356e9aca308cec882",
-      "location": "russia",
-      "title": "Более 60 раз за сутки ВСУ атаковали Белгородскую область",
-      "description": "Пострадали два человека",
-      "link": "https://www.interfax.ru/russia/1126705",
-      "pub_date": "Tue, 03 Nov 2026 08:53:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793685616.4122984
-    },
-    {
-      "id": "784e381f569da8baaa094161",
-      "location": "russia",
-      "title": "Авианосец \"Рузвельт\" идет на Ближний Восток",
-      "description": "В регионе уже находятся два авианосца ВМС США",
-      "link": "https://www.interfax.ru/world/1126704",
-      "pub_date": "Tue, 03 Nov 2026 08:50:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793685616.4122984
-    },
-    {
-      "id": "dde632548373bcf70d54d999",
-      "location": "russia",
-      "title": "При атаке дронов на НПЗ в Ярославле повреждена инфраструктура",
-      "description": "Инфраструктура нефтеперерабатывающего завода повреждена при массированной атаке беспилотников в Ярославле, сообщил губернатор Ярославской области Михаил Евраев во вторник.\"Сегодня ночью силы РЭБ и ПВО отражали масштабную атаку вражеских БПЛА на нефтеперерабатывающий завод в Ярославле.",
-      "link": "https://www.interfax.ru/russia/1126703",
-      "pub_date": "Tue, 03 Nov 2026 08:37:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793685616.4122984
-    },
-    {
-      "id": "0891fde51604d2b25b34ca74",
-      "location": "russia",
-      "title": "Нефть Brent подорожала до $105,23 за баррель после обвала накануне",
-      "description": "Цены на нефть умеренно поднимаются утром во вторник после резкого снижения по итогам предыдущей сессии.",
-      "link": "https://www.interfax.ru/business/1126702",
-      "pub_date": "Tue, 03 Nov 2026 08:34:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793685616.4122984
-    },
-    {
-      "id": "aa82082e5eeeff02b15d9c83",
-      "location": "russia",
-      "title": "Военные РФ нанесли удар по объектам энергокомплекса в Винницкой, Днепропетровской и Харьковской областях",
-      "description": "Поражены также объекты портовой инфраструктуры в Одесской области и морские суда",
-      "link": "https://www.interfax.ru/world/1126701",
-      "pub_date": "Tue, 03 Nov 2026 08:19:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793685616.4122984
-    },
-    {
       "id": "397d0f02fcfcd133ccd0e9e5",
       "location": "russia",
       "title": "Аэропорты Внуково, Домодедово и Жуковский вернулись к штатной работе",
@@ -4684,6 +4604,86 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793729570.6686528
+    },
+    {
+      "id": "7665e65cb91f57b0d3aa88e2",
+      "location": "russia",
+      "title": "Для аэропортов Краснодара и Калуги ввели ограничения",
+      "description": "Для аэропортов Краснодара и Калуги ввели ограничения на прием и отправку самолетов, сообщила Росавиация.",
+      "link": "https://www.interfax.ru/russia/1126865",
+      "pub_date": "Tue, 03 Nov 2026 21:51:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793732925.0024843
+    },
+    {
+      "id": "7e0b40cb81bdaeb825a3585e",
+      "location": "russia",
+      "title": "С апреля при назначении единого пособия на детей будут учитывать обороты по счетам",
+      "description": "Минтруд подготовил проект постановления правительства для учета с 1 апреля 2027 года при назначении единого пособия на детей оборотов на счетах.",
+      "link": "https://www.interfax.ru/russia/1126864",
+      "pub_date": "Tue, 03 Nov 2026 21:46:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793732925.0024843
+    },
+    {
+      "id": "30852fcf610245cf2efa2e84",
+      "location": "russia",
+      "title": "Президент Польши возложил на канцелярию Туска ответственность за кризис вокруг КС",
+      "description": "Президент Польши Кароль Навроцкий возложил всю ответственность в связи с кризисом вокруг Конституционного суда на канцелярию премьер-министра, сообщают польские СМИ.\"Вся ответственность за все незаконные действия, такие как отстранение судей и незаконные распоряжения исходят из канцелярии премьер-министра\", - заявил президент, открывая заседание Совета национальной безопасности.",
+      "link": "https://www.interfax.ru/world/1126863",
+      "pub_date": "Tue, 03 Nov 2026 21:35:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793732925.0024843
+    },
+    {
+      "id": "91ac8a40a795edff61c767e0",
+      "location": "russia",
+      "title": "Умерла актриса театра и кино Екатерина Райкина",
+      "description": "Умерла заслуженная артистка РСФСР, актриса театра и кино Екатерина Райкина, дочь Аркадия Райкина, сообщил Фонд поддержки и развития культуры имени А.",
+      "link": "https://www.interfax.ru/culture/1126862",
+      "pub_date": "Tue, 03 Nov 2026 21:27:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793732925.0024843
+    },
+    {
+      "id": "73188727d1545b3a4dd79df0",
+      "location": "russia",
+      "title": "В России ввели пошлины на импорт резиновой крошки из недружественных стран",
+      "description": "Правительство распространило повышенные ставки ввозных таможенных пошлин на гидропероксид изопропилбензола и резиновую крошку, полученную при механическом дроблении отработанных шин.",
+      "link": "https://www.interfax.ru/russia/1126861",
+      "pub_date": "Tue, 03 Nov 2026 21:13:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793732925.0024843
     }
   ],
   "last_undated_notice": 0
