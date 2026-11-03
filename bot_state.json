@@ -2266,150 +2266,6 @@
   },
   "national_pool": [
     {
-      "id": "cc3805b6a8512a659677fc5e",
-      "location": "russia",
-      "title": "Аэропорты Казани, Ульяновска и Чебоксар возобновили работу",
-      "description": "В аэропортах Казани, Ульяновска и Чебоксар сняты ограничения на полеты, сообщает утром во вторник Росавиация.\"Временные ограничения на прием и выпуск воздушных судов сняты в аэропортах Казань, Ульяновск (Баратаевка) и Чебоксары\", - говорится в сообщении агентства в мессенджере Max.",
-      "link": "https://www.interfax.ru/russia/1126685",
-      "pub_date": "Tue, 03 Nov 2026 06:02:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793675786.712466
-    },
-    {
-      "id": "be976bb80a5645857bb9d63b",
-      "location": "russia",
-      "title": "Европейские рынки акций уверенно выросли в понедельник",
-      "description": "Рынки акций стран Западной Европы уверенно выросли по итогам торгов в понедельник на фоне падения цен на нефть, инвесторы оценивали статданные и новости компаний.",
-      "link": "https://www.interfax.ru/world/1126684",
-      "pub_date": "Tue, 03 Nov 2026 06:02:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793675786.712466
-    },
-    {
-      "id": "adf8167985f8bb03212b9af6",
-      "location": "russia",
-      "title": "Около 70 беспилотников сбили на подлете к Москве с начала вторника",
-      "description": "Отражена атака еще 13 беспилотников, летевших на Москву, сообщил мэр столицы Сергей Собянин.\"На месте падения обломков работают специалисты экстренных служб\", - написал Собянин в своем канале в мессенджере Max.",
-      "link": "https://www.interfax.ru/moscow/1126682",
-      "pub_date": "Tue, 03 Nov 2026 05:43:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793675786.712466
-    },
-    {
-      "id": "d48be4f2f2617a5c0ce46e94",
-      "location": "russia",
-      "title": "Нижегородский аэропорт вновь обслуживает рейсы",
-      "description": "В аэропорту Нижнего Новгорода сняты ограничения на прием и выпуск воздушных судов, сообщает утром во вторник Росавиация.\"Ограничения вводили для обеспечения безопасности полетов\", - говорится в сообщении агентства в Мах.",
-      "link": "https://www.interfax.ru/russia/1126681",
-      "pub_date": "Tue, 03 Nov 2026 05:39:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793675786.712466
-    },
-    {
-      "id": "e376989192876b1e20392d03",
-      "location": "russia",
-      "title": "Аэропорт Нижнего Новгорода временно не обслуживает рейсы",
-      "description": "В аэропорту Нижнего Новгорода введены временные ограничения на прием и выпуск воздушных судов, сообщает Росавиация.\"Ограничения необходимы для обеспечения безопасности полетов\", - говорится в сообщении агентства в Мах.",
-      "link": "https://www.interfax.ru/russia/1126680",
-      "pub_date": "Tue, 03 Nov 2026 05:23:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793675786.712466
-    },
-    {
-      "id": "f157c626de669fc8966e1728",
-      "location": "russia",
-      "title": "Китайская ракета вывела на орбиту группу интернет-спутников \"Цяньфань\"",
-      "description": "Китайская ракета-носитель \"Лицзянь-2 Y2\" (Kinetica 2 Y2) во вторник вывела на орбиту группу из 18 интернет-спутников \"Цяньфань\" для пополнения орбитальной группировки Spacesail Constellation, сообщил телеканал CCTV.",
-      "link": "https://www.interfax.ru/world/1126679",
-      "pub_date": "Tue, 03 Nov 2026 05:19:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793675786.712466
-    },
-    {
-      "id": "28afb4d36ba0acd7018608d8",
-      "location": "russia",
-      "title": "Трамп заявил, что США при нынешней администрации значительно опережают Китай",
-      "description": "Президент США Дональд Трамп в преддверии промежуточных выборов в конгресс заявил, что при его администрации Америку снова стали уважать во всем мире, а Вашингтон теперь значительно опережает Пекин.\"Мы значительно опережаем Китай.",
-      "link": "https://www.interfax.ru/world/1126692",
-      "pub_date": "Tue, 03 Nov 2026 06:55:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793679234.0770538
-    },
-    {
-      "id": "1f050d433d5084eab242e827",
-      "location": "russia",
-      "title": "Правительство РФ обсудит предоставление Минцифры средств на субсидии по ИТ-ипотеке",
-      "description": "Правительство РФ на заседании во вторник рассмотрит вопрос о выделении Минцифры РФ в 2026 году ассигнований из резервного фонда для предоставления ПАО \"ДОМ.",
-      "link": "https://www.interfax.ru/russia/1126691",
-      "pub_date": "Tue, 03 Nov 2026 06:52:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793679234.0770538
-    },
-    {
-      "id": "65e52df578954ca453179cd0",
-      "location": "russia",
-      "title": "Трамп не исключил, что США придется нанести удар по горе Пикакс в Иране",
-      "description": "Президент США Дональд Трамп допустил, что США, возможно, придется нанести удар по горе Пикакс, где якобы находится объект иранской ядерной программы.\"Мы разбомбили их (Иран - ИФ) с помощью \"Полуночного молота\".",
-      "link": "https://www.interfax.ru/world/1126690",
-      "pub_date": "Tue, 03 Nov 2026 06:50:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793679234.0770538
-    },
-    {
       "id": "7d60ef55a493b994e3a9fdb8",
       "location": "russia",
       "title": "США атаковали остров Кешм в ответ на обстрел американского летательного аппарата",
@@ -4668,6 +4524,166 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793723128.0618565
+    },
+    {
+      "id": "35f8a28f7738eb7aa8534993",
+      "location": "russia",
+      "title": "\"Битва моторов\" собрала больше 1 млрд рублей за месяц проката",
+      "description": "Фильм \"Битва моторов\" Ильи Маланина преодолел отметку в миллиард рублей за период проката с октября, став седьмой российской лентой в 2026 году с таким уровнем кассовых сборов, сообщила глава Минкультуры Ольга Любимова.",
+      "link": "https://www.interfax.ru/business/1126850",
+      "pub_date": "Tue, 03 Nov 2026 20:15:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793726655.188309
+    },
+    {
+      "id": "157b79656b3010d45a1c1583",
+      "location": "russia",
+      "title": "Правительство Йемена обвинило КСИР в усилении военной помощи хуситам",
+      "description": "Корпус стражей Исламской революции (КСИР) Ирана оказывает все более активную поддержку движению \"Ансар Аллах\" (хуситы), заявил глава Руководящего президентского совета Йемена Рашад Мухаммед Аль-Алими.",
+      "link": "https://www.interfax.ru/world/1126848",
+      "pub_date": "Tue, 03 Nov 2026 20:10:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793726655.188309
+    },
+    {
+      "id": "5a7d0d9b9f010cd5e2d79e2b",
+      "location": "russia",
+      "title": "Для российских сертификатов безопасности создадут ГИС \"Национальный удостоверяющий центр\"",
+      "description": "Минцифры подготовило проект постановления о создании ГИС \"Национальный удостоверяющий центр\" (НУЦ).",
+      "link": "https://www.interfax.ru/russia/1126849",
+      "pub_date": "Tue, 03 Nov 2026 20:06:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793726655.188309
+    },
+    {
+      "id": "1556f26e59ea04df14d8d653",
+      "location": "russia",
+      "title": "В результате удара БПЛА по машине погибли двое, в том числе сотрудница ЗАЭС",
+      "description": "В результате удара БПЛА по ехавшей машине погибли два человека, в том числе сотрудница Запорожской АЭС.",
+      "link": "https://www.interfax.ru/russia/1126847",
+      "pub_date": "Tue, 03 Nov 2026 20:02:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793726655.188309
+    },
+    {
+      "id": "3cf93c4478a50f836e2c4656",
+      "location": "russia",
+      "title": "В США в день выборов цена бензина поднялась выше $4 за галлон",
+      "description": "Средняя розничная цена бензина в США поднялась выше отметки $4 за галлон в день промежуточных выборов в Конгресс, сообщает Bloomberg.",
+      "link": "https://www.interfax.ru/business/1126846",
+      "pub_date": "Tue, 03 Nov 2026 19:58:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793726655.188309
+    },
+    {
+      "id": "3510fcd270bfdafd6cd58256",
+      "location": "russia",
+      "title": "Российские суды за девять месяцев признали банкротами 5364 компании",
+      "description": "Российские суды в третьем квартале 2026 года признали банкротами 1818 компаний, это на 4,5% меньше, чем во втором квартале, и на 18,5% больше, чем в аналогичном периоде 2025 года, свидетельствует статистика \"Федресурса\" (Единый федеральный реестр сведений о банкротстве, fedresurs.ru), составленная на основе сообщений арбитражных управляющих.",
+      "link": "https://www.interfax.ru/business/1126845",
+      "pub_date": "Tue, 03 Nov 2026 19:57:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793726655.188309
+    },
+    {
+      "id": "0eac7f683a05de68957b2c59",
+      "location": "russia",
+      "title": "Заявление Трампа о скором прекращении помощи израильским военным удивило израильтян",
+      "description": "Израиль не оповестили заранее о намерении США Дональда Трампа с конца 2026 года остановить финансовую помощь стране на военные потребности, сообщают израильские СМИ.",
+      "link": "https://www.interfax.ru/world/1126844",
+      "pub_date": "Tue, 03 Nov 2026 19:55:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793726655.188309
+    },
+    {
+      "id": "afa098b456cf0b0d9eca6159",
+      "location": "russia",
+      "title": "Число банкротств граждан РФ в III квартале впервые перешло к снижению",
+      "description": "Количество банкротств граждан в третьем квартале 2026 года впервые за время действия этого механизма списания долгов снизилось по сравнению с аналогичным периодом прошлого года, до этого неизменно фиксировался прирост, хотя и замедляющийся в последние годы.",
+      "link": "https://www.interfax.ru/business/1126805",
+      "pub_date": "Tue, 03 Nov 2026 19:29:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793726655.188309
+    },
+    {
+      "id": "bd7249459b149768e36062a2",
+      "location": "russia",
+      "title": "Рубль на \"Мосбирже\" немного подорожал к юаню",
+      "description": "На торгах вторника на \"Московской бирже\" рубль немного подорожал к юаню в ожидании новостей относительно переговорах по Украине и перед Днем народного единстова.",
+      "link": "https://www.interfax.ru/business/1126842",
+      "pub_date": "Tue, 03 Nov 2026 19:28:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793726655.188309
+    },
+    {
+      "id": "7e71a467ac7f30243dfa8daf",
+      "location": "russia",
+      "title": "В МИД Ирана заявили об отсутствии прогресса в урегулировании с США",
+      "description": "Вашингтон и Тегеран пока не приблизились к соглашению по завершению конфликта, заявил представитель МИД Ирана Исмаил Багаи.",
+      "link": "https://www.interfax.ru/world/1126841",
+      "pub_date": "Tue, 03 Nov 2026 19:22:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793726655.188309
     }
   ],
   "last_undated_notice": 0
