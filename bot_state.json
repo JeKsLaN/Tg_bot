@@ -2638,7 +2638,7 @@
     "Новосибирцам рассказали, какие продукты чаще всего не соответствуют нормам"
   ],
   "source_baseline_done": true,
-  "last_no_news_notice": 1793806584.5398316,
+  "last_no_news_notice": 1793820261.0295944,
   "last_empty_notice": 0,
   "last_dead_notice": 1793781638.7912836,
   "national_day": "",
@@ -4798,6 +4798,86 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793816380.0731301
+    },
+    {
+      "id": "758661af8d9db6ff78575b49",
+      "location": "russia",
+      "title": "Трамп не намерен отправлять в отставку Хегсета",
+      "description": "Президент США Дональд Трамп заявил, что доволен работой шефа Пентагона Пита Хегсета и не рассматривает вопрос о его отставке.",
+      "link": "https://www.interfax.ru/world/1127044",
+      "pub_date": "Wed, 04 Nov 2026 21:45:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793820260.2863524
+    },
+    {
+      "id": "f714e3e8a554150d54ff81bc",
+      "location": "russia",
+      "title": "Мирный житель ранен в результате удара БПЛА в Курской области",
+      "description": "Мирный житель ранен при ударе украинского дрона в Судже Курской области, сообщил губернатор Александр Хинштейн в среду.\"В результате удара вражеского беспилотника пострадал 69-летний (мужчина - ИФ)\", - написал глава региона в своем канале в Мах.",
+      "link": "https://www.interfax.ru/russia/1127043",
+      "pub_date": "Wed, 04 Nov 2026 21:41:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793820260.2863524
+    },
+    {
+      "id": "bb7230fba2df2cf403cc415f",
+      "location": "russia",
+      "title": "Трамп уверен, что все его действия в отношении Ирана были правильными",
+      "description": "Президент США Дональд Трамп заявил, что не сожалеет о решениях, которые он принимал в последние месяцы в отношении Ирана.\"Я бы ничего не стал менять\", - сказал Трамп журналистам в Белом доме, отвечая на вопрос о том, изменил бы он какие-то решения, если бы была такая возможность.\"Главное - это то, что у них не будет ядерного оружия\", - добавил американский лидер.",
+      "link": "https://www.interfax.ru/world/1127042",
+      "pub_date": "Wed, 04 Nov 2026 21:38:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793820260.2863524
+    },
+    {
+      "id": "4bd0719e1dd429ee9cdd16d3",
+      "location": "russia",
+      "title": "Дрон повредил объект инфраструктуры в Белгородской области",
+      "description": "Объект инфраструктуры был поврежден в результате атаки дрона в Белгородской области, сообщил региональный оперативный штаб в среду.\"В городе Грайворон от детонации FPV-дрона поврежден объект инфраструктуры\", - говорится в сообщении.",
+      "link": "https://www.interfax.ru/russia/1127041",
+      "pub_date": "Wed, 04 Nov 2026 21:23:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793820260.2863524
+    },
+    {
+      "id": "d0d42f8b7831f96696cf127a",
+      "location": "russia",
+      "title": "Умер режиссер Тинто Брасс",
+      "description": "Умер кинорежиссер Тинто Брасс.",
+      "link": "https://www.interfax.ru/culture/1127040",
+      "pub_date": "Wed, 04 Nov 2026 21:15:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793820260.2863524
     }
   ],
   "last_undated_notice": 0
