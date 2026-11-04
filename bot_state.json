@@ -4622,6 +4622,86 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793809872.7447422
+    },
+    {
+      "id": "cde7fd931d18e4b6c7e85d0a",
+      "location": "russia",
+      "title": "Российские военные сбили за день над регионами 46 дронов",
+      "description": "Дежурными силами ПВО с 8:00 до 20:00 среды уничтожены 46 украинских беспилотников, заявило Минобороны РФ.",
+      "link": "https://www.interfax.ru/russia/1127035",
+      "pub_date": "Wed, 04 Nov 2026 20:10:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793813215.8121693
+    },
+    {
+      "id": "a71ba8d1e80ffccd8beb2f14",
+      "location": "russia",
+      "title": "Движение восстановлено на МКАДе в районе Северного Бутово",
+      "description": "Движение на 35-м километре внутренней стороны МКАД восстановлено после возникшего в результате ДТП затора, сообщает столичный дептранс в среду вечером.",
+      "link": "https://www.interfax.ru/moscow/1127032",
+      "pub_date": "Wed, 04 Nov 2026 20:00:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793813215.8121693
+    },
+    {
+      "id": "feb9d158bb31e5419f7ba229",
+      "location": "russia",
+      "title": "Пробка на 4,5 км образовалась из-за ДТП на юго-западе Москвы",
+      "description": "В результате аварии на 35-м км внутренней стороны МКАД (в районе съезда № 35) образовалась пробка на 4,5 км, сообщил в среду столичный департамент транспорта.",
+      "link": "https://www.interfax.ru/moscow/1127031",
+      "pub_date": "Wed, 04 Nov 2026 19:46:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793813215.8121693
+    },
+    {
+      "id": "f9670501f862be240c39d42a",
+      "location": "russia",
+      "title": "Вэнс назвал конфликт с Ираном причиной поражения республиканцев на выборах",
+      "description": "Вице-президент США Джей Ди Вэнс заявил, что именно из-за конфликта США с Ираном многие избиратели, обычно поддерживающие Республиканскую партию, проголосовали за демократов на промежуточных выборах.",
+      "link": "https://www.interfax.ru/world/1127030",
+      "pub_date": "Wed, 04 Nov 2026 19:41:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793813215.8121693
+    },
+    {
+      "id": "c03d8ad4e3dcad49e72110d6",
+      "location": "russia",
+      "title": "МИД Белоруссии заявил о готовности сотрудничать с Киевом",
+      "description": "Минск готов взаимодействовать с Киевом, заявил министр иностранных дел Белоруссии Максим Рыженков журналистам в среду.\"Не мы закрываем окно возможностей для сотрудничества с этим государством.",
+      "link": "https://www.interfax.ru/world/1127029",
+      "pub_date": "Wed, 04 Nov 2026 19:33:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793813215.8121693
     }
   ],
   "last_undated_notice": 0
