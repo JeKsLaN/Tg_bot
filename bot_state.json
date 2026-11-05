@@ -3112,86 +3112,6 @@
   },
   "national_pool": [
     {
-      "id": "0a7f91d3320601e9daa063bc",
-      "location": "russia",
-      "title": "Власти Петербурга решили продлить запрет на работу по патентам в торговле, такси и доставке",
-      "description": "Власти Петербурга планируют продлить запрет трудоустройства иностранных граждан по патентам в ряде отраслей на 2027 год.",
-      "link": "https://www.interfax.ru/russia/1127133",
-      "pub_date": "Thu, 05 Nov 2026 12:19:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793871652.376316
-    },
-    {
-      "id": "0d83e53d003bff3f180ed611",
-      "location": "russia",
-      "title": "Молдавия пригрозила главе Приднестровья Красносельскому запретом на выезд из страны на 5 лет",
-      "description": "Молдавские власти намерены применить санкции по отношению к лидеру Приднестровья Вадиму Красносельскому, который был награжден в России Орденом Почета, заявило Бюро по реинтеграции при правительстве Молдавии.",
-      "link": "https://www.interfax.ru/world/1127132",
-      "pub_date": "Thu, 05 Nov 2026 12:19:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793871652.376316
-    },
-    {
-      "id": "b0288f2ea2720877fb9ae5ea",
-      "location": "russia",
-      "title": "Суд в Финляндии приговорил российского капитана сухогруза Fitburg к 3,5 годам тюрьмы",
-      "description": "Окружной суд Хельсинки приговорил капитана судна Fitburg, гражданина России Андрея Максименко к 3 годам 6 месяцам тюремного заключения по делу о повреждении кабелей в Финском заливе, сообщают финские СМИ.",
-      "link": "https://www.interfax.ru/world/1127131",
-      "pub_date": "Thu, 05 Nov 2026 12:18:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793871652.376316
-    },
-    {
-      "id": "c63ff050a9b432e4eb90f96e",
-      "location": "russia",
-      "title": "Минфин с 9 ноября увеличит покупку валюты/золота до 15,6 млрд рублей в день",
-      "description": "Минфин с 9 ноября по 4 декабря планирует покупать иностранную валюту/золото в рамках бюджетного правила на общую сумму 312,63 млрд рублей, ежедневный объем операций составит эквивалент 15,6 млрд рублей, сообщило ведомство.",
-      "link": "https://www.interfax.ru/business/1127130",
-      "pub_date": "Thu, 05 Nov 2026 12:11:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793871652.376316
-    },
-    {
-      "id": "a85fd0d1de9806630d1173b7",
-      "location": "russia",
-      "title": "АЕБ назвала меры, способные поддержать российский авторынок в конце 2026 года",
-      "description": "Объем рынка в октябре снизился на 19,9% в годовом исчислении",
-      "link": "https://www.interfax.ru/business/1127129",
-      "pub_date": "Thu, 05 Nov 2026 12:05:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793871652.376316
-    },
-    {
       "id": "85ce3aca39f584c15a090ea0",
       "location": "russia",
       "title": "Армения подаст заявку на вступление в Евросоюз в 2027 или 2028 году",
@@ -5534,6 +5454,86 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793909875.4045427
+    },
+    {
+      "id": "cec586102c20e5bfe55c287a",
+      "location": "russia",
+      "title": "Доля экспортной выручки в нацвалютах, возвращаемой в РФ, приближается к 90%",
+      "description": "Доля номинированной в национальных валютах экспортной выручки, которую экспортеры репатриируют в РФ, продолжает расти и уже приближается к 90%.",
+      "link": "https://www.interfax.ru/russia/1127303",
+      "pub_date": "Fri, 06 Nov 2026 00:39:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793915670.6140747
+    },
+    {
+      "id": "51bc27db8621b50f63f0d911",
+      "location": "russia",
+      "title": "Росфинмониторинг заморозил свыше 1 млрд рублей на счетах, связанных с терроризмом",
+      "description": "Директор Росфинмониторинга Юрий Чиханчин сообщил, что на сегодняшний день на счетах людей, имеющих отношение к терроризму, заморожены свыше 1 млрд рублей.\"Мы научились очень быстро замораживать активы террористов.",
+      "link": "https://www.interfax.ru/russia/1127302",
+      "pub_date": "Fri, 06 Nov 2026 00:35:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793915670.6140747
+    },
+    {
+      "id": "3c7732b528316299e4fdad18",
+      "location": "russia",
+      "title": "В Москве открывается масштабная выставка к 80-летию патриарха Кирилла",
+      "description": "Открытие выставки \"Жизнь в служении\", приуроченной к 80-летию патриарха Московского и всея Руси Кирилла, состоится в пятницу в Галерее Российского фонда мира на Тверском бульваре в Москве.",
+      "link": "https://www.interfax.ru/russia/1127300",
+      "pub_date": "Fri, 06 Nov 2026 00:10:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793915670.6140747
+    },
+    {
+      "id": "d463c097d1106a2a2b826c08",
+      "location": "russia",
+      "title": "Куранты на Спасской башне Кремля остановлены на профилактику",
+      "description": "Куранты на Спасской башне Московского Кремля остановились для технического обслуживания в полночь на 6 ноября, профилактические работы продлятся 10 дней.",
+      "link": "https://www.interfax.ru/russia/1127299",
+      "pub_date": "Fri, 06 Nov 2026 00:07:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793915670.6140747
+    },
+    {
+      "id": "813fdd303c34ba1cced97416",
+      "location": "russia",
+      "title": "Премьер Франции проведет встречу с профсоюзами на фоне мощного протестного движения",
+      "description": "В мире05 ноября 2026Более 570 тыс. человек участвовали в акциях всеобщей забастовки во ФранцииЧитать подробнееМосква.",
+      "link": "https://www.interfax.ru/world/1127298",
+      "pub_date": "Fri, 06 Nov 2026 00:05:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793915670.6140747
     }
   ],
   "last_undated_notice": 0
