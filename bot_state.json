@@ -3110,118 +3110,6 @@
   },
   "national_pool": [
     {
-      "id": "61a49cf19f155d2724dae78b",
-      "location": "russia",
-      "title": "Глава ГК \"Ташир\" Карапетян арестован на месяц",
-      "description": "Глава группы компаний \"Ташир\", руководитель оппозиционной партии \"Сильная Армения\" Самвел Карапетян, ранее находившийся под домашним арестом в Ереване, арестован решением суда на один месяц.",
-      "link": "https://www.interfax.ru/world/1127094",
-      "pub_date": "Thu, 05 Nov 2026 09:13:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793864575.868054
-    },
-    {
-      "id": "f2dc2d8aaba59145c352b381",
-      "location": "russia",
-      "title": "Пашинян планирует посетить Турцию для участия в COP31",
-      "description": "Премьер-министр Армении Никол Пашинян посетит Турцию для участия в конференции ООН по вопросу изменения климата.\"Да, есть планы посетить Анталью для участия в COP\", - сообщил он на брифинге.",
-      "link": "https://www.interfax.ru/world/1127124",
-      "pub_date": "Thu, 05 Nov 2026 11:34:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793868106.0863464
-    },
-    {
-      "id": "72fc5b8edbbb54bd63aede24",
-      "location": "russia",
-      "title": "Пироговский университет передан в ведение ФМБА",
-      "description": "Национальный исследовательский медицинский университет имени Н.",
-      "link": "https://www.interfax.ru/russia/1127122",
-      "pub_date": "Thu, 05 Nov 2026 11:32:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793868106.0863464
-    },
-    {
-      "id": "d9cfd3129de6b827e02c0897",
-      "location": "russia",
-      "title": "Требования к оснащению БАС средствами криптозащиты предложено отложить",
-      "description": "В России требования к оснащению беспилотных авиационных систем (БАС) средствами криптографической защиты информации могут быть приостановлены до марта 2028 года.",
-      "link": "https://www.interfax.ru/russia/1127123",
-      "pub_date": "Thu, 05 Nov 2026 11:28:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793868106.0863464
-    },
-    {
-      "id": "16e738b86fb72c1ce8075bac",
-      "location": "russia",
-      "title": "Президент Узбекистана сообщил о рекордном урожае хлопка",
-      "description": "В Узбекистан урожай хлопка-сырца в 2026 году превысил 5 млн тонн, показатель стал рекордным для страны, сообщил глава государства Шавкат Мирзиёев.",
-      "link": "https://www.interfax.ru/business/1127121",
-      "pub_date": "Thu, 05 Nov 2026 11:25:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793868106.0863464
-    },
-    {
-      "id": "b71bdf97168bcaceba40ad14",
-      "location": "russia",
-      "title": "Госдеп США ввел санкции против белорусской компании Armory Alliance",
-      "description": "Государственный департамент США ввел санкции против зарегистрированной в Белоруссии компании Armory Alliance, соответствующее заявление опубликовано на сайте ведомства.Armory Alliance – это белорусская организация, которая выступала в качестве посредника между китайскими компаниями и Ираном и содействовала закупке сотен ПЗРК, говорится в обосновании к введению санкционных мер.",
-      "link": "https://www.interfax.ru/world/1127120",
-      "pub_date": "Thu, 05 Nov 2026 11:20:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793868106.0863464
-    },
-    {
-      "id": "6a51ea0df05613ca7c6ed3c6",
-      "location": "russia",
-      "title": "Для аэропорта Махачкалы отменили ограничения",
-      "description": "Для аэропорта Махачкалы отменили ограничения на прием и отправку самолетов, сообщила Росавиация.",
-      "link": "https://www.interfax.ru/russia/1127119",
-      "pub_date": "Thu, 05 Nov 2026 10:58:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793868106.0863464
-    },
-    {
       "id": "a859d50344153b87aa475aa9",
       "location": "russia",
       "title": "Генпрокуратура признала нежелательной в России грузинскую оппозиционную партию",
@@ -5532,6 +5420,120 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793900607.7051113
+    },
+    {
+      "id": "49d9360609a585f5d3edd6db",
+      "location": "russia",
+      "title": "Секретарь Совбеза Ирана заявил, что обсуждал с Путиным поставки газа РФ в республику",
+      "description": "Секретарь Высшего совета национальной безопасности Ирана Мохсен Резаи заявил, что одной из тем на переговорах с президентом РФ Владимиром Путиным было строительство газопроводов в Иран из России и поставки российского газа.\"На встрече с Путиным обсуждали строительство газопроводов из России в Иран, чтобы Иран мог как избавиться от дефицита газа, так и продавать российский газ соседним странам\", - приводит агентство Tasnim слова Резаи.",
+      "link": "https://www.interfax.ru/world/1127286",
+      "pub_date": "Thu, 05 Nov 2026 21:22:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793903372.3966596
+    },
+    {
+      "id": "2425e36543b12ac3a122a4e6",
+      "location": "russia",
+      "title": "Львова-Белова сообщила, что еще 9 детей вернутся на Украину при помощи Мелании Трамп",
+      "description": "Уполномоченный при президенте РФ по правам ребенка Мария Львова-Белова сообщила о планируемом очередном возвращении на родину девяти украинских детей.\"Благодарю Меланию Трамп за личное участие и содействие в возвращении детей к родным.",
+      "link": "https://www.interfax.ru/russia/1127285",
+      "pub_date": "Thu, 05 Nov 2026 21:17:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793903372.3966596
+    },
+    {
+      "id": "b7b2973920a2628dcd44b9f7",
+      "location": "russia",
+      "title": "Дополнительные временные ограничения введены в аэропорту Геленджика",
+      "description": "Дополнительные временные ограничения на прием и выпуск воздушных судов введены в аэропорту Геленджика (Краснодарский край), сообщила Росавиация в своем канале в Мах.",
+      "link": "https://www.interfax.ru/russia/1127284",
+      "pub_date": "Thu, 05 Nov 2026 21:08:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793903372.3966596
+    },
+    {
+      "id": "8569b3613432cc6155955980",
+      "location": "russia",
+      "title": "Путин отметил, что финразведка РФ в некоторых моментах превосходит мировые стандарты",
+      "description": "Российская финансовая разведка в некоторых моментах превосходит мировые стандарты, заявил президент РФ Владимир Путин.",
+      "link": "https://www.interfax.ru/russia/1127283",
+      "pub_date": "Thu, 05 Nov 2026 21:07:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793903372.3966596
+    },
+    {
+      "id": "556b8171203e2ceb9b41ddb0",
+      "location": "russia",
+      "title": "Лантратова сообщила о завершении официального мероприятия с Меланией Трамп",
+      "description": "Уполномоченный по правам человека в РФ Яна Лантратова сообщила, что на встрече с первой леди США Меланией Трамп речь шла о гуманитарной миссии в Алешках и ее важности.\"Только что закончилось официальное мероприятие с первой леди США Меланией Трамп.",
+      "link": "https://www.interfax.ru/russia/1127282",
+      "pub_date": "Thu, 05 Nov 2026 20:59:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/05/vbelomdome1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1793903372.3966596
+    },
+    {
+      "id": "2be3577d23cca83f10b08fbd",
+      "location": "russia",
+      "title": "Путин заявил об использовании зарубежными спецслужбами современных технологий для прикрытия преступных расчетов",
+      "description": "По этой причине важно совершенствовать работу Росфинмониторинга, отметил президент",
+      "link": "https://www.interfax.ru/russia/1127280",
+      "pub_date": "Thu, 05 Nov 2026 20:44:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793903372.3966596
+    },
+    {
+      "id": "55a42702118298c450bd773b",
+      "location": "russia",
+      "title": "Президент РФ отметил необходимость завершить создание концепции финансовой безопасности",
+      "description": "Президент РФ Владимир Путин заявил о необходимости завершить создание национальной концепции финансовой безопасности в приоритетном порядке.\"Среди безусловных приоритетов - завершение создания национальной концепции финансовой безопасности.",
+      "link": "https://www.interfax.ru/russia/1127281",
+      "pub_date": "Thu, 05 Nov 2026 20:43:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793903372.3966596
     }
   ],
   "last_undated_notice": 0
