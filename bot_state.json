@@ -3542,38 +3542,6 @@
   },
   "national_pool": [
     {
-      "id": "8998ae99ba1ba8bec9f0097c",
-      "location": "russia",
-      "title": "Для аэропорта Астрахани отменили ограничения",
-      "description": "Для аэропорта Астрахани отменили ограничения на прием и отправку рейсов, сообщила Росавиация.",
-      "link": "https://www.interfax.ru/russia/1127345",
-      "pub_date": "Fri, 06 Nov 2026 09:07:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793945665.6224465
-    },
-    {
-      "id": "45b497cf7fe0573adc694cbf",
-      "location": "russia",
-      "title": "В Екатеринбурге снегопад сопровождался грозой",
-      "description": "Екатеринбург утром в пятницу 6 ноября накрыло снегопадом, также наблюдалась гроза, сообщил Уралгидромет.\"Зима пришла в Екатеринбург с порывистым ветром, снегопадом и грозой, которую метеостанция Екатеринбург отметила в 10 часов местного времени\", - говорится в сообщении.",
-      "link": "https://www.interfax.ru/russia/1127344",
-      "pub_date": "Fri, 06 Nov 2026 09:03:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793945665.6224465
-    },
-    {
       "id": "e918df7ffcdff7c7bc729832",
       "location": "russia",
       "title": "На территории предприятия на Кубани произошел пожар из-за падения обломков БПЛА",
@@ -5976,6 +5944,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1793996848.4668994
+    },
+    {
+      "id": "05546fc501f1fb44e416df5c",
+      "location": "russia",
+      "title": "Папа римский начал поездку по трем странам Южной Америки",
+      "description": "Папа римский Лев XIV в пятницу прибыл с апостольским визитом в Уругвай, сообщает уругвайское издание \"Обсервадор\".",
+      "link": "https://www.interfax.ru/world/1127512",
+      "pub_date": "Fri, 06 Nov 2026 23:50:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793999578.26573
+    },
+    {
+      "id": "ce97cfd31fd4e6ee6d4e0f9a",
+      "location": "russia",
+      "title": "Трамп объявил о назначении Стивена Миллера главой аппарата Белого дома",
+      "description": "Президент США Дональд Трамп в пятницу заявил, что замглавы аппарата Белого дома Стивен Миллер встанет во главе этой структуры и сменит на посту нынешнего руководителя Сьюзи Уайлс.\"Я рад сообщить, что нынешний заместитель главы администрации президента и один из моих самых верных советников Миллер станет главой аппарата с понедельника 9 ноября 2026 года\", - написал Трамп в соцсети Truth Social.",
+      "link": "https://www.interfax.ru/world/1127509",
+      "pub_date": "Fri, 06 Nov 2026 23:35:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793999578.26573
     }
   ],
   "last_undated_notice": 0
