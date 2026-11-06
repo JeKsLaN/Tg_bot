@@ -3520,7 +3520,7 @@
     "В Новосибирске участок на берегу Оби выставили на торги за 319 млн рублей"
   ],
   "source_baseline_done": true,
-  "last_no_news_notice": 1793972308.5667396,
+  "last_no_news_notice": 1793985032.7694063,
   "last_empty_notice": 0,
   "last_dead_notice": 1793957442.0851498,
   "national_day": "",
@@ -3541,22 +3541,6 @@
     "novosibirsk": 5
   },
   "national_pool": [
-    {
-      "id": "3d8018d5950d3039c0d68f89",
-      "location": "russia",
-      "title": "Рынки акций Европы не показали единой динамики в четверг",
-      "description": "Фондовые индексы крупнейших стран Западной Европы завершили торги четверга разнонаправленными изменениями.",
-      "link": "https://www.interfax.ru/world/1127325",
-      "pub_date": "Fri, 06 Nov 2026 06:02:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793934895.5923636
-    },
     {
       "id": "752801f972b98823218bf20b",
       "location": "russia",
@@ -5752,6 +5736,250 @@
       ],
       "full_text": "",
       "pooled_at": 1793981685.7845848
+    },
+    {
+      "id": "2c542f0f980c3291a9d07c86",
+      "location": "russia",
+      "title": "Кнот и де Кос стали единственными кандидатами на пост главы ЕЦБ",
+      "description": "Бывший глава Центрального банка Нидерландов Клаас Кнот и Пабло Эрнандес де Кос, ранее руководивший ЦБ Испании, - единственные кандидаты на пост президента Европейского центрального банка.",
+      "link": "https://www.interfax.ru/business/1127492",
+      "pub_date": "Fri, 06 Nov 2026 20:04:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "2f720b8a1ac4f478adf5ac60",
+      "location": "russia",
+      "title": "Норвегия выделит Украине $53 млн на выплату зарплат, пенсий и обеспечение льгот",
+      "description": "Норвегия выделит Украине 500 млн норвежских крон (около $53 млн) на оказание государственных услуг, сообщила в пятницу пресс-служба норвежского правительства.\"О поддержке было объявлено на сегодняшней встрече в Варшаве министров иностранных дел Украины, Германии, Польши, стран Северной Европы и Балтии, а также главы внешней политики ЕС Каи Каллас.",
+      "link": "https://www.interfax.ru/world/1127491",
+      "pub_date": "Fri, 06 Nov 2026 20:02:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "5a0cc264d3a52ca6b59857dc",
+      "location": "russia",
+      "title": "\"Циан\" отметил, что оферта \"Т-Технологий\" не означает заключения сделки",
+      "description": "\"Т-Технологии\" объявили о готовности купить 100% акций \"Циана\"",
+      "link": "https://www.interfax.ru/business/1127490",
+      "pub_date": "Fri, 06 Nov 2026 20:00:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "ed4fe4a378789687a34572be",
+      "location": "russia",
+      "title": "WSJ сообщила, что у хуситов стали спрашивать разрешение пройти через Красное море",
+      "description": "Владельцы судов начали направлять по электронной почте запросы движению \"Ансар Аллах\" (хуситы), чтобы получить разрешение на проход по Красному морю, пишет The Wall Street Journal со ссылкой на источники и электронные письма.",
+      "link": "https://www.interfax.ru/world/1127489",
+      "pub_date": "Fri, 06 Nov 2026 19:57:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "7f24da79364eee63a32cf81b",
+      "location": "russia",
+      "title": "Нетаньяху объяснил прекращение военной помощи от США усилением Израиля",
+      "description": "Отказ США продолжать финансировать оборону Израиля демонстрирует тот факт, что израильская экономика может сама обеспечить потребности страны, заявили в канцелярии израильского премьер-министра Биньямина Нетаньяху.",
+      "link": "https://www.interfax.ru/world/1127488",
+      "pub_date": "Fri, 06 Nov 2026 19:50:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "b1c147503f6747491020c9e9",
+      "location": "russia",
+      "title": "В Солнечногорском округе сбитый самосвалом мост заблокировал Ленинградское шоссе",
+      "description": "Погиб водитель самосвала",
+      "link": "https://www.interfax.ru/moscow/1127486",
+      "pub_date": "Fri, 06 Nov 2026 19:44:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/06/g1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "cc6e385a2cb52ea63d1fa3dd",
+      "location": "russia",
+      "title": "Доллар подскочил, золото упало после сильных статданных по рынку труда США",
+      "description": "Курс доллара США активно растет к основным мировым валютам после публикации лучших, чем ожидалось, данных о состоянии американского рынка труда в октябре, что повысило вероятность подъема ключевой процентной ставки Федрезерва в декабре.",
+      "link": "https://www.interfax.ru/world/1127487",
+      "pub_date": "Fri, 06 Nov 2026 19:43:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "35d23c0846d9c239d4b31552",
+      "location": "russia",
+      "title": "ЕК назвала реформы на Украине условием передачи оставшейся части кредита на 45 млрд евро",
+      "description": "Евросоюз считает крайне необходимым продолжение Киевом реформ для того, чтобы завершить предоставление стране оставшейся части кредита в размере 20 млрд евро (из 45 млрд евро) в этом году, заявил на брифинге пресс-секретарь Еврокомиссии Балаш Уйвари.\"Мы стремимся к тому, чтобы к концу этого года общая сумма предоставленных кредитных средств достигла 45 млрд евро\", - сказал он.",
+      "link": "https://www.interfax.ru/world/1127485",
+      "pub_date": "Fri, 06 Nov 2026 19:36:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "d21be413bcf4764e5b85360d",
+      "location": "russia",
+      "title": "ЕЦБ рассматривает возможность проверки банковского кредитования дата-центров",
+      "description": "Европейский центральный банк (ЕЦБ) рассматривает возможность проверки кредитования, связанного с дата-центрами, пишет Bloomberg со ссылкой на источники.",
+      "link": "https://www.interfax.ru/business/1127479",
+      "pub_date": "Fri, 06 Nov 2026 19:36:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "c29efb9bb54dc36123a7abf9",
+      "location": "russia",
+      "title": "Beget восстановит данные на высокопроизводительных серверах только для половины пользователей",
+      "description": "Провайдер рассчитывает обеспечить стопроцентное восстановление проектов клиентов из резервных копий",
+      "link": "https://www.interfax.ru/digital/1127484",
+      "pub_date": "Fri, 06 Nov 2026 19:28:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "72d9fc2023f1f390a2c5b349",
+      "location": "russia",
+      "title": "В Москве в строящемся районе \"СберСити\" введут бессрочную зону платного проезда",
+      "description": "В Рублево-Архангельском районе Кунцева на территории строящегося инновационного района \"СберСити\" с 1 ноября 2027 года будет введена бессрочная платная зона для проезда.",
+      "link": "https://www.interfax.ru/moscow/1127483",
+      "pub_date": "Fri, 06 Nov 2026 19:27:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "c8dabaf6492a301c3530d1cb",
+      "location": "russia",
+      "title": "Льготную жилищную ипотеку вводят в Крыму и Севастополе",
+      "description": "Программу ипотеки на покупку жилья в строящихся многоэтажках под 8% вводят в Крыму и Севастополе, сообщается на сайте Минфина РФ в пятницу.\"Граждане смогут оформить льготный кредит при покупке жилья в строящемся многоквартирном доме или апартаментов на территории Республики Крым и Севастополя.",
+      "link": "https://www.interfax.ru/russia/1127480",
+      "pub_date": "Fri, 06 Nov 2026 19:25:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/06/cr1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "84da56e8b83634ff77a72f4a",
+      "location": "russia",
+      "title": "В Израиле лидер оппозиции Айзенкот готов сформировать правительство в условиях кризиса",
+      "description": "В Израиле Гади Айзенкот, лидер оппозиционной партии \"Яшар!\", занявшей второе место на парламентских выборах, заявил, что он с партнерами ведет работу над формированием нового правительства как можно скорее, поскольку страна находится в серьезном кризисе.",
+      "link": "https://www.interfax.ru/world/1127481",
+      "pub_date": "Fri, 06 Nov 2026 19:22:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "59a58e80177f1cea2fabe501",
+      "location": "russia",
+      "title": "Индекс Мосбиржи завершил сессию выше 2460 пунктов, но по итогам недели снизился",
+      "description": "Российский рынок акций консолидировался при смешанной динамике blue chips на фоне забуксовавшей в росте нефти (январский фьючерс на Brent подешевел к $97 за баррель после роста утром выше $100) и надежд на прогресс в трехсторонних переговорах Россия-США-Украина по украинскому урегулированию; индекс МосБиржи превысил 2460 пунктов на фоне ослабления рубля.",
+      "link": "https://www.interfax.ru/business/1127478",
+      "pub_date": "Fri, 06 Nov 2026 19:16:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
+    },
+    {
+      "id": "b9aa900d34fef065faf1d4ae",
+      "location": "russia",
+      "title": "В Белгородской области в результате атаки FPV-дрона ранен мужчина",
+      "description": "В селе Солохи Белгородского округа в результате атаки FPV-дрона у мужчины случилась травматическая ампутация руки, сообщил оперштаб Белгородской области.",
+      "link": "https://www.interfax.ru/russia/1127476",
+      "pub_date": "Fri, 06 Nov 2026 19:11:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1793985030.042697
     }
   ],
   "last_undated_notice": 0
