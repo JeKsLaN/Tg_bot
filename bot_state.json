@@ -3528,7 +3528,7 @@
     "В Новосибирске назвали пять самых дорогих автомобилей на продаже"
   ],
   "source_baseline_done": true,
-  "last_no_news_notice": 1793996849.4011056,
+  "last_no_news_notice": 1794009134.977423,
   "last_empty_notice": 0,
   "last_dead_notice": 1793957442.0851498,
   "national_day": "",
@@ -3549,22 +3549,6 @@
     "novosibirsk": 5
   },
   "national_pool": [
-    {
-      "id": "deb376ef0c3f0dc5384e10cf",
-      "location": "russia",
-      "title": "Нефть Brent подорожала до $99,66 за баррель",
-      "description": "Цены на нефть растут утром в пятницу после уверенного подъема по итогам предыдущей сессии.",
-      "link": "https://www.interfax.ru/business/1127340",
-      "pub_date": "Fri, 06 Nov 2026 08:28:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1793945665.6224465
-    },
     {
       "id": "bd9232b68cf1594a06791f7b",
       "location": "russia",
@@ -5984,6 +5968,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794006863.963121
+    },
+    {
+      "id": "648df518bb6942c5e3ad65cf",
+      "location": "russia",
+      "title": "Аэропорты Пензы, Саранска и Саратова временно закрыты",
+      "description": "Аэропорты Пензы, Саранска и Саратова временно не обслуживают рейсы, сообщили в Росавиации.\"Введены временные ограничения на прием и выпуск воздушных судов\", - говорится в сообщении агентства в мессенджере Max.",
+      "link": "https://www.interfax.ru/russia/1127515",
+      "pub_date": "Sat, 07 Nov 2026 02:46:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794009134.6794853
     }
   ],
   "last_undated_notice": 0
