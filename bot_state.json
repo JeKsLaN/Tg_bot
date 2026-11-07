@@ -5238,6 +5238,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794082265.648582
+    },
+    {
+      "id": "f0e05d703dad0700640124ef",
+      "location": "russia",
+      "title": "Мирный житель пострадал в Белгородской области в результате атаки БПЛА",
+      "description": "Мирный житель получил ранения в Белгородской области в результате удара ВСУ по парковке, сообщает региональный оперштаб.\"В поселке Ивня беспилотник сдетонировал на парковке.",
+      "link": "https://www.interfax.ru/russia/1127617",
+      "pub_date": "Sat, 07 Nov 2026 23:13:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794084527.661537
     }
   ],
   "last_undated_notice": 0
