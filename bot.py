@@ -44,6 +44,20 @@ try:
     MAX_NEWS_AGE_HOURS = float(os.getenv("MAX_NEWS_AGE_HOURS", "24") or 24)
 except ValueError:
     MAX_NEWS_AGE_HOURS = 24.0
+# Сколько происшествий по Купино публиковать в сутки (можно поменять переменной MAX_KUPINO_PER_DAY).
+try:
+    MAX_KUPINO_PER_DAY = int(os.getenv("MAX_KUPINO_PER_DAY", "3") or 3)
+except ValueError:
+    MAX_KUPINO_PER_DAY = 3
+# Ночные часы по Купино, когда бот ничего не публикует в канал (23 = с 23:00, 7 = до 7:00).
+try:
+    QUIET_HOURS_START = int(os.getenv("QUIET_HOURS_START", "23") or 23)
+except ValueError:
+    QUIET_HOURS_START = 23
+try:
+    QUIET_HOURS_END = int(os.getenv("QUIET_HOURS_END", "7") or 7)
+except ValueError:
+    QUIET_HOURS_END = 7
 STATE_FILE = "bot_state.json"
 SOURCE_STATS = {}  # сколько новостей отдал каждый источник в этом запуске
 LAST_RESOLVE_ERROR = ""  # почему не открылась последняя статья
@@ -100,7 +114,7 @@ SOURCES = [
     },
 ]
 # Источники, которые уже были в боте раньше: их текущие публикации считаются «уже виденными».
-DAILY_LIMITS = {"novosibirsk": MAX_NOVOSIBIRSK_PER_DAY}
+DAILY_LIMITS = {"novosibirsk": MAX_NOVOSIBIRSK_PER_DAY, "kupino": MAX_KUPINO_PER_DAY}
 # Главная новость страны и мира выходит ОДИН раз в сутки: после этого часа по Купино.
 NATIONAL_SLOTS = (9,)
 
@@ -118,10 +132,10 @@ BLOCKED_TITLE_WORDS = ("афиша",)
 # По Купино и Новосибирску публикуются ТОЛЬКО новости, где есть хотя бы одно из этих слов (ДТП, пожары и т. д.).
 INCIDENT_WORDS = (
     "взрыв", "взорвал", "пожар", "возгоран", "горит", "загорел", "дтп", "авари",
-    "столкнул", "сбил", "происшеств", "погиб", "пострадал", "ранен", "обруш",
-    "эвакуац", "пропал", "розыск", "утонул", "мчс", "спасател",
+    "столкнул", "сбил", "погиб", "пострадал", "ранен", "обруш",
+    "эвакуац", "пропал", "розыск", "утонул", "спасател",
     "отравлен", "нападение", "стрельба", "разлив", "утечка газа", "без вести",
-    "убит", "убийств", "ограблен", "задержан",
+    "убит", "убийств", "ограблен",
 )
 # Если в такой новости нет слов из INCIDENT_WORDS, запасной вариант выбора главной новости использует эти слова.
 WORLD_WORDS = (
@@ -146,6 +160,16 @@ def now_local():
 def fmt_time(ts):
     """Время по Купино в формате ЧЧ:ММ."""
     return datetime.fromtimestamp(ts, LOCAL_TZ).strftime("%H:%M")
+
+
+def in_quiet_hours():
+    """True, если сейчас ночь по Купино (QUIET_HOURS_START..QUIET_HOURS_END) — в канал в это время не публикуем."""
+    hour = now_local().hour
+    if QUIET_HOURS_START == QUIET_HOURS_END:
+        return False
+    if QUIET_HOURS_START < QUIET_HOURS_END:
+        return QUIET_HOURS_START <= hour < QUIET_HOURS_END
+    return hour >= QUIET_HOURS_START or hour < QUIET_HOURS_END
 
 
 def request(url, timeout=20, headers=None, max_bytes=8_000_000):
@@ -492,6 +516,41 @@ def parse_feed_items(raw, source):
     return results
 
 
+def nearby_date_text(raw_text, href, window=1500):
+    """Кусок сырой HTML-страницы сразу после ссылки href — туда обычно попадает дата листинга."""
+    pos = raw_text.find(href)
+    if pos == -1:
+        pos = raw_text.find(html.escape(href))
+    if pos == -1:
+        return ""
+    return raw_text[pos:pos + window]
+
+
+def parse_ru_date_text(text):
+    """Находит в тексте дату вида «11 октября 2026[, 20:45]» и переводит в unix-время (по Купино).
+    Используется для страниц-списков (без RSS), где дата публикации стоит прямо рядом с заголовком —
+    это надёжнее, чем потом искать дату на странице самой статьи: там регулярка может случайно
+    зацепить дату из соседнего блока «Это интересно» или «Самое читаемое», а не из самой статьи."""
+    months = "|".join(RU_MONTHS)
+    match = re.search(
+        rf'(\d{{1,2}})\s+({months})\s+(\d{{4}})(?:[^\d]{{0,5}}(\d{{1,2}}):(\d{{2}}))?',
+        text, re.I,
+    )
+    if not match:
+        return None
+    day, month_name, year, hour, minute = match.groups()
+    try:
+        month = RU_MONTHS.index(month_name.lower()) + 1
+        dt = datetime(
+            int(year), month, int(day),
+            int(hour) if hour else 0, int(minute) if minute else 0,
+            tzinfo=LOCAL_TZ,
+        )
+        return dt.timestamp()
+    except (ValueError, IndexError):
+        return None
+
+
 def fetch_source(source):
     # Try the publisher's own RSS/Atom endpoints, never an aggregator.
     for feed_url in source["feeds"]:
@@ -510,8 +569,9 @@ def fetch_source(source):
         raw, final_url, content_type = request(source["page"], timeout=20)
         if not allowed_source_url(final_url, source["domains"]) or "html" not in content_type.lower():
             raise RuntimeError("source page did not return HTML from the expected publisher")
+        raw_text = raw.decode("utf-8", errors="ignore")
         parser = ArticleParser()
-        parser.feed(raw.decode("utf-8", errors="ignore"))
+        parser.feed(raw_text)
         items = []
         seen_links = set()
         if source.get("heading_tag"):
@@ -524,6 +584,11 @@ def fetch_source(source):
             item = make_news_item(source, anchor_text, urllib.parse.urljoin(final_url, html.unescape(href)))
             if not item or item["link"] in seen_links:
                 continue
+            # Дату берём сразу со страницы списка, рядом с заголовком — она надёжнее даты со страницы
+            # самой статьи (там можно случайно подхватить дату соседнего блока, см. parse_ru_date_text).
+            ts = parse_ru_date_text(nearby_date_text(raw_text, href))
+            if ts:
+                item["pub_date"] = datetime.fromtimestamp(ts, timezone.utc).isoformat()
             seen_links.add(item["link"])
             items.append(item)
             if len(items) >= limit:
@@ -813,7 +878,7 @@ def fetch_article(item, article_url):
     try:
         raw, final_url, content_type = request(article_url, timeout=20)
         if not allowed_source_url(final_url, domains) or "html" not in content_type.lower():
-            return {"valid": False, "url": article_url, "text": "", "images": [], "reason": "Страница не является статьёй на исходном сайте"}
+            return {"valid": False, "url": final_url, "text": "", "images": [], "reason": "Страница не является статьёй на исходном сайте"}
         parser = ArticleParser()
         parser.feed(raw.decode("utf-8", errors="ignore"))
         page_title = parser.meta_title or ""
@@ -1405,13 +1470,14 @@ def process_news_queue(state, news):
     if new_items:
         notify_found(new_items)
 
+    quiet_now = in_quiet_hours()
     remaining = []
     handled = 0
     for item in pending:
         if was_posted(item, state):
             continue
         publish_after = float(item.get("publish_after", now + 300))
-        if now < publish_after:
+        if quiet_now or now < publish_after:
             remaining.append(item)
             continue
         handled += 1
