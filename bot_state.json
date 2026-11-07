@@ -3826,7 +3826,7 @@
     "В Новосибирске на улице Немировича-Данченко столкнулись Toyota и Hyundai"
   ],
   "source_baseline_done": true,
-  "last_no_news_notice": 1794070756.9118319,
+  "last_no_news_notice": 1794082266.4772513,
   "last_empty_notice": 0,
   "last_dead_notice": 1794046002.0566814,
   "national_day": "",
@@ -5222,6 +5222,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794079951.567405
+    },
+    {
+      "id": "38faebf734dc65b16303cd3f",
+      "location": "russia",
+      "title": "Пожар в производственном здании в Пензенской области локализован на 1,5 тыс. кв. м",
+      "description": "В Пензенской области спасатели локализовали пожар в производственном здании в селе Бикмосеевка, сообщает ГУ МЧС по региону в своем канале в Мах в субботу.\"21.",
+      "link": "https://www.interfax.ru/russia/1127616",
+      "pub_date": "Sat, 07 Nov 2026 22:37:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794082265.648582
     }
   ],
   "last_undated_notice": 0
