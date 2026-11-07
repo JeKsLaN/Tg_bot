@@ -4914,6 +4914,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794063970.9597473
+    },
+    {
+      "id": "ae9e349beb4396797b6bcd2b",
+      "location": "russia",
+      "title": "Стрельба произошла на Рыночной площади Кракова",
+      "description": "Погибшие и раненые есть в польском Кракове, где сегодня произошла стрельба.Associated Press уточняет со ссылкой на местные власти, что стрельба произошла на Рыночной площади в центре города.",
+      "link": "https://www.interfax.ru/world/1127596",
+      "pub_date": "Sat, 07 Nov 2026 18:14:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794066180.0254424
     }
   ],
   "last_undated_notice": 0
