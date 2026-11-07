@@ -5338,6 +5338,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794093186.7352114
+    },
+    {
+      "id": "4b7494be51e0d18dd5f9e440",
+      "location": "russia",
+      "title": "Два взрыва прогремели на иранском острове Кешм в районе Ормуза",
+      "description": "Иранское агентство Tasnim сообщает о двух взрывах на острове Кешм, расположенном в Ормузском проливе.",
+      "link": "https://www.interfax.ru/world/1127626",
+      "pub_date": "Sun, 08 Nov 2026 02:15:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794095316.466984
     }
   ],
   "last_undated_notice": 0
