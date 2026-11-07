@@ -4946,6 +4946,56 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794070756.3969395
+    },
+    {
+      "id": "af3076eec8b0bbb25ec18d2b",
+      "location": "russia",
+      "title": "С утра субботы над регионами России были сбиты 28 дронов ВСУ",
+      "description": "Дежурные средства ПВО с 8:00 до 20:00 мск перехватили и уничтожили 28 украинских беспилотников самолетного типа, сообщило в субботу министерство обороны РФ.",
+      "link": "https://www.interfax.ru/russia/1127601",
+      "pub_date": "Sat, 07 Nov 2026 20:21:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794072843.390789
+    },
+    {
+      "id": "53ab07b167e89a14aef8982a",
+      "location": "russia",
+      "title": "Запущенная с \"Плесецка\" ракета-носитель вышла на целевую орбиту",
+      "description": "Космические войска провели успешный пуск ракеты-носителя \"Союз - 2.",
+      "link": "https://www.interfax.ru/russia/1127599",
+      "pub_date": "Sat, 07 Nov 2026 20:12:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794072843.390789
+    },
+    {
+      "id": "ee11728a541cf255208898e0",
+      "location": "russia",
+      "title": "Не менее пяти человек погибли в результате стрельбы в центре Кракова",
+      "description": "Погибшие и раненые есть в польском Кракове, где сегодня неизвестный открыл огонь по людям из своего автомобиля. Associated Press уточняет со ссылкой на местные власти, что стрельба произошла на Рыночной площади в центре города.",
+      "link": "https://www.interfax.ru/world/1127596",
+      "pub_date": "Sat, 07 Nov 2026 18:14:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/07/kra1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1794072843.390789
     }
   ],
   "last_undated_notice": 0
