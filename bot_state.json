@@ -3826,7 +3826,7 @@
     "В Новосибирске на улице Немировича-Данченко столкнулись Toyota и Hyundai"
   ],
   "source_baseline_done": true,
-  "last_no_news_notice": 1794058665.3317966,
+  "last_no_news_notice": 1794070756.9118319,
   "last_empty_notice": 0,
   "last_dead_notice": 1794046002.0566814,
   "national_day": "",
@@ -4930,6 +4930,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794066180.0254424
+    },
+    {
+      "id": "a0748540b3056d8bf40fef6f",
+      "location": "russia",
+      "title": "Житель Энергодара пострадал вследствие атаки украинского дрона",
+      "description": "Житель Энергодара получил ранения в результате удара украинского дрона по его машине, сообщил глава администрации города Максим Пухов.\"Около 16:00 житель Энергодара ехал на машине недалеко от села Днепровка.",
+      "link": "https://www.interfax.ru/russia/1127597",
+      "pub_date": "Sat, 07 Nov 2026 19:36:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794070756.3969395
     }
   ],
   "last_undated_notice": 0
