@@ -4905,6 +4905,40 @@
       ],
       "full_text": "",
       "pooled_at": 1794158007.4523764
+    },
+    {
+      "id": "8ceb1cc3758187c7d3974a77",
+      "location": "russia",
+      "title": "Внешнее электроснабжение Запорожской АЭС восстановлено",
+      "description": "Внешнее электроснабжение Запорожской АЭС восстановлено после ввода в работу ЛЭП \"Ферросплавная-1\", сообщили представители станции в воскресенье вечером.\"После проведения ремонтно-восстановительных работ введена в работу линия электропередачи 330 кВ \"Ферросплавная-1\".",
+      "link": "https://www.interfax.ru/russia/1127699",
+      "pub_date": "Sun, 08 Nov 2026 20:24:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794160180.3402545
+    },
+    {
+      "id": "41b47270f583629e8a4e16dc",
+      "location": "russia",
+      "title": "Не менее семи человек погибли в результате столкновения поездов в Египте",
+      "description": "По меньшей мере семь человек погибли в результате столкновения двух поездов в Египте, сообщает Associated Press.",
+      "link": "https://www.interfax.ru/world/1127697",
+      "pub_date": "Sun, 08 Nov 2026 20:01:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/08/egy_1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1794160180.3402545
     }
   ],
   "last_undated_notice": 0
