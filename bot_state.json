@@ -4871,6 +4871,40 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794155563.1906693
+    },
+    {
+      "id": "117e837b8860282f03d847a8",
+      "location": "russia",
+      "title": "Участок дороги на Харибском перевале в Дагестане закрыли из-за снегопада",
+      "description": "Проезд автотранспорта временно запрещен на участке автодороги в Гумбетовском районе Дагестана из-за снежной метели и плохой видимости, сообщает государственное казенное учреждение \"Дагестанавтодор\" в своем канале в Мах в воскресенье.",
+      "link": "https://www.interfax.ru/russia/1127698",
+      "pub_date": "Sun, 08 Nov 2026 20:07:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794158007.4523764
+    },
+    {
+      "id": "d27e71bf5ba9d5f1dbf5090c",
+      "location": "russia",
+      "title": "Не менее четырех человек погибли в результате столкновения поездов в Египте",
+      "description": "По меньшей мере четыре человека погибли в результате столкновения двух поездов в Египте, сообщает Associated Press.",
+      "link": "https://www.interfax.ru/world/1127697",
+      "pub_date": "Sun, 08 Nov 2026 20:01:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/08/egy_1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1794158007.4523764
     }
   ],
   "last_undated_notice": 0
