@@ -4939,6 +4939,22 @@
       ],
       "full_text": "",
       "pooled_at": 1794160180.3402545
+    },
+    {
+      "id": "4b58f05c01e3252bfc3e0bc0",
+      "location": "russia",
+      "title": "Землетрясение магнитудой 3,5 произошло в горах Дагестана",
+      "description": "Сейсмологи зарегистрировали землетрясение магнитудой 3,5 на территории Лакского района Дагестана, сообщает пресс-служба ГУ МЧС по республике в воскресенье.",
+      "link": "https://www.interfax.ru/russia/1127702",
+      "pub_date": "Sun, 08 Nov 2026 20:16:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794162093.458325
     }
   ],
   "last_undated_notice": 0
