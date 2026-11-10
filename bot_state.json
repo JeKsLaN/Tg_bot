@@ -4392,72 +4392,6 @@
   },
   "national_pool": [
     {
-      "id": "2a57e36338f353d2ac5ab1b7",
-      "location": "russia",
-      "title": "В Абу-Даби начались трехсторонние переговоры по украинскому урегулированию",
-      "description": "Трехсторонние переговоры по урегулированию ситуации на Украине стартовали в Абу-Даби, сообщил \"Интерфаксу\" источник в переговорной группе.",
-      "link": "https://www.interfax.ru/world/1128000",
-      "pub_date": "Tue, 10 Nov 2026 11:26:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [
-        "https://www.interfax.ru/ftproot/textphotos/2026/11/10/ae1200.jpg"
-      ],
-      "full_text": "",
-      "pooled_at": 1794299776.1405182
-    },
-    {
-      "id": "b3653785d996370b73232016",
-      "location": "russia",
-      "title": "США не будут публиковать октябрьские данные по годовой инфляции из-за шатдауна в 2025 году",
-      "description": "Министерство труда США во вторник не станет публиковать октябрьские данные по росту потребительских цен (индекс CPI) в годовом выражении, поскольку годом ранее информация не собиралась из-за шатдауна, что не позволяет сделать годовое сравнение, пишет CNBC.",
-      "link": "https://www.interfax.ru/world/1127992",
-      "pub_date": "Tue, 10 Nov 2026 11:23:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794299776.1405182
-    },
-    {
-      "id": "2b0a0769c8239d5522e7d566",
-      "location": "russia",
-      "title": "War Zone сообщило о выводе всех американских заправщиков с авиабазы Милденхолл",
-      "description": "Американские ВВС в спешном порядке вывели все свои самолеты-заправщики с авиабазы Милденхолл в Великобритании на фоне усиления мер безопасности на этом военном объекте, сообщило издание The War Zone.",
-      "link": "https://www.interfax.ru/business/1127999",
-      "pub_date": "Tue, 10 Nov 2026 11:20:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794299776.1405182
-    },
-    {
-      "id": "98f04c91422400eeb3638a7d",
-      "location": "russia",
-      "title": "Саудовская Аравия при поддержке США продолжает вывозить нефть через Ормузский пролив",
-      "description": "Национальная судоходная компания Саудовской Аравии Bahri Ship Management в сотрудничестве с военными США, несмотря на опасность атак на суда, отправляет через Ормузский пролив танкеры с нефтью, заявил в Дубае президент компании Халид аль-Хаммад.",
-      "link": "https://www.interfax.ru/business/1127998",
-      "pub_date": "Tue, 10 Nov 2026 11:18:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794299776.1405182
-    },
-    {
       "id": "7c7229c06f1b42ab02c24cba",
       "location": "russia",
       "title": "Лавров заявил о наличии у РФ своего документа по новой архитектуре безопасности в Евразии",
@@ -6812,6 +6746,72 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794352153.6692193
+    },
+    {
+      "id": "d7935725cd43d9cdab38d6e5",
+      "location": "russia",
+      "title": "Палата представителей США отложила рассмотрение импичмента Хегсету",
+      "description": "Республиканцы Палаты представителей США смогли заблокировать попытку начать процедуру импичмента главы Пентагона Пита Хегсета, передают американские СМИ.",
+      "link": "https://www.interfax.ru/world/1128163",
+      "pub_date": "Wed, 11 Nov 2026 02:37:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794354222.750181
+    },
+    {
+      "id": "1a94389949c8a301b3d0315a",
+      "location": "russia",
+      "title": "Суд в Москве огласит приговор по делу экс-министра Абызова о мошенничестве",
+      "description": "Таганский суд Москвы в среду огласит приговор бывшему министру по делам Открытого правительства Михаилу Абызову по делу о мошенничестве с инвестициями \"Российской венчурной компании\".",
+      "link": "https://www.interfax.ru/russia/1128161",
+      "pub_date": "Wed, 11 Nov 2026 02:30:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794354222.750181
+    },
+    {
+      "id": "654ba6415bfa2d1ca515ddfb",
+      "location": "russia",
+      "title": "Трамп рассматривает на пост пресс-секретаря Белого дома телеведущего Фергюсона",
+      "description": "Президент Дональд Трамп подбирает нового пресс-секретаря Белого дома и телеведущий Бен Фергюсон является явным фаворитом, сообщает телеканал Fox News со ссылкой на осведомленные источники.",
+      "link": "https://www.interfax.ru/world/1128162",
+      "pub_date": "Wed, 11 Nov 2026 02:29:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794354222.750181
+    },
+    {
+      "id": "aa4e0c7d5e3c817b867f5051",
+      "location": "russia",
+      "title": "Белый дом выступил в защиту Хегсета из-за попытки объявить ему импичмент",
+      "description": "Администрация США официально выступила против попытки объявить импичмент министру обороны Питу Хегсету.",
+      "link": "https://www.interfax.ru/world/1128160",
+      "pub_date": "Wed, 11 Nov 2026 02:07:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/11/heg1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1794354222.750181
     }
   ],
   "last_undated_notice": 0
