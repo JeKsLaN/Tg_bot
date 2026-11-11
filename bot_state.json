@@ -4510,152 +4510,6 @@
   },
   "national_pool": [
     {
-      "id": "5a27d40a6d98afb6bed9f499",
-      "location": "russia",
-      "title": "Новгородский губернатор сообщил о восьми сбитых БПЛА за ночь",
-      "description": "В Новгородской области за ночь сбили восемь беспилотников, сообщил губернатор Александр Дронов.",
-      "link": "https://www.interfax.ru/russia/1128219",
-      "pub_date": "Wed, 11 Nov 2026 10:07:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794383066.4507155
-    },
-    {
-      "id": "00ad097612e4fb8e2cb233a7",
-      "location": "russia",
-      "title": "Четыре БПЛА уничтожили в Ульяновской области",
-      "description": "Средства противовоздушной обороны ликвидировали четыре беспилотника над Ульяновской областью, сообщил губернатор региона Алексей Русских в среду.\"Дежурными средствами ПВО над территорией нашего региона перехвачено и уничтожено четыре вражеских БПЛА.",
-      "link": "https://www.interfax.ru/russia/1128220",
-      "pub_date": "Wed, 11 Nov 2026 10:06:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794383066.4507155
-    },
-    {
-      "id": "0c1e8cb06377af1003dcec98",
-      "location": "russia",
-      "title": "Сбербанк за 10 месяцев увеличил чистую прибыль по РСБУ на 17,6%",
-      "description": "Сбербанк в январе-октябре 2026 года увеличил чистую прибыль по РСБУ на 17,6% - до 1 669,7 млрд рублей, сообщил банк.",
-      "link": "https://www.interfax.ru/business/1128218",
-      "pub_date": "Wed, 11 Nov 2026 10:00:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [
-        "https://www.interfax.ru/ftproot/textphotos/2026/11/11/sb1200.jpg"
-      ],
-      "full_text": "",
-      "pooled_at": 1794383066.4507155
-    },
-    {
-      "id": "89db50a89568fcf1f141038c",
-      "location": "russia",
-      "title": "Минобороны сообщило о нейтрализации за ночь 627 БПЛА",
-      "description": "Российские военные за ночь перехватили и уничтожили 627 беспилотников, в том числе над московским регионом, заявило Минобороны.",
-      "link": "https://www.interfax.ru/russia/1128217",
-      "pub_date": "Wed, 11 Nov 2026 09:56:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794383066.4507155
-    },
-    {
-      "id": "102f8f1e6ee4e64e1de3d070",
-      "location": "russia",
-      "title": "С жителя Приморья взыскали 6,8 млн рублей за женьшень",
-      "description": "В Приморье суд взыскал с местного жителя 6,8 млн рублей компенсации ущерба по делу о контрабанде около 500 корней женьшеня, сообщило краевое Министерство лесного хозяйства и охраны окружающей среды.",
-      "link": "https://www.interfax.ru/russia/1128213",
-      "pub_date": "Wed, 11 Nov 2026 09:52:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794383066.4507155
-    },
-    {
-      "id": "581dad27bb05169c5247a004",
-      "location": "russia",
-      "title": "Для аэропортов Мурманска и Апатитов ввели ограничения",
-      "description": "Для аэропортов Мурманска и Апатитов ввели ограничения на прием и отправку рейсов, сообщила Росавиация.",
-      "link": "https://www.interfax.ru/russia/1128215",
-      "pub_date": "Wed, 11 Nov 2026 09:48:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794383066.4507155
-    },
-    {
-      "id": "ec134cb10d84c497d434be12",
-      "location": "russia",
-      "title": "Пять человек пострадали от удара беспилотника по автобусу в ДНР",
-      "description": "В Донецкой народной республике от удара беспилотника по автобусу \"Москва-Горловка\" пострадали пять человек, сообщил мэр Горловки Иван Приходько.",
-      "link": "https://www.interfax.ru/russia/1128214",
-      "pub_date": "Wed, 11 Nov 2026 09:45:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794383066.4507155
-    },
-    {
-      "id": "8de8f58cc6eb9db13fb056ab",
-      "location": "russia",
-      "title": "В Адыгее крыша многоквартирного дома горела из-за обломков БПЛА",
-      "description": "В Адыгее потушили крышу пятиэтажного дома в ауле Новая Адыгея, которая загорелась из-за падения обломков БПЛА, сообщил глава Адыгеи Мурат Кумпилов.",
-      "link": "https://www.interfax.ru/russia/1128212",
-      "pub_date": "Wed, 11 Nov 2026 09:40:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794383066.4507155
-    },
-    {
-      "id": "40c040d9d182481c855b9e62",
-      "location": "russia",
-      "title": "Задымление произошло на калийной шахте \"Еврохима\" в Пермском крае",
-      "description": "В Пермском крае в Березниках в шахте загорелась бурильная машина, сообщило краевое МЧС.",
-      "link": "https://www.interfax.ru/russia/1128210",
-      "pub_date": "Wed, 11 Nov 2026 09:34:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794383066.4507155
-    },
-    {
       "id": "00b1dbd271958e4d758f829a",
       "location": "russia",
       "title": "В Москве отметили 55-летие установления дипломатических отношений между ОАЭ и Россией",
@@ -6940,6 +6794,152 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794414542.4431865
+    },
+    {
+      "id": "3d2e5a13f8c7d5ad5a1d43bd",
+      "location": "russia",
+      "title": "Режим беспилотной опасности снят в ХМАО",
+      "description": "Режим беспилотной опасности отменен в Ханты-Мансийском автономном округе, сообщил губернатор Руслан Кухарук.\"Отбой беспилотной опасности на территории Югры\", - написал он в своем канале в мессенджере Мах.",
+      "link": "https://www.interfax.ru/russia/1128413",
+      "pub_date": "Wed, 11 Nov 2026 20:21:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794418182.390511
+    },
+    {
+      "id": "cc1e2419bf265249c38729f4",
+      "location": "russia",
+      "title": "Европейские лидеры обсудят возможность назначения представителя для переговоров с РФ",
+      "description": "Европейские лидеры в ходе неформального саммита в Дублине в пятницу обсудят создание позиции представителя ЕС для переговоров с РФ по украинскому урегулированию, сообщает в среду издание EUobserver.\"Председатель Совета ЕС Антониу Кошта согласился организовать обсуждение потенциального учреждения позиции представителя ЕС по мирному процессу\", - пишет издание со ссылкой на источники в ЕС.",
+      "link": "https://www.interfax.ru/world/1128412",
+      "pub_date": "Wed, 11 Nov 2026 20:10:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794418182.390511
+    },
+    {
+      "id": "b68576b37dc46577733cca99",
+      "location": "russia",
+      "title": "Венесуэла впервые за десятилетие отремонтирует нефтяное оборудование в США",
+      "description": "Венесуэла отправила нефтяное оборудование в США для техобслуживания впервые более чем за 10 лет, сообщает Bloomberg со ссылкой на оказавшийся в распоряжении агентства документ.",
+      "link": "https://www.interfax.ru/world/1128410",
+      "pub_date": "Wed, 11 Nov 2026 20:04:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794418182.390511
+    },
+    {
+      "id": "2577cfc8b791964791a4606e",
+      "location": "russia",
+      "title": "Сотрудник ЗАЭС погиб в результате удара ВСУ",
+      "description": "Сотрудник Запорожской АЭС погиб в собственном доме в результате удара ВСУ, сообщили представители станции в среду.\"Наш коллега был убит ночью в собственном доме, где отдыхал после смены.",
+      "link": "https://www.interfax.ru/russia/1128411",
+      "pub_date": "Wed, 11 Nov 2026 20:03:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794418182.390511
+    },
+    {
+      "id": "e0de1fd835b439f294c776a5",
+      "location": "russia",
+      "title": "Аэропорт Тюмени возобновил прием и отправку рейсов",
+      "description": "Аэропорт Тюмени возобновил работу в штатном режиме, сообщила Росавиация.\"Аэропорт \"Тюмень\" (\"Рощино\").",
+      "link": "https://www.interfax.ru/russia/1128407",
+      "pub_date": "Wed, 11 Nov 2026 19:45:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794418182.390511
+    },
+    {
+      "id": "9a01539bc324ec3324ec79a6",
+      "location": "russia",
+      "title": "Силы ПВО продолжают отражать атаку БПЛА в Омской области",
+      "description": "Средства ПВО продолжают отражать атаку украинских беспилотников в Омской области, сообщил губернатор региона Виталий Хоценко.\"ПВО Минобороны России продолжает сбивать вражеские БПЛА.",
+      "link": "https://www.interfax.ru/russia/1128409",
+      "pub_date": "Wed, 11 Nov 2026 19:44:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794418182.390511
+    },
+    {
+      "id": "a00cf8949b1fdd55750f8299",
+      "location": "russia",
+      "title": "В ГД внесен антидроп-законопроект с лимитом 30 тыс. руб. в месяц на P2P-переводы и наличные",
+      "description": "Группа депутатов и сенаторов внесла в Госдуму законопроект, который обязывает банки с 1 марта 2028 г. ограничивать клиентам-физлицам, подозреваемым в проведении сомнительных операций, внесение наличных и зачисление переводов от других граждан суммой 30 тыс. руб. в месяц.",
+      "link": "https://www.interfax.ru/russia/1128406",
+      "pub_date": "Wed, 11 Nov 2026 19:35:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/11/dn1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1794418182.390511
+    },
+    {
+      "id": "2ffb20c079304384929f6899",
+      "location": "russia",
+      "title": "Рубль в среду подрос в паре с юанем на фоне небольшого подъема цен на нефть",
+      "description": "Китайский юань опустился на Московской бирже по итогам торгов в среду, рубль подрос на фоне небольшого подъема цен на нефть.",
+      "link": "https://www.interfax.ru/business/1128405",
+      "pub_date": "Wed, 11 Nov 2026 19:29:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794418182.390511
+    },
+    {
+      "id": "a64049f67a355736a122ed2e",
+      "location": "russia",
+      "title": "Более 6 тыс. учебных заведений в Италии получили ложные сообщения об угрозе взрыва",
+      "description": "Свыше 6 тыс. учебных заведений в Италии в среду получили предупреждения, в которых утверждалось, что на их территории заложена бомба, сообщает агентство АНСА.",
+      "link": "https://www.interfax.ru/world/1128404",
+      "pub_date": "Wed, 11 Nov 2026 19:25:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794418182.390511
     }
   ],
   "last_undated_notice": 0
