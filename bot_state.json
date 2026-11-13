@@ -4534,104 +4534,6 @@
   },
   "national_pool": [
     {
-      "id": "a9c96357016d275b883f412a",
-      "location": "russia",
-      "title": "Фондовые индексы США завершили торги снижением",
-      "description": "Американские фондовые индексы завершили торги в четверг в минусе на фоне общего снижения аппетита к риску в связи с ослаблением надежд на скорое урегулирование ближневосточного конфликта.",
-      "link": "https://www.interfax.ru/world/1128764",
-      "pub_date": "Fri, 13 Nov 2026 06:51:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [
-        "https://www.interfax.ru/ftproot/textphotos/2026/11/13/street1200.jpg"
-      ],
-      "full_text": "",
-      "pooled_at": 1794543304.261112
-    },
-    {
-      "id": "4c8ef8e589338478cb5e9f8b",
-      "location": "russia",
-      "title": "Дефицит бюджета США в октябре вырос на 42%, до рекорда для этого месяца",
-      "description": "Дефицит госбюджета США в октябре составил $404 млрд, что на 42% превышает показатель того же месяца прошлого года ($284,3 млрд), свидетельствуют данные Министерства финансов страны.",
-      "link": "https://www.interfax.ru/world/1128763",
-      "pub_date": "Fri, 13 Nov 2026 06:50:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794543304.261112
-    },
-    {
-      "id": "7db02a812464aab2f7fd0f82",
-      "location": "russia",
-      "title": "Товарооборот между Россией и Вьетнамом вырос на 14% в первом полугодии",
-      "description": "Товарооборот между Россией и Вьетнамом вырос на 14% в первом полугодии, а в прошлом году превысил $6 млрд, сообщила председатель Совета Федерации Валентина Матвиенко.\"По итогам прошлого года товарооборот между странами вырос на 6% и превысил $6 млрд.",
-      "link": "https://www.interfax.ru/russia/1128761",
-      "pub_date": "Fri, 13 Nov 2026 06:24:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794543304.261112
-    },
-    {
-      "id": "b39e51e8fea9e841c5fa08d6",
-      "location": "russia",
-      "title": "Таджикистан и SpaceX обсудили перспективы развития спутникового интернета",
-      "description": "Руководство Службы связи при правительстве Таджикистана провело рабочую встречу с официальной делегацией американской компании SpaceX (Starlink), сообщает пресс-центр ведомства.",
-      "link": "https://www.interfax.ru/world/1128760",
-      "pub_date": "Fri, 13 Nov 2026 06:17:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794543304.261112
-    },
-    {
-      "id": "779823c0bf7cc0eff4c1e319",
-      "location": "russia",
-      "title": "КСИР заявил, что нанес удар по американскому радару в Бахрейне",
-      "description": "Корпус стражей исламской революции (КСИР) Ирана нанес удар по американской радиолокационной станции раннего предупреждения в Бахрейне, сообщает агентство Tasnim.\"Это служит серьезным предупреждением врагу о необходимости прекратить свои воздушные провокации и контрабанду нефти в Ормузском проливе.",
-      "link": "https://www.interfax.ru/world/1128759",
-      "pub_date": "Fri, 13 Nov 2026 06:12:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794543304.261112
-    },
-    {
-      "id": "5c80f65a03b391eaa66189da",
-      "location": "russia",
-      "title": "Сильный дождь ожидается в Москве в пятницу во второй половине дня",
-      "description": "Столичный департамент транспорта рекомендует водителям использовать для поездок по городу метро во второй половине дня в пятницу из-за ожидающегося сильного дождя.\"Во второй половине дня синоптики прогнозируют сильный дождь.",
-      "link": "https://www.interfax.ru/moscow/1128775",
-      "pub_date": "Fri, 13 Nov 2026 08:12:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794547057.9567378
-    },
-    {
       "id": "ef6c2b26106a51c66c765d43",
       "location": "russia",
       "title": "Таджикистан и Узбекистан обсудили расширение промышленной кооперации",
@@ -6880,6 +6782,168 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794590514.9698603
+    },
+    {
+      "id": "74875ab1b9d5d9a5be6ce41e",
+      "location": "russia",
+      "title": "Фон дер Ляйен пообещала скоро представить 22-й пакет санкций против России",
+      "description": "Председатель Еврокомиссии Урсула фон дер Ляйен заявила, что Евросоюз выступает за продолжение давления на Россию, в частности, за счет введения дополнительных санкций.\"Лучший способ усадить Россию за стол переговоров - это продолжать поддерживать Украину и оказывать максимальное давление на Россию, поэтому скоро мы представим наш 22-й пакет санкций\", - сказала она на пресс-конференции в Дублине.",
+      "link": "https://www.interfax.ru/world/1128935",
+      "pub_date": "Fri, 13 Nov 2026 21:04:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794593481.6075118
+    },
+    {
+      "id": "49d018477ed2f99a1b229ce7",
+      "location": "russia",
+      "title": "Житель курского села ранен в результате атаки дрона",
+      "description": "Житель села Толпино Кореневского района Курской области ранен в результате атаки БПЛА, сообщил губернатор Александр Хинштейн.",
+      "link": "https://www.interfax.ru/russia/1128934",
+      "pub_date": "Fri, 13 Nov 2026 20:58:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794593481.6075118
+    },
+    {
+      "id": "59ad407a8108c16ae7cfc299",
+      "location": "russia",
+      "title": "В России с начала года из-за нападений бурых медведей погибли 36 человек",
+      "description": "Минприроды решило ужесточить требования по регулированию его численности в регионах",
+      "link": "https://www.interfax.ru/russia/1128932",
+      "pub_date": "Fri, 13 Nov 2026 20:55:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/13/medvedi11200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1794593481.6075118
+    },
+    {
+      "id": "dc6e3abe2a2d56657349b33b",
+      "location": "russia",
+      "title": "Минобороны сообщило о нейтрализации семи БПЛА за день",
+      "description": "Российские дежурные средства ПВО с 8:00 до 20:00 по Москве уничтожили семь беспилотников самолетного типа над регионами, сообщило Минобороны.",
+      "link": "https://www.interfax.ru/russia/1128931",
+      "pub_date": "Fri, 13 Nov 2026 20:51:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794593481.6075118
+    },
+    {
+      "id": "17bc5c07380ea984d98704b2",
+      "location": "russia",
+      "title": "Кошта заявил, что обсуждать гарантии Киеву нужно с \"коалицией желающих\"",
+      "description": "Председатель Европейского совета Антониу Кошта заявил на пресс-конференции в Дублине, что \"коалиция желающих\" и НАТО должны участвовать в обсуждении гарантий безопасности для Украины.\"Гарантии безопасности необходимо обсуждать в рамках \"коалиции желающих\" и в тесной координации с НАТО\", - сказал он.",
+      "link": "https://www.interfax.ru/world/1128933",
+      "pub_date": "Fri, 13 Nov 2026 20:50:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794593481.6075118
+    },
+    {
+      "id": "6bc72c0dcb6cbcba367e55fc",
+      "location": "russia",
+      "title": "Участники СПИК 1.0 по модернизации производства смогут зачесть убытки прошлых лет",
+      "description": "Минфин предложил разрешить участникам специальных инвестиционных контрактов первого поколения (СПИК 1.",
+      "link": "https://www.interfax.ru/russia/1128930",
+      "pub_date": "Fri, 13 Nov 2026 20:47:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794593481.6075118
+    },
+    {
+      "id": "5d87bbeaa35cf6ca14411945",
+      "location": "russia",
+      "title": "В Шебекинском округе от удара БПЛА по машине ранены трое",
+      "description": "В Шебекинском округе в селе Ржевка от удара дрона по автомобилю пострадали трое мужчин, сообщил оперштаб Белгородской области.",
+      "link": "https://www.interfax.ru/russia/1128929",
+      "pub_date": "Fri, 13 Nov 2026 20:43:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794593481.6075118
+    },
+    {
+      "id": "5a48a5c8d9bb9c35aa685a73",
+      "location": "russia",
+      "title": "В Москве на некоторых улицах парковка станет дешевле с 18 января",
+      "description": "В Москве в некоторых районах между Третьим транспортным кольцом и МКАД с 18 января подешевеет парковка, сообщил городской Департамент транспорта. \"На ряде улиц в районах Головинский, Западное Дегунино, Савеловский, Ховрино и Дмитровский парковка станет дешевле.",
+      "link": "https://www.interfax.ru/moscow/1128927",
+      "pub_date": "Fri, 13 Nov 2026 20:37:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794593481.6075118
+    },
+    {
+      "id": "94864ce87367c6db8ad44815",
+      "location": "russia",
+      "title": "Что произошло за день: пятница, 13 ноября",
+      "description": "Прогнозы по новому раунду переговоров по Украине, взрыв авто в Москве, домашний арест для замглавы Росмолодежи и дело против проректора \"Синергии\"",
+      "link": "https://www.interfax.ru/russia/1128926",
+      "pub_date": "Fri, 13 Nov 2026 20:30:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794593481.6075118
+    },
+    {
+      "id": "e2896eafa111e66e99a46846",
+      "location": "russia",
+      "title": "В Европе предлагают \"демонстрировать желание\" обсуждать архитектуру безопасности",
+      "description": "В Европе некоторые чиновники придерживаются мнения, что демонстрация желания начать переговоры об европейской архитектуре безопасности поможет сохранить вовлеченность США и России в украинское урегулирование, сообщает Bloomberg со ссылкой на источники.",
+      "link": "https://www.interfax.ru/business/1128924",
+      "pub_date": "Fri, 13 Nov 2026 20:30:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794593481.6075118
     }
   ],
   "last_undated_notice": 0
