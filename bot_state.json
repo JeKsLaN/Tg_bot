@@ -4534,22 +4534,6 @@
   },
   "national_pool": [
     {
-      "id": "97aa22c11b36d998750e7ef7",
-      "location": "russia",
-      "title": "РФ выделит авиакомпании \"РусЛайн\" 67 млн руб. на поддержку рейсов Москва - Сухум",
-      "description": "РФ выделит авиакомпании \"РусЛайн\" более 67 млн рублей на поддержку рейсов Москва - Сухум (Абхазия).",
-      "link": "https://www.interfax.ru/russia/1128767",
-      "pub_date": "Fri, 13 Nov 2026 07:25:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794547057.9567378
-    },
-    {
       "id": "1bc95a4be859015e70e9fc2c",
       "location": "russia",
       "title": "Более 130 беспилотников уничтожили ночью над Калужской областью",
@@ -6946,6 +6930,22 @@
       ],
       "full_text": "",
       "pooled_at": 1794599883.2986462
+    },
+    {
+      "id": "ba320679b97f1b98194facd6",
+      "location": "russia",
+      "title": "Британская разведка в четыре раза увеличила интенсивность полетов у границ России",
+      "description": "Самолеты радиоэлектронной разведки британских Королевских ВВС в октябре совершили 17 полетов вблизи западных рубежей России, сообщила газета Daily Mail со ссылкой на информированный источник в военном ведомстве Соединенного Королевства.",
+      "link": "https://www.interfax.ru/world/1128943",
+      "pub_date": "Fri, 13 Nov 2026 23:11:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794603029.8580751
     }
   ],
   "last_undated_notice": 0
