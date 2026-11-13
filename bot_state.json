@@ -4534,22 +4534,6 @@
   },
   "national_pool": [
     {
-      "id": "1bc95a4be859015e70e9fc2c",
-      "location": "russia",
-      "title": "Более 130 беспилотников уничтожили ночью над Калужской областью",
-      "description": "Губернатор Калужской области Владислав Шапша сообщил об уничтожении в регионе 133 беспилотников, пострадавших нет.\"За вчерашний вечер и минувшую ночь силами ПВО над территорией Калужской области уничтожены 133 БПЛА\", - написал глава региона в своем канале в мессенджере Max.",
-      "link": "https://www.interfax.ru/russia/1128766",
-      "pub_date": "Fri, 13 Nov 2026 07:23:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794547057.9567378
-    },
-    {
       "id": "b1a50807bb5bd77b2ba7d795",
       "location": "russia",
       "title": "Четыре человека погибли и двое пострадали в ходе атаки на промзону в Волгограде",
@@ -6946,6 +6930,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794603029.8580751
+    },
+    {
+      "id": "cde0256f8b2b54e223205adb",
+      "location": "russia",
+      "title": "Хуситы сообщили об очередных ударах по аэропорту Эр-Рияда",
+      "description": "Йеменские хуситы заявили о новой серии ракетных ударов по объектам в Саудовской Аравии, сообщают в ночь на субботу ближневосточные СМИ.",
+      "link": "https://www.interfax.ru/world/1128944",
+      "pub_date": "Sat, 14 Nov 2026 00:07:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794605593.2398148
     }
   ],
   "last_undated_notice": 0
