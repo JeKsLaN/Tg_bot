@@ -4512,7 +4512,7 @@
     "В Новосибирской области матери родили детей в 13 и 51 год"
   ],
   "source_baseline_done": true,
-  "last_no_news_notice": 1794587029.3907044,
+  "last_no_news_notice": 1794599883.9918828,
   "last_empty_notice": 0,
   "last_dead_notice": 1794573302.4644294,
   "national_day": "",
@@ -4533,38 +4533,6 @@
     ]
   },
   "national_pool": [
-    {
-      "id": "4c09cc3facbe569762080fdc",
-      "location": "russia",
-      "title": "Что случилось этой ночью: пятница, 13 ноября",
-      "description": "Заявления Кушнера по украинскому урегулированию, атака БПЛА на Ростовскую область, меч Дарта Вейдера продан за $4,9 млн",
-      "link": "https://www.interfax.ru/world/1128762",
-      "pub_date": "Fri, 13 Nov 2026 07:30:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794547057.9567378
-    },
-    {
-      "id": "b7d08dc0fdc928ad38a29c1c",
-      "location": "russia",
-      "title": "Рынок акций РФ открылся в утреннюю сессию незначительным изменением фондовых индексов",
-      "description": "Российский рынок акций на старте торгов утренней сессии на МосБирже в пятницу демонстрирует вялую динамику; участники рынка не предпринимают активных действий, анализируя геополитические сообщения последних дней относительно урегулирования конфликта вокруг Украины.",
-      "link": "https://www.interfax.ru/russia/1128768",
-      "pub_date": "Fri, 13 Nov 2026 07:26:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794547057.9567378
-    },
     {
       "id": "97aa22c11b36d998750e7ef7",
       "location": "russia",
@@ -6944,6 +6912,40 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794596820.270336
+    },
+    {
+      "id": "d9e0917b8d4777e81f6fee3a",
+      "location": "russia",
+      "title": "Совкомбанк может направить долю прибыли на дивиденды на уровне 2024–2025 годов",
+      "description": "Совкомбанк по итогам 2026 года может направить на выплату дивидендов долю от прибыли, примерно сопоставимую с уровнем выплат в 2024-м и 2025-м году, заявил \"Интерфаксу\" первый зампред правления Совкомбанка Сергей Хотимский.\"Мы меньше, чем мы платим последние два года, платить точно не будем.",
+      "link": "https://www.interfax.ru/russia/1128942",
+      "pub_date": "Fri, 13 Nov 2026 22:23:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794599883.2986462
+    },
+    {
+      "id": "1bc20be5963a362ad3dbccff",
+      "location": "russia",
+      "title": "Лидеры стран ЕС обсудили в Дублине контроль передовых систем ИИ",
+      "description": "Контроль над передовыми системами искусственного интеллекта, находящимися сейчас в разработке, был предметом дискуссии в пятницу на неформальном саммите ЕС в Дублине, сообщила председатель Европейской комиссии (ЕК) Урсула фон дер Ляйен.",
+      "link": "https://www.interfax.ru/world/1128940",
+      "pub_date": "Fri, 13 Nov 2026 22:07:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/13/ur1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1794599883.2986462
     }
   ],
   "last_undated_notice": 0
