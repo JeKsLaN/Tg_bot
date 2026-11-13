@@ -4534,70 +4534,6 @@
   },
   "national_pool": [
     {
-      "id": "f49fa729b7cfa0a1c2c8508c",
-      "location": "russia",
-      "title": "Почти 470 БПЛА летело в сторону Московского региона с вечера четверга",
-      "description": "Более 140 беспилотников уничтожено на подлете к Москве, сообщил Собянин",
-      "link": "https://www.interfax.ru/moscow/1128777",
-      "pub_date": "Fri, 13 Nov 2026 08:29:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794550859.8937235
-    },
-    {
-      "id": "60907218002fe385aedc4c12",
-      "location": "russia",
-      "title": "ВС РФ поразили в Черном море сухогруз с вооружением и военным имуществом для ВСУ",
-      "description": "Российские военнослужащие ночью нанесли удар беспилотником по судну с военным имуществом и грузами двойного назначения для украинской армии в Черном море, заявили в Минобороны России в пятницу.\"В течение ночи в акватории Черного моря юго-западнее Одессы поражено морское судно типа сухогруз с вооружением и военным имуществом для ВСУ\", - говорится в сообщении.",
-      "link": "https://www.interfax.ru/russia/1128776",
-      "pub_date": "Fri, 13 Nov 2026 08:24:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794550859.8937235
-    },
-    {
-      "id": "b9fdd11625e39deb69a2bfcc",
-      "location": "russia",
-      "title": "Ветер с порывами до 17 м/с ожидается в Москве и области в пятницу",
-      "description": "Ветер с порывами до 17 м/с ожидается местами в Москве в пятницу, сообщили в столичном главке МЧС.\"В период с 13:00 до конца суток 13 ноября в Москве ожидается ветер 12-17 м/с\", - говорится в сообщении, опубликованном в канале ведомства в Max.",
-      "link": "https://www.interfax.ru/moscow/1128793",
-      "pub_date": "Fri, 13 Nov 2026 10:22:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794555860.7943141
-    },
-    {
-      "id": "10f7b5d129264ef25b53eee2",
-      "location": "russia",
-      "title": "В КСИР сообщили о подрыве газовоза в Ормузском проливе",
-      "description": "Газовоз, шедший в восточной части Ормузского пролива, наткнулся на мину, после чего произошел взрыв, сообщает в пятницу Корпус стражей Исламской революции (КСИР) Ирана.\"Судно с сжиженным природным газом, проигнорировав неоднократные предупреждения, попыталось пересечь (...) восточный район Ормузского пролива.",
-      "link": "https://www.interfax.ru/world/1128791",
-      "pub_date": "Fri, 13 Nov 2026 10:21:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794555860.7943141
-    },
-    {
       "id": "c2653370cc0e1cc715764a7b",
       "location": "russia",
       "title": "МЧС РФ планирует провести будущим летом учения в арктической зоне",
@@ -6948,6 +6884,70 @@
       ],
       "full_text": "",
       "pooled_at": 1794611142.6601162
+    },
+    {
+      "id": "7ca07988df4da8568204118e",
+      "location": "russia",
+      "title": "Носитель Super Heavy не смог приземлиться на стартовую площадку",
+      "description": "Он приводнился в Американском заливе",
+      "link": "https://www.interfax.ru/world/1128956",
+      "pub_date": "Sat, 14 Nov 2026 02:23:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794613456.8480725
+    },
+    {
+      "id": "9c0987c6e109a14c73e7d1d4",
+      "location": "russia",
+      "title": "Трамп снова отложил действие \"Закона о торговом флоте\"",
+      "description": "Президент США Дональд Трамп в очередной раз продлил на 90 дней приостановку действия \"Закона о торговом флоте\" (более известный как \"закон Джонса\"), сообщают в ночь на субботу американские СМИ.",
+      "link": "https://www.interfax.ru/world/1128955",
+      "pub_date": "Sat, 14 Nov 2026 02:21:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794613456.8480725
+    },
+    {
+      "id": "af711b7eaf2cafd13e1ddd42",
+      "location": "russia",
+      "title": "Аэропорты Волгограда и Астрахани вернулись к штатной работе",
+      "description": "Аэропорты Волгограда и Астрахани возобновили обслуживание рейсов, сообщает Росавиация в субботу.\"Сняты ограничения на прием и выпуск воздушных судов\", - говорится в сообщении ведомства в мессенджере Max.",
+      "link": "https://www.interfax.ru/russia/1128954",
+      "pub_date": "Sat, 14 Nov 2026 02:05:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794613456.8480725
+    },
+    {
+      "id": "f5013258e74c462cf93990dc",
+      "location": "russia",
+      "title": "Крупнейшая в мире ракета Starship стартовала в тестовый орбитальный полет",
+      "description": "Корабль и носитель должны вернуться на стартовую площадку, где при посадке их подхватят манипуляторы башни обслуживания",
+      "link": "https://www.interfax.ru/world/1128953",
+      "pub_date": "Sat, 14 Nov 2026 02:04:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794613456.8480725
     }
   ],
   "last_undated_notice": 0
