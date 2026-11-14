@@ -5560,6 +5560,70 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794676994.1885495
+    },
+    {
+      "id": "be6cd193ca51bf5cb5c21f28",
+      "location": "russia",
+      "title": "Четыре человека пострадали в Запорожской области вследствие украинских атак",
+      "description": "Четыре человека получили ранения в Каменско-Днепровском муниципальном округе (Запорожская область) в результате украинских атак, сообщила администрация округа в субботу.\"В результате ударов пострадали 4 человека, трое из которых - сотрудники скорой медицинской помощи: водитель и два фельдшера.",
+      "link": "https://www.interfax.ru/russia/1129036",
+      "pub_date": "Sat, 14 Nov 2026 20:36:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794679143.6577365
+    },
+    {
+      "id": "078b3dbaa25886872689cea5",
+      "location": "russia",
+      "title": "Аэропорты Пензы и Саратова вернулись к штатной работе",
+      "description": "Временные ограничения на прием и выпуск воздушных судов сняты в аэропортах Пензы и Саратова (\"Гагарин\"), сообщили в субботу в Росавиации.",
+      "link": "https://www.interfax.ru/russia/1129038",
+      "pub_date": "Sat, 14 Nov 2026 20:33:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794679143.6577365
+    },
+    {
+      "id": "dfbe89ae66945adec847c0e7",
+      "location": "russia",
+      "title": "Минобороны РФ сообщило об уничтожении над регионами России 39 дронов за субботу",
+      "description": "Дежурными силами ПВО с 8:00 субботы уничтожены 39 украинских беспилотников, в том числе над Московским регионом, сообщило Минобороны РФ.",
+      "link": "https://www.interfax.ru/russia/1129037",
+      "pub_date": "Sat, 14 Nov 2026 20:31:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794679143.6577365
+    },
+    {
+      "id": "40d16f0364e084d9b7f92dbd",
+      "location": "russia",
+      "title": "Что произошло за день: суббота, 14 ноября",
+      "description": "Дата встречи лидеров Путина, Си Цзиньпина и Трампа, решение о маркировке звонков от банков, решение Болгарии остановить помощь Украине",
+      "link": "https://www.interfax.ru/russia/1129035",
+      "pub_date": "Sat, 14 Nov 2026 20:30:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794679143.6577365
     }
   ],
   "last_undated_notice": 0
