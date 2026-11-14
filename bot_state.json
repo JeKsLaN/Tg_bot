@@ -4524,7 +4524,7 @@
     "Аэропорт Толмачево досрочно обслужил 9 млн пассажиров в 2026 году"
   ],
   "source_baseline_done": true,
-  "last_no_news_notice": 1794686876.757851,
+  "last_no_news_notice": 1794698072.8195138,
   "last_empty_notice": 0,
   "last_dead_notice": 1794662149.916484,
   "national_day": "",
@@ -5866,6 +5866,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794695852.455001
+    },
+    {
+      "id": "6fe0b948365aa3a52583614f",
+      "location": "russia",
+      "title": "Аэропорт Пензы приостановил работу",
+      "description": "Временные ограничения на выпуск и прием воздушных судов введены в аэропорту Пензы, сообщили в Росавиации в воскресенье.\"Введены временные ограничения на прием и выпуск воздушных судов\", - говорится в сообщении агентства в Max.",
+      "link": "https://www.interfax.ru/russia/1129056",
+      "pub_date": "Sun, 15 Nov 2026 02:05:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794698072.4170792
+    },
+    {
+      "id": "e53e15d6be7c3c97deb7df90",
+      "location": "russia",
+      "title": "КСИР утверждает, что еще два танкера подорвались на минах в Ормузском проливе",
+      "description": "В Ормузском проливе два нефтяных танкера подорвались на минах и загорелись при движении по несогласованному с Ираном маршруту, сообщает телеканал \"Аль-Джазира\" со ссылкой на сообщение ВМС Корпуса стражей Исламской революции (КСИР).",
+      "link": "https://www.interfax.ru/world/1129054",
+      "pub_date": "Sun, 15 Nov 2026 01:59:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794698072.4170792
     }
   ],
   "last_undated_notice": 0
