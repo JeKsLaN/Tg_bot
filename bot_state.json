@@ -5528,6 +5528,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794674723.5551069
+    },
+    {
+      "id": "391c783b95837bd0e956ef91",
+      "location": "russia",
+      "title": "Движение на Волгоградском проспекте в Москве восстановлено",
+      "description": "Движение после крупного ДТП восстановлено на Волгоградском проспекте, сообщили в субботу в столичном департаменте транспорта.\"Движение на Волгоградском проспекте (в районе д.",
+      "link": "https://www.interfax.ru/moscow/1129034",
+      "pub_date": "Sat, 14 Nov 2026 20:14:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794676994.1885495
+    },
+    {
+      "id": "65e996990d8600b239b3f683",
+      "location": "russia",
+      "title": "Спортсмена застрелили возле банкетного зала в Махачкале",
+      "description": "Возбуждено уголовное дело",
+      "link": "https://www.interfax.ru/russia/1129033",
+      "pub_date": "Sat, 14 Nov 2026 20:13:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794676994.1885495
     }
   ],
   "last_undated_notice": 0
