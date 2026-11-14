@@ -4524,7 +4524,7 @@
     "Аэропорт Толмачево досрочно обслужил 9 млн пассажиров в 2026 году"
   ],
   "source_baseline_done": true,
-  "last_no_news_notice": 1794662152.7790515,
+  "last_no_news_notice": 1794674724.2509902,
   "last_empty_notice": 0,
   "last_dead_notice": 1794662149.916484,
   "national_day": "",
@@ -5512,6 +5512,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794672362.51175
+    },
+    {
+      "id": "550afe1618de5d89ecc7cf1b",
+      "location": "russia",
+      "title": "ДТП с участием двух грузовиков произошло на 224-м км Московского малого кольца",
+      "description": "Дорожно-транспортное происшествие на 224-м километре Московского малого кольца произошло с участием двух грузовых автомобилей, сообщили в столичном департаменте транспорта в субботу.",
+      "link": "https://www.interfax.ru/russia/1129032",
+      "pub_date": "Sat, 14 Nov 2026 19:19:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794674723.5551069
     }
   ],
   "last_undated_notice": 0
