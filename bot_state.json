@@ -4536,7 +4536,7 @@
     "Двенадцать пожарных тушили двухэтажный дом в Куйбышевском районе"
   ],
   "source_baseline_done": true,
-  "last_no_news_notice": 1794750543.1162295,
+  "last_no_news_notice": 1794763031.252332,
   "last_empty_notice": 0,
   "last_dead_notice": 1794750541.56127,
   "national_day": "",
@@ -5874,6 +5874,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794760705.3223557
+    },
+    {
+      "id": "b19c3f84b90defad28729b40",
+      "location": "russia",
+      "title": "Четыре БПЛА уничтожены на подлете к Москве",
+      "description": "Четыре беспилотника, летевшие на столицу, уничтожены, сообщил мэр Москвы Сергей Собянин в воскресенье.",
+      "link": "https://www.interfax.ru/moscow/1129150",
+      "pub_date": "Sun, 15 Nov 2026 20:11:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794763030.9915562
+    },
+    {
+      "id": "d7d1d0f373d2502c66d07d91",
+      "location": "russia",
+      "title": "Аэропорт Внуково работает по согласованию",
+      "description": "Московский аэропорт Внуково обслуживает рейсы по согласованию с соответствующими органами, сообщили в воскресенье в Росавиации.\"Аэропорт Внуково принимает и отправляет рейсы по согласованию с соответствующими органами в связи с введением временных ограничений на использование воздушного пространства в районе авиагавани\", - говорится в сообщении агентства в мессенджере Max.",
+      "link": "https://www.interfax.ru/russia/1129147",
+      "pub_date": "Sun, 15 Nov 2026 19:53:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794763030.9915562
     }
   ],
   "last_undated_notice": 0
