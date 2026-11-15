@@ -5914,6 +5914,54 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794702373.095733
+    },
+    {
+      "id": "b0e9bbe4fb90fad702cd3ead",
+      "location": "russia",
+      "title": "Несколько БПЛА сбиты над Таганрогом",
+      "description": "Мэр Таганрога Светлана Камбулова сообщила о ликвидации беспилотников над территорией города.\"Уничтожены БПЛА над городом.",
+      "link": "https://www.interfax.ru/russia/1129060",
+      "pub_date": "Sun, 15 Nov 2026 04:06:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794706988.9976172
+    },
+    {
+      "id": "0ad80e1a2782dde2d94eb9ab",
+      "location": "russia",
+      "title": "Макрон заявил, что место Украины в НАТО",
+      "description": "Президент Франции Эмманюэль Макрон заявил, что считает нужным, чтобы Украина стала членом НАТО.\"Я убежден, что Украина (...) и НАТО должны будут играть ключевую роль\", - написал он в соцсети X, рассуждая о будущей системе европейской безопасности.",
+      "link": "https://www.interfax.ru/world/1129059",
+      "pub_date": "Sun, 15 Nov 2026 03:53:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794706988.9976172
+    },
+    {
+      "id": "cac922d5cf99619b29e1e3e4",
+      "location": "russia",
+      "title": "Израильские военные нанесли удар по высокопоставленному командиру ХАМАС",
+      "description": "Армия обороны Израиля (ЦАХАЛ) и Служба общей безопасности (Шин Бет) нанесли удар в секторе Газа для ликвидации одного из командиров военного крыла движения ХАМАС, сообщает в воскресенье The Times of Israel.",
+      "link": "https://www.interfax.ru/world/1129058",
+      "pub_date": "Sun, 15 Nov 2026 03:37:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794706988.9976172
     }
   ],
   "last_undated_notice": 0
