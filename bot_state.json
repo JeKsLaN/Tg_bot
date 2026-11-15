@@ -6002,6 +6002,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794765286.901752
+    },
+    {
+      "id": "7f98959a30a073436649fa31",
+      "location": "russia",
+      "title": "Движение пассажирских поездов восстановлено в Ростовской области",
+      "description": "Движение пассажирских поездов, нарушенное ранее после атаки БПЛА, восстановлено и, сообщает пресс-служба Северо-Кавказской железной дороги в своем канале в Мах.",
+      "link": "https://www.interfax.ru/russia/1129157",
+      "pub_date": "Sun, 15 Nov 2026 21:02:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794767553.039604
+    },
+    {
+      "id": "be7efadf8000ad21cc9bf869",
+      "location": "russia",
+      "title": "До 25 выросло число сбитых на подлете к Москве беспилотников",
+      "description": "До 25 увеличилось количество беспилотников, сбитых на подлете к Москве, сообщил мэр Москвы Сергей Собянин в воскресенье.\"Cбили 11 беспилотников, летевших на Москву.",
+      "link": "https://www.interfax.ru/moscow/1129156",
+      "pub_date": "Sun, 15 Nov 2026 20:54:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794767553.039604
     }
   ],
   "last_undated_notice": 0
