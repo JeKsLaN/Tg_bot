@@ -6034,6 +6034,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794767553.039604
+    },
+    {
+      "id": "f8cd775c3593b6da87be7513",
+      "location": "russia",
+      "title": "Число летевших на Москву беспилотников достигло 60",
+      "description": "Еще 19 беспилотников ликвидировали на подлете к столице, сообщил мэр Москвы Сергей Собянин в воскресенье; в общей сложности количество сбитых за сутки БПЛА увеличилось до 60.\"Отражена атака еще 19 БПЛА, летевших на Москву.",
+      "link": "https://www.interfax.ru/russia/1129160",
+      "pub_date": "Sun, 15 Nov 2026 22:03:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794770635.9186924
     }
   ],
   "last_undated_notice": 0
