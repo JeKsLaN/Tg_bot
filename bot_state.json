@@ -4570,120 +4570,6 @@
   },
   "national_pool": [
     {
-      "id": "ca597f1cc9df73d533e00fdc",
-      "location": "russia",
-      "title": "Российские военные нанесли удар по локомотиву в районе ж/д станции \"Запорожье\"",
-      "description": "Вооруженные силы РФ в ночь на понедельник нанесли удар беспилотниками по локомотиву в районе железнодорожной станции \"Запорожье\", заявили в Минобороны России.",
-      "link": "https://www.interfax.ru/russia/1129215",
-      "pub_date": "Mon, 16 Nov 2026 09:08:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794810071.112825
-    },
-    {
-      "id": "7d1ff3c9795c9579a926cdd3",
-      "location": "russia",
-      "title": "Рубль утром дешевеет к юаню на фоне небольшой смешанной динамики на рынке нефти",
-      "description": "Китайский юань растет на Московской бирже при открытии торгов в понедельник, рубль слабеет на фоне небольшой смешанной динамики на рынке нефти.",
-      "link": "https://www.interfax.ru/business/1129214",
-      "pub_date": "Mon, 16 Nov 2026 09:08:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794810071.112825
-    },
-    {
-      "id": "22fddc63dc3dec5957c321dc",
-      "location": "russia",
-      "title": "Над Орловской область ночью сбили 13 беспилотников",
-      "description": "Над Орловской областью за ночь сбили 13 Более десятка беспилотников, сообщил губернатор Андрей Клычков.",
-      "link": "https://www.interfax.ru/russia/1129213",
-      "pub_date": "Mon, 16 Nov 2026 08:59:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794810071.112825
-    },
-    {
-      "id": "3f8ba8d34be5298f78bc0fed",
-      "location": "russia",
-      "title": "Минобороны сообщило о сбитых за ночь 1 336 дронах",
-      "description": "Российские военные за ночь перехватили и уничтожили 1 336 беспилотников самолетного типа, заявили в Минобороны.",
-      "link": "https://www.interfax.ru/russia/1129212",
-      "pub_date": "Mon, 16 Nov 2026 08:53:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794810071.112825
-    },
-    {
-      "id": "ee79d8ecd8a7f3a78966dc03",
-      "location": "russia",
-      "title": "Казахстан на два месяца запретил ввоз куриных яиц",
-      "description": "Казахстан запретил импорт куриных яиц на два месяца, в том числе из стран ЕАЭС, такой приказ подписал глава Минсельхоза Айдарбек Сапаров.",
-      "link": "https://www.interfax.ru/business/1129211",
-      "pub_date": "Mon, 16 Nov 2026 08:42:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794810071.112825
-    },
-    {
-      "id": "985e281064be3942c147d509",
-      "location": "russia",
-      "title": "Brent подешевела до $95,38 за баррель",
-      "description": "Нефть слабо дешевеет на фоне ожиданий избытка предложения на мировом рынке на фоне восстановления поставок с Ближнего Востока.",
-      "link": "https://www.interfax.ru/business/1129210",
-      "pub_date": "Mon, 16 Nov 2026 08:35:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794810071.112825
-    },
-    {
-      "id": "3201f5154ac76c29eadb5441",
-      "location": "russia",
-      "title": "Ростовский губернатор сообщил о четырех пожарах на предприятиях",
-      "description": "В Ростовской области произошли пожары на четырех производственных объектах в Азове Ростовской области от атаки БПЛА, сообщил губернатор региона Юрий Слюсарь.",
-      "link": "https://www.interfax.ru/russia/1129209",
-      "pub_date": "Mon, 16 Nov 2026 08:22:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [
-        "https://www.interfax.ru/ftproot/textphotos/2026/11/16/mhs1200.jpg"
-      ],
-      "full_text": "",
-      "pooled_at": 1794810071.112825
-    },
-    {
       "id": "8f1916e1ce40ea2bfc7c7bce",
       "location": "russia",
       "title": "Около 600 БПЛА летели в сторону Московского региона с вечера воскресенья",
@@ -6996,6 +6882,118 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794866969.2156525
+    },
+    {
+      "id": "adee7651a023dcc64494a92e",
+      "location": "russia",
+      "title": "Закрыты аэропорты Внуково, Домодедово и Жуковский",
+      "description": "Временно не обслуживают рейсы аэропорты московский аэропорт Внуково, Домодедово и Жуковский, сообщили в Росавиации.\"Аэропорты Внуково, Домодедово, Жуковский.",
+      "link": "https://www.interfax.ru/moscow/1129421",
+      "pub_date": "Tue, 17 Nov 2026 01:50:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794869730.6885417
+    },
+    {
+      "id": "701fc97715da3ffcfe5dc962",
+      "location": "russia",
+      "title": "Крымский мост подвергся атаке ВСУ",
+      "description": "Крымский мост подвергся украинской атаке, сообщил глава Крыма Сергей Аксенов.\"Противник вновь атаковал Крымский мост.",
+      "link": "https://www.interfax.ru/russia/1129420",
+      "pub_date": "Tue, 17 Nov 2026 01:42:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794869730.6885417
+    },
+    {
+      "id": "2737d289b80a265d4a1ae708",
+      "location": "russia",
+      "title": "ВМС США сосредоточили в районе Ближнего Востока более 20 кораблей",
+      "description": "Группировка американских ВМС на Ближнем Востоке вблизи Ирана превысила 20 боевых кораблей с учетом прибывшей накануне в регион третьей авианосной ударной группы, сообщила информационная служба Военно-морского института Соединенных Штатов.",
+      "link": "https://www.interfax.ru/world/1129418",
+      "pub_date": "Tue, 17 Nov 2026 01:21:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794869730.6885417
+    },
+    {
+      "id": "1e4c1da9d089aabfc4d8bc05",
+      "location": "russia",
+      "title": "Министры обороны стран ЕС обсудят поддержку Украины и отношения с КНР",
+      "description": "Украина и Китай будут двумя главными темами заседания во вторник в Брюсселе Совета ЕС по иностранным делам в формате министров обороны.",
+      "link": "https://www.interfax.ru/world/1129416",
+      "pub_date": "Tue, 17 Nov 2026 01:10:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794869730.6885417
+    },
+    {
+      "id": "a76e0571213eb9373cea67bc",
+      "location": "russia",
+      "title": "Ограничения отменены в аэропорту Шереметьево, введены в Домодедово",
+      "description": "Московский аэропорт Шереметьево возобновил работу, Домодедово - приостановил, сообщили в Росавиации.\"Аэропорт Шереметьево.",
+      "link": "https://www.interfax.ru/moscow/1129415",
+      "pub_date": "Tue, 17 Nov 2026 01:07:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794869730.6885417
+    },
+    {
+      "id": "47846ec91024728c29fb3232",
+      "location": "russia",
+      "title": "В CENTCOM подтвердили, что на Ближний Восток прибыл авианосец Theodore Roosevelt",
+      "description": "Центральное командование ВС США на Ближнем Востоке (CENTCOM) в понедельник подтвердило, что атомный авианосец USS Theodore Roosevelt накануне вошел в зону его ответственности.\"В настоящее время авианосец действует зоне ответственности CENTCOM в рамках планового развертывания\", - говорится в сообщении.",
+      "link": "https://www.interfax.ru/world/1129409",
+      "pub_date": "Mon, 16 Nov 2026 23:53:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794869730.6885417
+    },
+    {
+      "id": "7d314c1b63749930d7a8a47f",
+      "location": "russia",
+      "title": "Путин назвал участие КНДР в освобождении Курщины новой главой летописи боевого содружества",
+      "description": "До конца 2026 года в Курске будет открыт монумент военным РФ и КНДР",
+      "link": "https://www.interfax.ru/russia/1129401",
+      "pub_date": "Mon, 16 Nov 2026 22:32:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794869730.6885417
     }
   ],
   "last_undated_notice": 0
