@@ -4570,70 +4570,6 @@
   },
   "national_pool": [
     {
-      "id": "8f1916e1ce40ea2bfc7c7bce",
-      "location": "russia",
-      "title": "Около 600 БПЛА летели в сторону Московского региона с вечера воскресенья",
-      "description": "Свыше 190 беспилотников уничтожено на подлете к столице",
-      "link": "https://www.interfax.ru/moscow/1129208",
-      "pub_date": "Mon, 16 Nov 2026 08:14:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794810071.112825
-    },
-    {
-      "id": "c4ccf7047e7dbc861c7d6c40",
-      "location": "russia",
-      "title": "Задержана группа вербовщиков в лже-модельные агентства",
-      "description": "Группа из 11 вербовщиков в фиктивные модельные агентства задержана в Москве и Петербурге, сообщила официальный представитель МВД РФ Ирина Волк.",
-      "link": "https://www.interfax.ru/russia/1129259",
-      "pub_date": "Mon, 16 Nov 2026 12:02:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794820420.4945335
-    },
-    {
-      "id": "6a8f71077bbd56a70f513d7e",
-      "location": "russia",
-      "title": "Несырьевой неэнергетический экспорт из России за девять месяцев вырос на 7%",
-      "description": "Несырьевой неэнергетический экспорт из России в январе-сентябре 2026 года вырос на 7% и составил $123 млрд, сообщил замминистра промышленности и торговли Роман Чекушов.",
-      "link": "https://www.interfax.ru/business/1129258",
-      "pub_date": "Mon, 16 Nov 2026 11:59:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794820420.4945335
-    },
-    {
-      "id": "65e3c3c9115870ef3ff75eb9",
-      "location": "russia",
-      "title": "ВС указал на приоритет фактического места жительства должника в деле о банкротстве",
-      "description": "Дело о банкротстве гражданина может рассматриваться по месту его фактического проживания, если должник подал в регистрирующий орган недостоверные сведения о своем месте жительства, решил Верховный суд России.",
-      "link": "https://www.interfax.ru/russia/1129257",
-      "pub_date": "Mon, 16 Nov 2026 11:53:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794820420.4945335
-    },
-    {
       "id": "24c2c4970b57666419183647",
       "location": "russia",
       "title": "На оборудование 5G Advanced и 6G будет направлено 249,4 млн рублей",
@@ -6994,6 +6930,70 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794869730.6885417
+    },
+    {
+      "id": "67f2e34c1fba71ee8124310e",
+      "location": "russia",
+      "title": "Отражена атака еще 20 дронов, летевших на Москву",
+      "description": "Мэр Москвы Сергей Собянин сообщил об уничтожении еще 20 беспилотников, пытавшихся атаковать столицу.\"Отражена атака 20 БПЛА, летевших на Москву.",
+      "link": "https://www.interfax.ru/moscow/1129426",
+      "pub_date": "Tue, 17 Nov 2026 02:17:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794872177.729978
+    },
+    {
+      "id": "f7b5b50e5d9b0d29b946eb3d",
+      "location": "russia",
+      "title": "Спикер парламента Ирана считает, что мир в регионе невозможен без прекращения войны в Ливане",
+      "description": "Спикер парламента Ирана Мохаммад Багер Галибаф в телефонном разговоре со своим ливанским коллегой Набиху Берри заявил о необходимости прекращения войны Израиля с Ливаном для установления мира в регионе.\"По нашему мнению, прочный мир и стабильность в регионе не могут быть достигнуты без прекращения войны в Ливане и полного восстановления суверенитета Ливана над всей его территорией\", - цитирует Галибафа Press TV.",
+      "link": "https://www.interfax.ru/world/1129425",
+      "pub_date": "Tue, 17 Nov 2026 02:11:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794872177.729978
+    },
+    {
+      "id": "b6d367c342d0d508c7b19f78",
+      "location": "russia",
+      "title": "Вэнс заявил, что США не допустят, чтобы война в Иране затянулась на два года",
+      "description": "Вице-президент США Джей Ди Вэнс заявил в интервью телеканалу Fox News, что американская администрация не допустит, чтобы война с Ираном затянулась на два года.",
+      "link": "https://www.interfax.ru/world/1129423",
+      "pub_date": "Tue, 17 Nov 2026 02:04:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794872177.729978
+    },
+    {
+      "id": "7f24cfe14e0034e3cdda576e",
+      "location": "russia",
+      "title": "Число пытавшихся атаковать Москву БПЛА увеличилось до 35",
+      "description": "Мэр Москвы Сергей Собянин сообщил о ликвидации еще 12 беспилотников, летевших на Москву.\"На месте падения обломков работают специалисты экстренных служб\", - написал Собянин в своем канале в Мах.",
+      "link": "https://www.interfax.ru/moscow/1129422",
+      "pub_date": "Tue, 17 Nov 2026 01:58:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794872177.729978
     }
   ],
   "last_undated_notice": 0
