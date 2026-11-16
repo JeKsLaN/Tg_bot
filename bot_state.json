@@ -4548,7 +4548,7 @@
     "В Новосибирске спасатели вытащили 10-летнего ребёнка из запертой машины"
   ],
   "source_baseline_done": true,
-  "last_no_news_notice": 1794853942.8728106,
+  "last_no_news_notice": 1794866969.7725961,
   "last_empty_notice": 0,
   "last_dead_notice": 1794840047.7478096,
   "national_day": "",
@@ -4569,40 +4569,6 @@
     ]
   },
   "national_pool": [
-    {
-      "id": "21dafe0b5fb8097f96f156b4",
-      "location": "russia",
-      "title": "Индексы S&P 500 и Nasdaq в пятницу снизились",
-      "description": "Dow Jones слабо вырос",
-      "link": "https://www.interfax.ru/world/1129198",
-      "pub_date": "Mon, 16 Nov 2026 06:37:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [
-        "https://www.interfax.ru/ftproot/textphotos/2026/11/16/NYS1200.jpg"
-      ],
-      "full_text": "",
-      "pooled_at": 1794805661.8808987
-    },
-    {
-      "id": "60744a559ca78a3da2af2711",
-      "location": "russia",
-      "title": "Снег выпадет в Москве в среду",
-      "description": "Снег и снег с дождем ожидаются в Москве в среду в первой половине дня, сообщает телеграм-канал Лаборатории солнечной астрономии.\"В среду с 7-8 часов утра до середины дня ожидается снег (иногда снег с дождем) при температуре -2...",
-      "link": "https://www.interfax.ru/moscow/1129217",
-      "pub_date": "Mon, 16 Nov 2026 09:11:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794810071.112825
-    },
     {
       "id": "ca597f1cc9df73d533e00fdc",
       "location": "russia",
@@ -6998,6 +6964,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794863937.0001879
+    },
+    {
+      "id": "1f03f6710f4ae29631587440",
+      "location": "russia",
+      "title": "Приостановили работу аэропорты Череповца, Пензы и Саратова",
+      "description": "Ограничения введены в аэропортах Череповца, Пензы и Саратова (Гагарин), сообщили в Росавиации.\"Аэропорт Череповец.",
+      "link": "https://www.interfax.ru/russia/1129414",
+      "pub_date": "Tue, 17 Nov 2026 00:21:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794866969.2156525
+    },
+    {
+      "id": "faad9e65287b30844b88b478",
+      "location": "russia",
+      "title": "Собянин сообщил о ликвидации 23 БПЛА",
+      "description": "На подлете к Москве уничтожено 23 беспилотника, сообщил мэр столицы Сергей Собянин.\"23 БПЛА, летевших на Москву, уничтожены системой ПВО Минобороны.",
+      "link": "https://www.interfax.ru/moscow/1129413",
+      "pub_date": "Tue, 17 Nov 2026 00:14:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794866969.2156525
     }
   ],
   "last_undated_notice": 0
