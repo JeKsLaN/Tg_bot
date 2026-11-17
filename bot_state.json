@@ -4582,134 +4582,6 @@
   },
   "national_pool": [
     {
-      "id": "c262dd4acf7e8e4ae73e275a",
-      "location": "russia",
-      "title": "Brent подешевела до $91,69 за баррель",
-      "description": "Цены на нефть умеренно опускаются утром во вторник после резкого снижения днем ранее.",
-      "link": "https://www.interfax.ru/business/1129458",
-      "pub_date": "Tue, 17 Nov 2026 08:27:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794897370.952151
-    },
-    {
-      "id": "bdde675e09baaa2d9d85b1c9",
-      "location": "russia",
-      "title": "Глава Рособрнадзора сообщил, что серьезных изменений в ЕГЭ-2027 не ожидается",
-      "description": "Глава Рособрнадзора Анзор Музаев сообщил, что важных и серьезных изменений в Едином государственном экзамене 2027 года не будет.\"Важных, серьезных таких изменений у нас нет (в ЕГЭ - ИФ).",
-      "link": "https://www.interfax.ru/russia/1129496",
-      "pub_date": "Tue, 17 Nov 2026 10:38:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794902217.0855708
-    },
-    {
-      "id": "129f23e1b8975440d0a9e844",
-      "location": "russia",
-      "title": "В белгородском поселке в результате удара FPV-дрона погиб мужчина",
-      "description": "В Волоконовском округе в поселке Новая Долина в результате атакки FPV-дрона погиб мужчина, сообщил оперштаб Белгородской области.",
-      "link": "https://www.interfax.ru/russia/1129495",
-      "pub_date": "Tue, 17 Nov 2026 10:38:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794902217.0855708
-    },
-    {
-      "id": "7fc1db5891c10dd63da9aa80",
-      "location": "russia",
-      "title": "Во Владивостоке в среду в школах введут свободное посещение",
-      "description": "Во Владивостоке 18 ноября школьники смогут остаться дома из-за прогноза об ухудшении погоды, сообщила мэрия города.\"Родители смогут самостоятельно решить, отправлять ли ребенка на занятия\", - говорится в сообщении.",
-      "link": "https://www.interfax.ru/russia/1129494",
-      "pub_date": "Tue, 17 Nov 2026 10:34:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794902217.0855708
-    },
-    {
-      "id": "890657f5fdc8c3e0f7e8a49d",
-      "location": "russia",
-      "title": "КС постановил, что родитель со сверхдоходами вправе снизить долевые алименты через суд",
-      "description": "Родитель со сверхдоходами вправе добиться снижения доли на алименты детям, в том числе установить их в твердой сумме, постановил Конституционный суд РФ.",
-      "link": "https://www.interfax.ru/russia/1129490",
-      "pub_date": "Tue, 17 Nov 2026 10:33:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794902217.0855708
-    },
-    {
-      "id": "e728e7655313aacd01a6aa4e",
-      "location": "russia",
-      "title": "ВС РФ поразили предприятия по производству в Запорожье, Черкасской и Днепропетровской областях",
-      "description": "Российские военные в ходе ночного массированного удара поразили предприятия по производству украинских оперативно-тактических ракет в городе Запорожье, Черкасской и Днепропетровской областях, заявили в Минобороны РФ во вторник.\"В городе Запорожье (поражены - ИФ): авиационный двигателестроительный завод (\"Мотор-Сич\", \"Ивченко-Прогресс\"), осуществляющий проектирование и производство оперативно-тактических ракет FP-9, крылатых ракет FP-5 \"Фламинго\", а также турбореактивных двигателей МС-400 для управляемых ракет \"Нептун-МД\", машиностроительный завод им.",
-      "link": "https://www.interfax.ru/russia/1129493",
-      "pub_date": "Tue, 17 Nov 2026 10:31:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794902217.0855708
-    },
-    {
-      "id": "02108b746af5ec1e68420398",
-      "location": "russia",
-      "title": "В Ульяновской области нейтрализовали 13 БПЛА",
-      "description": "В Ульяновской области нейтрализовали 13 БПЛА, сообщил губернатор региона Алексей Русских.",
-      "link": "https://www.interfax.ru/russia/1129492",
-      "pub_date": "Tue, 17 Nov 2026 10:31:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794902217.0855708
-    },
-    {
-      "id": "f229ab134f39d425d6ab37e5",
-      "location": "russia",
-      "title": "В Астрахани ограничат движение по Старому мосту через Волгу на время ремонта",
-      "description": "В Астрахани отремонтируют Старый автожелезнодорожный мост через Волгу, работы пройдут с 18 ноября по 15 декабря, сообщает пресс-служба губернатора региона Игоря Бабушкина.",
-      "link": "https://www.interfax.ru/russia/1129491",
-      "pub_date": "Tue, 17 Nov 2026 10:22:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1794902217.0855708
-    },
-    {
       "id": "f07c073b0115486bae9ec06b",
       "location": "russia",
       "title": "Военные РФ нанесли удары по электроподстанциям в Днепропетровске и Харькове",
@@ -7006,6 +6878,138 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1794933698.4518387
+    },
+    {
+      "id": "3a492049533cbfa797f0520d",
+      "location": "russia",
+      "title": "МИД РФ заявил о готовности продолжать оказывать Кубе политическое и материальное содействие",
+      "description": "Замглавы российского МИД Сергей Рябков на встрече во вторник с кубинским послом в РФ Энрике Ортой Гонсалесом подтвердил позицию России в отношении незамедлительной отмены блокады Кубы со стороны США, заявил о готовности Москвы продолжать оказывать Гаване политико-дипломатическое и материальное содействие, сообщает российское внешнеполитическое ведомство на своем сайте.",
+      "link": "https://www.interfax.ru/russia/1129661",
+      "pub_date": "Tue, 17 Nov 2026 20:27:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794937414.9364936
+    },
+    {
+      "id": "cdc3b3f3e3cab90c7cc3b660",
+      "location": "russia",
+      "title": "Президент Молдавии заявила, что страна может вступить в ЕС как с Приднестровьем, так и без",
+      "description": "Президент Молдавии Майя Санду заявила, что страна может вступить в Евросоюз как вместе с Приднестровьем, так и раздельно.",
+      "link": "https://www.interfax.ru/world/1129660",
+      "pub_date": "Tue, 17 Nov 2026 20:20:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794937414.9364936
+    },
+    {
+      "id": "a44e1b6ec0ec21686934eda2",
+      "location": "russia",
+      "title": "Аэропорты РФ будут перечислять авиапромсбор за иностранных перевозчиков, компенсируя затраты из тарифа",
+      "description": "Минпромторг РФ подготовил пакет законопроектов, предусматривающих введение сбора с авиапассажиров для поддержки поставок новых отечественных самолетов.",
+      "link": "https://www.interfax.ru/russia/1129659",
+      "pub_date": "Tue, 17 Nov 2026 20:13:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/17/aer1000.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1794937414.9364936
+    },
+    {
+      "id": "878f5ab59bd6c78f00ed6f19",
+      "location": "russia",
+      "title": "Швеция выделяет более $70 млн на укрепление обороны Украины",
+      "description": "Стокгольм и Лондон поддержат Киев с боеприпасами для передаваемых ему истребителей Gripen",
+      "link": "https://www.interfax.ru/world/1129658",
+      "pub_date": "Tue, 17 Nov 2026 20:08:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794937414.9364936
+    },
+    {
+      "id": "a63cee3094ebf355d1d7cc05",
+      "location": "russia",
+      "title": "Захарова заявила, что меры против французских военных на Украине будут принимать Минобороны РФ и Генштаб",
+      "description": "В МИД РФ заявили, что меры в связи с прямым участием французских военных в технических и тренировочных мероприятиях на территории Украины, о котором сообщило издание RFI, будут принимать российские военные.\"Что же касается мер с нашей стороны, то их будут принимать не в министерстве иностранных дел, а в министерстве обороны и Генштабе Вооруженных сил Российской Федерации.",
+      "link": "https://www.interfax.ru/russia/1129657",
+      "pub_date": "Tue, 17 Nov 2026 19:52:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794937414.9364936
+    },
+    {
+      "id": "501e78878c9861ad79ad3a3e",
+      "location": "russia",
+      "title": "Дженсен Хуан готов вновь возглавить Nvidia, если его попросит совет директоров",
+      "description": "Бывший главный исполнительный директор Nvidia Corp.",
+      "link": "https://www.interfax.ru/business/1129655",
+      "pub_date": "Tue, 17 Nov 2026 19:47:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/17/hu1000.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1794937414.9364936
+    },
+    {
+      "id": "c8c7154d1d8bad7453de7239",
+      "location": "russia",
+      "title": "Иранский остров Кешм подвергся удару США, инфраструктура не пострадала",
+      "description": "Иранский остров Кешм в Ормузском проливе подвергся американскому удару, инфраструктура острова не пострадала, сообщает во вторник агентство \"Тасним\" со ссылкой на местные власти.",
+      "link": "https://www.interfax.ru/world/1129656",
+      "pub_date": "Tue, 17 Nov 2026 19:43:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794937414.9364936
+    },
+    {
+      "id": "6eb00d2a2fdc3a2cf4e0b78c",
+      "location": "russia",
+      "title": "Рубль укрепился на фоне коррекции нефтяных цен и в ожидании геополитических сообщений",
+      "description": "Китайский юань заметно снизился на Московской бирже по итогам торгов во вторник.",
+      "link": "https://www.interfax.ru/business/1129653",
+      "pub_date": "Tue, 17 Nov 2026 19:36:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1794937414.9364936
     }
   ],
   "last_undated_notice": 0
