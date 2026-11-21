@@ -4618,22 +4618,6 @@
   },
   "national_pool": [
     {
-      "id": "ecd520f0f24ced23bffe5589",
-      "location": "russia",
-      "title": "В Моздоке отменили режим \"Ковер\"",
-      "description": "В Моздоке отменили режим \"Ковер\", сообщил глава Северной Осетии Сергей Меняйло.",
-      "link": "https://www.interfax.ru/russia/1130348",
-      "pub_date": "Fri, 20 Nov 2026 09:47:00 +0300",
-      "source_name": "Интерфакс",
-      "source_url": "https://www.interfax.ru/news/",
-      "allowed_domains": [
-        "interfax.ru"
-      ],
-      "rss_images": [],
-      "full_text": "",
-      "pooled_at": 1795161628.4602501
-    },
-    {
       "id": "a6c8ac29e1d6de1976d7a8da",
       "location": "russia",
       "title": "В Душанбе начались переговоры президентов России и Таджикистана",
@@ -7036,6 +7020,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1795217487.9650779
+    },
+    {
+      "id": "5e8bd81b4d3333f852c1ea73",
+      "location": "russia",
+      "title": "Глава Минфина США заявил, что мир может обойтись без иранской нефти",
+      "description": "Иран в настоящее время не может продавать нефть, однако это не навредит странам-импортерам этого энергоресурса, заявил глава Минфина США Скотт Бессент.\"Впервые с тех пор, как Иран добывает нефть, в море нет танкеров с иранской нефтью.",
+      "link": "https://www.interfax.ru/world/1130534",
+      "pub_date": "Sat, 21 Nov 2026 03:07:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795220581.2008789
     }
   ],
   "last_undated_notice": 0
