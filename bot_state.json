@@ -4610,7 +4610,7 @@
   "source_baseline_done": true,
   "last_no_news_notice": 1795274474.1582131,
   "last_empty_notice": 0,
-  "last_dead_notice": 1795191557.7345524,
+  "last_dead_notice": 1795280029.2308452,
   "national_day": "",
   "national_count": 0,
   "baselined_sources": [
@@ -5550,6 +5550,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1795277313.7961452
+    },
+    {
+      "id": "abdc5aa70ad12151366cdacf",
+      "location": "russia",
+      "title": "Движение перекрыто на МКАД возле Кузьминского лесопарка",
+      "description": "Движение на МКАД возле Кузьминского лесопарка перекрыто из-за возгорания машины, сообщает в субботу вечером столичный департамент транспорта.",
+      "link": "https://www.interfax.ru/moscow/1130602",
+      "pub_date": "Sat, 21 Nov 2026 19:45:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795280029.7087133
+    },
+    {
+      "id": "c76588a5d7df87ed99b7425a",
+      "location": "russia",
+      "title": "Три человека, в том числе подросток, погибли в ДТП в Ставропольском крае",
+      "description": "Два автомобиля столкнулись на трассе \"Зеленокумск - Соломенское - Степное\" в Ставропольском крае, есть погибшие, сообщает пресс-служба краевой прокуратуры в субботу.",
+      "link": "https://www.interfax.ru/russia/1130601",
+      "pub_date": "Sat, 21 Nov 2026 19:35:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795280029.7087133
     }
   ],
   "last_undated_notice": 0
