@@ -5630,6 +5630,120 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1795282392.8156426
+    },
+    {
+      "id": "cd1bc3f68244a673e8a88796",
+      "location": "russia",
+      "title": "Число участников субботних протестных акций во Франции снижается",
+      "description": "В шестом подряд субботнем дне протестов во Франции, по данным МВД, приняли участие в целом по стране 82,5 тыс. человек, в том числе в Париже власти насчитали 21,5 тыс. манифестантов.",
+      "link": "https://www.interfax.ru/world/1130614",
+      "pub_date": "Sat, 21 Nov 2026 21:09:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795284989.0782523
+    },
+    {
+      "id": "ba513af0d14b503d91d58c71",
+      "location": "russia",
+      "title": "Система оповещения беспилотной опасности сработала в Калининградской области",
+      "description": "Система оповещения беспилотной опасности сработала в Неманском районе Калининградской области, сообщил губернатор Калининградской области Алексей Беспрозванных в своем канале в мессенджере Max.\"Она среагировала на подозрительный объект со стороны Литвы.",
+      "link": "https://www.interfax.ru/russia/1130613",
+      "pub_date": "Sat, 21 Nov 2026 20:57:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795284989.0782523
+    },
+    {
+      "id": "f1d33d7643940b7150dce28b",
+      "location": "russia",
+      "title": "Умер итальянский ювелир Паоло Булгари, бывший глава одноименного ювелирного дома",
+      "description": "Итальянский ювелир Паоло Булгари, который вывел семейную марку Bulgari в мир высокой моды, умер на 90-м году жизни, сообщает La Repubblica.",
+      "link": "https://www.interfax.ru/world/1130609",
+      "pub_date": "Sat, 21 Nov 2026 20:57:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/21/bul1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1795284989.0782523
+    },
+    {
+      "id": "ea66c5176417df86eff5636a",
+      "location": "russia",
+      "title": "Аэропорт Калининграда работает штатно",
+      "description": "Ограничения на прием и выпуск воздушных судов сняты в аэропорту Калининграда (Храброво), сообщает Росавиация.",
+      "link": "https://www.interfax.ru/russia/1130611",
+      "pub_date": "Sat, 21 Nov 2026 20:50:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795284989.0782523
+    },
+    {
+      "id": "99828a5ce4d75b100995d847",
+      "location": "russia",
+      "title": "Один человек погиб при атаке беспилотника под Белгородом",
+      "description": "В Шебекинском округе Белгородской области при атаках БПЛА погиб мирный житель, еще четверо получили ранения, сообщает региональный оперштаб в субботу вечером.\"В Шебекинском округе в селе Новая Таволжанка в результате атаки дрона мужчина, получив тяжёлые ранения, скончался на месте.",
+      "link": "https://www.interfax.ru/russia/1130610",
+      "pub_date": "Sat, 21 Nov 2026 20:42:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795284989.0782523
+    },
+    {
+      "id": "8e3d979e33dd9cf384913738",
+      "location": "russia",
+      "title": "Аэропорт Калининграда работает по согласованию",
+      "description": "Аэропорт Калининграда (Храброво) принимает и отправляет рейсы по согласованию с соответствующими органами, сообщает Росавиация вечером в субботу.",
+      "link": "https://www.interfax.ru/russia/1130608",
+      "pub_date": "Sat, 21 Nov 2026 20:35:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795284989.0782523
+    },
+    {
+      "id": "11368d4ddf95ec609f739416",
+      "location": "russia",
+      "title": "Посольство РФ в США назвало цензурой блокировку компанией Google аккаунта GFCN",
+      "description": "Посольство РФ в США назвало цензурой блокировку компанией Google аккаунта Международной ассоциации по фактчекингу (GFCN) без права обжалования и восстановления.\"Налицо акт произвольной цензуры с плохо скрываемой политической подоплёкой со стороны технологической компании.",
+      "link": "https://www.interfax.ru/russia/1130606",
+      "pub_date": "Sat, 21 Nov 2026 20:29:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795284989.0782523
     }
   ],
   "last_undated_notice": 0
