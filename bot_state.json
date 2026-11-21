@@ -5824,6 +5824,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1795296004.2393994
+    },
+    {
+      "id": "793120783715cc284d238b71",
+      "location": "russia",
+      "title": "Бахрейн заявил, что в результате иранского удара пострадал гражданский промышленный объект",
+      "description": "Министерство внутренних дел Бахрейна сообщило, что в результате иранской атаки пострадал гражданский промышленный объект, на котором вспыхнул пожал.",
+      "link": "https://www.interfax.ru/world/1130623",
+      "pub_date": "Sun, 22 Nov 2026 01:48:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795303399.85076
     }
   ],
   "last_undated_notice": 0
