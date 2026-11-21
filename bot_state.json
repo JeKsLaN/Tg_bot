@@ -5760,6 +5760,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1795291083.078268
+    },
+    {
+      "id": "cca9434caf79039a79f611c1",
+      "location": "russia",
+      "title": "Ракета SpaceX отправила на орбиту новую группу американских разведывательных спутников Starshield",
+      "description": "Ракета Falcon 9 компании SpaceX в субботу вывела на орбиту очередную группу американских военных спутников в интересах Космических сил США, сообщил специализированный сайт Space Launch Now.",
+      "link": "https://www.interfax.ru/russia/1130618",
+      "pub_date": "Sat, 21 Nov 2026 23:24:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795293514.760644
+    },
+    {
+      "id": "d4df22ac55e9928565c0ec3f",
+      "location": "russia",
+      "title": "Трамп назвал Вэнса и Рубио возможными кандидатами в президенты в 2028 году",
+      "description": "Президент США Дональд Трамп заявил, что у республиканцев есть несколько отличных кандидатов, которые могли бы представить партию на выборах президента в 2028 году, отдельно выделив вице-президента Джей Ди Вэнса и госсекретаря Марко Рубио.\"С республиканской стороны есть несколько людей, которые могли бы отлично себя показать.",
+      "link": "https://www.interfax.ru/world/1130617",
+      "pub_date": "Sat, 21 Nov 2026 23:00:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795293514.760644
     }
   ],
   "last_undated_notice": 0
