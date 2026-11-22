@@ -5498,6 +5498,56 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1795369096.543527
+    },
+    {
+      "id": "f6dcf8865b739ed214dd87e9",
+      "location": "russia",
+      "title": "Хуситы заявили об ударе по НПЗ в Саудовской Аравии",
+      "description": "Представитель йеменских хуситов Яхья Сари заявил в воскресенье, что движение нанесло удар по НПЗ в саудовском городе Рабиг на побережье Красного моря.\"Целью первой операции стал нефтеперерабатывающий завод в Рабиге\", - написал он в соцсети X.",
+      "link": "https://www.interfax.ru/world/1130687",
+      "pub_date": "Sun, 22 Nov 2026 21:14:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795371654.1826184
+    },
+    {
+      "id": "210370bc41a6b5d19e499819",
+      "location": "russia",
+      "title": "Трамп подписал закон о прекращении чеканки одноцентовых монет и регулировании сдачи",
+      "description": "Президент США Дональд Трамп подписал закон, который предписывает министерству финансов прекратить чеканку одноцентовых монет (пенни).",
+      "link": "https://www.interfax.ru/world/1130685",
+      "pub_date": "Sun, 22 Nov 2026 21:11:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [
+        "https://www.interfax.ru/ftproot/textphotos/2026/11/22/cent1200.jpg"
+      ],
+      "full_text": "",
+      "pooled_at": 1795371654.1826184
+    },
+    {
+      "id": "a8966adb9073aaf9822ecfba",
+      "location": "russia",
+      "title": "Минобороны РФ сообщило об уничтожении с утра воскресенья 38 дронов ВСУ",
+      "description": "Дежурные силы ПВО с 8:00 до 20:00 мск сбили 38 украинских беспилотников самолетного типа, сообщило в воскресенье Минобороны РФ.",
+      "link": "https://www.interfax.ru/russia/1130684",
+      "pub_date": "Sun, 22 Nov 2026 20:48:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795371654.1826184
     }
   ],
   "last_undated_notice": 0
