@@ -4622,7 +4622,7 @@
   "source_baseline_done": true,
   "last_no_news_notice": 1795357998.8491018,
   "last_empty_notice": 0,
-  "last_dead_notice": 1795280029.2308452,
+  "last_dead_notice": 1795366626.3687956,
   "national_day": "",
   "national_count": 0,
   "baselined_sources": [
@@ -5434,6 +5434,38 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1795363842.2069895
+    },
+    {
+      "id": "76a81a417a9bed206f594e4c",
+      "location": "russia",
+      "title": "Склад на площади 2,3 тыс. кв. метров горит в Приморском крае",
+      "description": "Пожарные тушат крупное возгорание в складском помещении в городе Находка Приморского края, сообщила пресс-служба МЧС РФ в воскресенье.",
+      "link": "https://www.interfax.ru/russia/1130681",
+      "pub_date": "Sun, 22 Nov 2026 19:43:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795366626.9150834
+    },
+    {
+      "id": "89a31ea5e8ffd8b7662f10a1",
+      "location": "russia",
+      "title": "Водитель погиб при атаке БПЛА на автомобиль в Брянской области",
+      "description": "Гражданский автомобиль атакован беспилотником в селе Гриневочка Погарского района Брянской области, погиб мужчина, сообщили региональные власти в воскресенье.\"В с.",
+      "link": "https://www.interfax.ru/russia/1130679",
+      "pub_date": "Sun, 22 Nov 2026 19:21:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795366626.9150834
     }
   ],
   "last_undated_notice": 0
