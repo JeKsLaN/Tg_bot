@@ -5840,6 +5840,22 @@
       "rss_images": [],
       "full_text": "",
       "pooled_at": 1795303399.85076
+    },
+    {
+      "id": "f9620d659d15ac1fb8fdf7db",
+      "location": "russia",
+      "title": "Корабль Cargo Dragon приводнился в Тихом океане после расстыковки с МКС",
+      "description": "Американский многоразовый грузовой корабль Cargo Dragon после расстыковки накануне с Международной космической станцией (МКС) успешно приводнился в Тихом океане у побережья Калифорнии, сообщила компания-разработчик SpaceX.",
+      "link": "https://www.interfax.ru/world/1130625",
+      "pub_date": "Sun, 22 Nov 2026 02:50:00 +0300",
+      "source_name": "Интерфакс",
+      "source_url": "https://www.interfax.ru/news/",
+      "allowed_domains": [
+        "interfax.ru"
+      ],
+      "rss_images": [],
+      "full_text": "",
+      "pooled_at": 1795305650.259411
     }
   ],
   "last_undated_notice": 0
