@@ -34,21 +34,22 @@ try:
     NO_NEWS_NOTICE_HOURS = float(os.getenv("NO_NEWS_NOTICE_HOURS", "3") or 3)
 except ValueError:
     NO_NEWS_NOTICE_HOURS = 3.0
-# Сколько происшествий по Новосибирску публиковать в сутки (можно поменять переменной MAX_NOVOSIBIRSK_PER_DAY).
-try:
-    MAX_NOVOSIBIRSK_PER_DAY = int(os.getenv("MAX_NOVOSIBIRSK_PER_DAY", "5") or 5)
-except ValueError:
-    MAX_NOVOSIBIRSK_PER_DAY = 5
 # Новости старше этого возраста (в часах) бот не публикует, даже если раньше их не видел.
 try:
     MAX_NEWS_AGE_HOURS = float(os.getenv("MAX_NEWS_AGE_HOURS", "24") or 24)
 except ValueError:
     MAX_NEWS_AGE_HOURS = 24.0
-# Сколько происшествий по Купино публиковать в сутки (можно поменять переменной MAX_KUPINO_PER_DAY).
+# Сколько новостей по Купино публиковать в сутки (можно поменять переменной MAX_KUPINO_PER_DAY).
 try:
     MAX_KUPINO_PER_DAY = int(os.getenv("MAX_KUPINO_PER_DAY", "3") or 3)
 except ValueError:
     MAX_KUPINO_PER_DAY = 3
+# Минимальный промежуток между постами с новостями в канале, в минутах (можно поменять MIN_GAP_MINUTES).
+# Не даёт выйти нескольким постам подряд, даже если сразу нашлось много новостей.
+try:
+    MIN_GAP_MINUTES = float(os.getenv("MIN_GAP_MINUTES", "60") or 60)
+except ValueError:
+    MIN_GAP_MINUTES = 60.0
 # Ночные часы по Купино, когда бот ничего не публикует в канал (23 = с 23:00, 7 = до 7:00).
 try:
     QUIET_HOURS_START = int(os.getenv("QUIET_HOURS_START", "23") or 23)
@@ -95,53 +96,28 @@ SOURCES = [
     },
     {
         # Лента АиФ-Новосибирск: проверено, отдаёт свежие новости с полным текстом.
-        # Купино и область попадают сюда через фильтр по ключевым словам.
+        # Канал только про Купино, поэтому отсюда идёт в публикацию только то, что
+        # прямо упоминает Купино (см. passes_topic_filter / mentions_kupino).
         "location": "novosibirsk",
         "name": "АиФ-Новосибирск",
         "page": "https://nsk.aif.ru/news",
         "feeds": ["https://nsk.aif.ru/rss/all.php"],
         "domains": ["nsk.aif.ru"],
     },
-    {
-        # Главные новости страны и мира. Берём побольше записей из ленты (feed_limit),
-        # а самую масштабную за день выбирает pick_national_story().
-        "location": "russia",
-        "name": "Интерфакс",
-        "page": "https://www.interfax.ru/news/",
-        "feeds": ["https://www.interfax.ru/rss.asp"],
-        "domains": ["interfax.ru"],
-        "feed_limit": 40,
-    },
 ]
 # Источники, которые уже были в боте раньше: их текущие публикации считаются «уже виденными».
-DAILY_LIMITS = {"novosibirsk": MAX_NOVOSIBIRSK_PER_DAY, "kupino": MAX_KUPINO_PER_DAY}
-# Главная новость страны и мира выходит ОДИН раз в сутки: после этого часа по Купино.
-NATIONAL_SLOTS = (9,)
-
-
-def current_national_slot():
-    slot = None
-    for h in NATIONAL_SLOTS:
-        if now_local().hour >= h:
-            slot = h
-    return slot
 LEGACY_SOURCES = ["Городская газета Купино", "Маяк Кулунды", "Новосибирские новости", "Официальный сайт Новосибирска"]
 
 # Заголовки с этими словами бот не публикует.
 BLOCKED_TITLE_WORDS = ("афиша",)
-# По Купино и Новосибирску публикуются ТОЛЬКО новости, где есть хотя бы одно из этих слов (ДТП, пожары и т. д.).
+# Если в новости есть одно из этих слов, в канале она выходит с пометкой «Происшествие»
+# (используется только для подписи поста, а не для отбора — что публиковать, решает mentions_kupino).
 INCIDENT_WORDS = (
     "взрыв", "взорвал", "пожар", "возгоран", "горит", "загорел", "дтп", "авари",
     "столкнул", "сбил", "погиб", "пострадал", "ранен", "обруш",
     "эвакуац", "пропал", "розыск", "утонул", "спасател",
     "отравлен", "нападение", "стрельба", "разлив", "утечка газа", "без вести",
     "убит", "убийств", "ограблен",
-)
-# Если в такой новости нет слов из INCIDENT_WORDS, запасной вариант выбора главной новости использует эти слова.
-WORLD_WORDS = (
-    "путин", "трамп", "зеленск", "сша", "китай", "войн", "переговор", "саммит", "удар",
-    "взрыв", "землетряс", "катастроф", "ядерн", "санкци", "президент", "нато", "оон",
-    "мобилизац", "наводнен", "теракт", "ракет", "пожар",
 )
 RETRACTION_WORDS = (
     "информация не подтвердилась", "сообщение не подтвердилось",
@@ -215,10 +191,8 @@ def load_state():
     state.setdefault("last_no_news_notice", 0)
     state.setdefault("last_empty_notice", 0)
     state.setdefault("last_dead_notice", 0)
-    state.setdefault("national_day", "")
-    state.setdefault("national_count", 0)
-    state.setdefault("national_pool", [])
     state.setdefault("last_undated_notice", 0)
+    state.setdefault("last_post_time", 0)
     if "baselined_sources" not in state:
         # старое состояние: считаем уже известные источники «прочитанными»
         state["baselined_sources"] = list(LEGACY_SOURCES) if state.get("source_baseline_done") else []
@@ -231,7 +205,6 @@ def save_state(state):
     state["pending"] = state.get("pending", [])[-200:]
     state["seen"] = state.get("seen", [])[-2500:]
     state["seen_titles"] = state.get("seen_titles", [])[-1800:]
-    state["national_pool"] = state.get("national_pool", [])[-150:]
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
 
@@ -630,13 +603,11 @@ def is_local_story(item, location):
     return bool(domains) and allowed_source_url(item.get("link", ""), domains)
 
 def passes_topic_filter(item):
-    """Что годится для канала.
-    Купино и Новосибирск: ТОЛЬКО происшествия (ДТП, пожары и т. д.).
-    Страна и мир: одну главную новость в сутки выбирает pick_national_story(), поэтому здесь без ограничений."""
-    location = item.get("location")
-    if location in ("kupino", "novosibirsk"):
-        return is_incident(item)
-    return True
+    """Что годится для канала: новости с купинских источников — всегда;
+    с любых других источников — только если в тексте прямо упоминается Купино."""
+    if item.get("location") == "kupino":
+        return True
+    return mentions_kupino(item)
 
 
 # -------------------------
@@ -711,6 +682,15 @@ def is_fresh(item, fetch=True):
 def is_incident(item):
     text = (item["title"] + " " + item["description"]).lower().replace("ё", "е")
     return any(word in text for word in INCIDENT_WORDS)
+
+
+def mentions_kupino(item):
+    """True, если в новости прямо упоминается Купино. Нужно для источников,
+    которые пишут не только про Купино (например, областные)."""
+    text = (
+        item.get("title", "") + " " + item.get("description", "") + " " + item.get("full_text", "")
+    ).lower().replace("ё", "е")
+    return "купин" in text
 
 
 def retraction_confirmed(item):
@@ -1007,88 +987,6 @@ def make_summary(item, article):
 
 
 # -------------------------
-# Главная новость дня (страна и мир): одна в сутки
-# -------------------------
-def national_slot_available(state):
-    """True, если главная новость сегодня ещё не выходила и пора её публиковать."""
-    slot = current_national_slot()
-    if slot is None:
-        return False
-    today = now_local().date().isoformat()
-    counts = state.setdefault("daily_counts", {})
-    if counts.get("date") != today:
-        counts.clear()
-        counts["date"] = today
-    return slot not in counts.setdefault("national_slots", [])
-
-
-def update_national_pool(state, news):
-    """Копим заголовки главных новостей в течение суток, чтобы выбрать самую масштабную."""
-    pool = state.setdefault("national_pool", [])
-    known = {p.get("id") for p in pool}
-    now = time.time()
-    for item in news:
-        if item.get("location") != "russia" or item["id"] in known:
-            continue
-        if was_seen(item, state) or was_posted(item, state):
-            continue
-        if any(w in item["title"].lower() for w in BLOCKED_TITLE_WORDS):
-            continue
-        if is_fresh(item, fetch=False) is not True:
-            continue
-        entry = dict(item)
-        entry["pooled_at"] = now
-        pool.append(entry)
-        known.add(item["id"])
-    state["national_pool"] = [p for p in pool if now - p.get("pooled_at", now) < 36 * 3600][-150:]
-
-
-def pick_national_story(state, pending_ids):
-    """Один раз в сутки выбирает ОДНУ самую масштабную новость из накопленных."""
-    if not national_slot_available(state):
-        return None
-    all_pool = state.get("national_pool", [])
-    pool = [
-        p for p in all_pool
-        if p.get("id") not in pending_ids and not was_posted(p, state) and is_fresh(p, fetch=False) is True
-    ][-100:]
-    if not pool:
-        return None
-    listing = "\n".join(f"{i}. {p['title']}" for i, p in enumerate(pool))
-    prompt = (
-        "Ты редактор новостного Telegram-канала. Из списка заголовков выбери ОДНУ самую масштабную, "
-        "значимую и обсуждаемую новость дня в мире или стране: крупные события, решения мировых лидеров, "
-        "войны и переговоры, катастрофы, события, затрагивающие миллионы людей. "
-        "Не выбирай мелкие, локальные, спортивные и шоу-бизнес новости, а также курсы валют и котировки. "
-        "Верни ТОЛЬКО JSON вида {\"index\": номер_заголовка}.\n\n" + listing
-    )
-    chosen = None
-    for provider, func in (("OpenAI", call_openai), ("Gemini", call_gemini)):
-        try:
-            result = func(prompt)
-            idx = int(result.get("index"))
-            if 0 <= idx < len(pool):
-                chosen = pool[idx]
-                print(f"Главная новость выбрана через {provider}: {chosen['title']}")
-                break
-        except Exception as exc:
-            print(f"Выбор главной новости, {provider}: {exc}")
-    if chosen is None:
-        # ИИ недоступен: берём заголовок с максимумом «масштабных» слов (при равенстве — самый свежий).
-        def score(i):
-            title = pool[i]["title"].lower().replace("ё", "е")
-            return (sum(w in title for w in WORLD_WORDS), i)
-        chosen = pool[max(range(len(pool)), key=score)]
-        print(f"Главная новость выбрана по ключевым словам: {chosen['title']}")
-    # Остальные кандидаты считаем просмотренными, чтобы завтра они не всплыли снова.
-    for p in all_pool:
-        if p.get("id") != chosen.get("id"):
-            mark_seen(p, state)
-    state["national_pool"] = []
-    return chosen
-
-
-# -------------------------
 # Photo and Telegram
 # -------------------------
 BAD_IMAGE_WORDS = ("favicon", "logo", "avatar", "icon", "sprite", "placeholder", "default-image")
@@ -1303,12 +1201,7 @@ def daily_weather(state):
 
 
 def news_label(item):
-    location = item.get("location")
-    if location == "russia":
-        return "🌍 Главная новость дня"
-    if "купин" in (item.get("title", "") + " " + item.get("description", "")).lower():
-        return "🚨 Происшествие · Купино"
-    return "🚨 Происшествие · Купино" if location == "kupino" else "🚨 Происшествие · Новосибирск"
+    return "🚨 Происшествие · Купино" if is_incident(item) else "📍 Новости Купино"
 
 
 def notify_found(items):
@@ -1398,12 +1291,7 @@ def process_news_queue(state, news):
     if added_sources:
         notify_owner("Подключён новый источник: " + ", ".join(added_sources) + ". Запомнил его текущие публикации, выходить будут только новые.", icon="➕")
 
-    # Главная новость страны и мира: копим за день, раз в сутки выбираем ОДНУ.
-    update_national_pool(state, news)
-    national_pick = pick_national_story(state, pending_ids)
-    queue_news = [i for i in news if i.get("location") != "russia"]
-    if national_pick:
-        queue_news.append(national_pick)
+    queue_news = news
 
     new_items = []
     undated = []
@@ -1420,37 +1308,23 @@ def process_news_queue(state, news):
             mark_seen(item, state)
             print(f"Filtered out (not an incident): {item['title']}")
             continue
-        if item.get("location") != "russia":
-            fresh = is_fresh(item)
-            if fresh is not True:
-                mark_seen(item, state)
-                if fresh is None:
-                    undated.append(item)
-                print(f"Skipped (old or undated): {item['title']}")
-                continue
-        loc = item.get("location")
-        if loc == "russia":
-            slot = current_national_slot()
-            today = now_local().date().isoformat()
-            counts = state.setdefault("daily_counts", {})
-            if counts.get("date") != today:
-                counts.clear()
-                counts["date"] = today
-            used = counts.setdefault("national_slots", [])
-            if slot is None or slot in used:
-                continue
-            used.append(slot)
-        if loc in DAILY_LIMITS:
-            today = now_local().date().isoformat()
-            counts = state.setdefault("daily_counts", {})
-            if counts.get("date") != today:
-                counts.clear()
-                counts["date"] = today
-            if counts.get(loc, 0) >= DAILY_LIMITS[loc]:
-                mark_seen(item, state)
-                print(f"Daily limit for {loc} reached, skipped: {item['title']}")
-                continue
-            counts[loc] = counts.get(loc, 0) + 1
+        fresh = is_fresh(item)
+        if fresh is not True:
+            mark_seen(item, state)
+            if fresh is None:
+                undated.append(item)
+            print(f"Skipped (old or undated): {item['title']}")
+            continue
+        today = now_local().date().isoformat()
+        counts = state.setdefault("daily_counts", {})
+        if counts.get("date") != today:
+            counts.clear()
+            counts["date"] = today
+        if counts.get("kupino", 0) >= MAX_KUPINO_PER_DAY:
+            mark_seen(item, state)
+            print(f"Daily limit reached, skipped: {item['title']}")
+            continue
+        counts["kupino"] = counts.get("kupino", 0) + 1
         item["detected_at"] = now
         item["publish_after"] = now + random.randint(300, 480)  # через 5–8 минут после находки
         pending.append(item)
@@ -1477,7 +1351,8 @@ def process_news_queue(state, news):
         if was_posted(item, state):
             continue
         publish_after = float(item.get("publish_after", now + 300))
-        if quiet_now or now < publish_after:
+        gap_ok = now - float(state.get("last_post_time", 0)) >= MIN_GAP_MINUTES * 60
+        if quiet_now or now < publish_after or not gap_ok:
             remaining.append(item)
             continue
         handled += 1
@@ -1488,6 +1363,7 @@ def process_news_queue(state, news):
             published = publish_story(item, news_label(item))
             if published:
                 mark_posted(item, state)
+                state["last_post_time"] = now
                 status = "Опубликовано в канале:" if PUBLISH else "Тестовый режим, в канал не отправлено:"
                 notify_owner(status + "\n" + display_title(item), icon="✅")
             # publish_story returns False for a failed verification; skip it rather
